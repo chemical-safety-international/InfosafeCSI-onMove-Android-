@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">InfosafeCSI-onMove (Android)</string>
+
+    // Welcome page texts
+    <string name="welcome_text">"Responsible Chemical Management at your finger tips"</string>
+    <string name="welcome_button">Connect</string>
+
 </resources>
