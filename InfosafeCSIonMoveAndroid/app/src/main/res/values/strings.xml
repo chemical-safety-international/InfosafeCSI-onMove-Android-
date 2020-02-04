@@ -4,5 +4,12 @@
     // Welcome page texts
     <string name="welcome_text">"Responsible Chemical Management at your finger tips"</string>
     <string name="welcome_button">Connect</string>
+    <string name="welcome_image">Welcome background image</string>
+
+    // Login page texts
+    <string name="login_email">Email Address</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="login_remember">Remember username and password</string>
 
 </resources>
