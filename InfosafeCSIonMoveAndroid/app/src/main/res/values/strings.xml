@@ -11,5 +11,13 @@
     <string name="login_password">Password</string>
     <string name="login_button">Login</string>
     <string name="login_remember">Remember username and password</string>
+    <string name="login_logo">Login page logo</string>
+    
+    // Search page texts
+    <string name="search_logoff">Log off</string>
+    <string name="search_productname">Product name</string>
+    <string name="search_supplier">Supplier</string>
+    <string name="search_productcode">Product code</string>
+    <string name="search_button">Search</string>
 
 </resources>
