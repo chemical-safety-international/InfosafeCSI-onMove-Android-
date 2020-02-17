@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.icu.text.StringPrepParseException;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
@@ -24,6 +26,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.IOException;
@@ -52,11 +55,62 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.loginID);
         password = findViewById(R.id.loginPW);
         loginButton = findViewById(R.id.loginButton);
+
+//        if (android.os.Build.VERSION.SDK_INT > 9) {
+//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//            StrictMode.setThreadPolicy(policy);
+//        }
     }
 
-    public void loginBtnTapped(View v) {
+    public void loginBtnTapped(View view) {
     check();
     Login2();
+
+//        String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+//
+//        JSONObject user = new JSONObject();
+//        try {
+////            HttpPost request = new HttpPost(url + "loginbyEmail");
+////            request.setHeader("Accept", "application/json");
+////            request.setHeader("Content-type", "application/json");
+//
+//
+//            user.put("email", "shawn.samuel@chemicalsafety.com.au");
+//            user.put("password", "#PEPSimax");
+//            user.put("deviceid", "");
+//            user.put("devicemac", "");
+//            user.put("phoneno", "");
+//            user.put("devicename", "");
+//            user.put("devicemodel", "");
+//            user.put("deviceserialno", "");
+//            user.put("deviceSEID", "");
+//            user.put("deviceIMEI", "");
+//            user.put("deviceMEID", "");
+//            user.put("sourceip", "");
+//
+//
+//            System.out.println(user);
+//
+//            DefaultHttpClient client = new DefaultHttpClient();
+//
+//            //http get request
+//            HttpGet request = new HttpGet(url + "loginbyEmail");
+//
+//            //set the header to get the data in JSON formate
+//            request.setHeader("Accept", "application/json");
+//            request.setHeader("Content-type", "application/json");
+//
+//            StringEntity entity = new StringEntity(user.toString());
+//
+//
+//            //get the response
+//            HttpResponse response = client.execute(request);
+//
+//            HttpEntity entity = response.getEntity();
+//////
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
 
@@ -101,8 +155,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login1() {
         Log.i("login", "reached login1");
+        String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+
         try {
-            HttpPost request = new HttpPost("http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/");
+            HttpPost request = new HttpPost(url + "loginbyEmail");
             request.setHeader("Accept", "application/json");
             request.setHeader("Content-type", "application/json");
 
@@ -144,28 +200,57 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void Login2() {
+    public void Login2() {
 
-        HttpPost request = new HttpPost("http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/");
+//    class readThis extends AsyncTask<String, Void, String> {
+//        protected String doInBackground(String... params) {
+//
+//        }
+//    }
+        Log.i("login", "reached login1");
+        JSONObject user = new JSONObject();
+
+        Log.i("login", "reached login2");
+        HttpPost request = new HttpPost("http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/loginbyEmail");
+        Log.i("login", "reached login3");
         request.setHeader("Accept", "application/json");
+        Log.i("login", "reached login4");
         request.setHeader("Content-type", "application/json");
+        Log.i("login", "reached login5");
 
         try {
-            JSONStringer user = new JSONStringer()
-                    .object()
-                        .key("email").value("shawnsamuel@chemicalsafety.com.au")
-                    .endObject();
+//            JSONStringer user = new JSONStringer()
+////                    .object()
+////                        .key("email").value("shawn.samuel@chemicalsafety.com.au")
+////                    .endObject();
+            Log.i("login", "reached login6");
+            user.put("email", "shawn.samuel@chemicalsafety.com.au");
+            user.put("password", "#PEPSimax");
+            user.put("deviceid", "");
+            user.put("devicemac", "");
+            user.put("phoneno", "");
+            user.put("devicename", "");
+            user.put("devicemodel", "");
+            user.put("deviceserialno", "");
+            user.put("deviceSEID", "");
+            user.put("deviceIMEI", "");
+            user.put("deviceMEID", "");
+            user.put("sourceip", "");
 
+            Log.i("login", "reached login7");
             StringEntity entity = new StringEntity(user.toString());
 
-            Toast.makeText(this, user.toString() + "\n", Toast.LENGTH_LONG).show();
-
+//            Toast.makeText(this, user.toString() + "\n", Toast.LENGTH_LONG).show();
+            Log.i("login", "reached login8");
             request.setEntity(entity);
 
+            Log.i("login", "reached login9");
             DefaultHttpClient httpClient = new DefaultHttpClient();
+
+            Log.i("login", "reached login10");
             HttpResponse response = httpClient.execute(request);
 
-            Toast.makeText(this, response.getStatusLine() + "\n", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, response.getStatusLine() + "\n", Toast.LENGTH_SHORT).show();
 
 
 
