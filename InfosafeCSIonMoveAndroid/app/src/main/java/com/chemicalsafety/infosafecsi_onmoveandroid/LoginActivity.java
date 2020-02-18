@@ -2,10 +2,6 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import android.icu.text.StringPrepParseException;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -13,31 +9,22 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
+import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpCookie;
-import java.net.HttpRetryException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.zip.Deflater;
+
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -56,102 +43,25 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.loginPW);
         loginButton = findViewById(R.id.loginButton);
 
-//        if (android.os.Build.VERSION.SDK_INT > 9) {
-//            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//            StrictMode.setThreadPolicy(policy);
-//        }
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        
     }
 
     public void loginBtnTapped(View view) {
-    check();
-    Login2();
-
-//        String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-//
-//        JSONObject user = new JSONObject();
-//        try {
-////            HttpPost request = new HttpPost(url + "loginbyEmail");
-////            request.setHeader("Accept", "application/json");
-////            request.setHeader("Content-type", "application/json");
-//
-//
-//            user.put("email", "shawn.samuel@chemicalsafety.com.au");
-//            user.put("password", "#PEPSimax");
-//            user.put("deviceid", "");
-//            user.put("devicemac", "");
-//            user.put("phoneno", "");
-//            user.put("devicename", "");
-//            user.put("devicemodel", "");
-//            user.put("deviceserialno", "");
-//            user.put("deviceSEID", "");
-//            user.put("deviceIMEI", "");
-//            user.put("deviceMEID", "");
-//            user.put("sourceip", "");
-//
-//
-//            System.out.println(user);
-//
-//            DefaultHttpClient client = new DefaultHttpClient();
-//
-//            //http get request
-//            HttpGet request = new HttpGet(url + "loginbyEmail");
-//
-//            //set the header to get the data in JSON formate
-//            request.setHeader("Accept", "application/json");
-//            request.setHeader("Content-type", "application/json");
-//
-//            StringEntity entity = new StringEntity(user.toString());
-//
-//
-//            //get the response
-//            HttpResponse response = client.execute(request);
-//
-//            HttpEntity entity = response.getEntity();
-//////
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
-
-
-    }
-
-    private void check() {
         String emailText = email.getText().toString();
         String passwordlText = password.getText().toString();
 
         Log.d("email", emailText);
         Log.d("password", passwordlText);
+
+        csiWCFMethods wcf = new csiWCFMethods();
+        wcf.Login(emailText, passwordlText);
+//        wcf.testing();
     }
 
-//    private void Login() {
-//        HttpClient httpClient = new DefaultHttpClient();
-//        String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-//
-//
-//        try {
-//            URI uri = new URI(url);
-//
-//            HttpGet method = new HttpGet(uri);
-//
-//            StringEntity json = new StringEntity("email":"shawn.samuel@chemicalsafety.com.au");
-//
-//            HttpResponse response = httpClient.execute(method);
-//
-//            if (response != null) {
-//                Log.i("login", "received" + getResponse(response.getEntity()));
-//            } else {
-//                Log.i("login", "Got no return");
-//            }
-//
-//
-//        } catch (IOException e) {
-//            Log.e("error", e.getMessage());
-//        } catch (URISyntaxException e) {
-//            Log.e("error", e.getMessage());
-//        }
-//    }
 
     private void Login1() {
         Log.i("login", "reached login1");
