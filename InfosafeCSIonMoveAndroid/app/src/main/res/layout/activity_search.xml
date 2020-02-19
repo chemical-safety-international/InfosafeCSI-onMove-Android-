@@ -17,11 +17,12 @@
         android:background="@android:color/holo_orange_dark"
         android:text="@string/search_logoff"
         android:textColor="@android:color/white"
+        android:onClick="logOffBtnTapped"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <EditText
+        android:id="@+id/pnameSearchBar"
         style="@android:style/Widget.DeviceDefault.Light.TextView"
         android:layout_width="0dp"
         android:layout_height="33dp"
@@ -32,12 +33,15 @@
         android:layout_marginRight="35dp"
         android:background="@android:drawable/editbox_background"
         android:hint="@string/search_productname"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchLogoff" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <EditText
+        android:id="@+id/supplierSearchBar"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginStart="35dp"
@@ -47,12 +51,14 @@
         android:layout_marginRight="35dp"
         android:background="@android:drawable/editbox_background"
         android:hint="@string/search_supplier"
+        android:importantForAutofill="no"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/pnameSearchBar" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <EditText
+        android:id="@+id/pcodeSearchBar"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginStart="35dp"
@@ -62,9 +68,11 @@
         android:layout_marginRight="35dp"
         android:background="@android:drawable/editbox_background"
         android:hint="@string/search_productcode"
+        android:importantForAutofill="no"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/supplierSearchBar" />
 
     <Button
         android:id="@+id/searchBtn"
@@ -78,9 +86,10 @@
         android:background="@android:color/holo_orange_dark"
         android:text="@string/search_button"
         android:textColor="@android:color/white"
+        android:onClick="searchBtnTapped"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/pcodeSearchBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,9 +24,9 @@ import java.io.InputStream;
 
 public class csiWCFMethods {
 
-    //String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
     //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+   // String url = "https://192.168.1.22:8888/CSIMD_WCF/CSI_MD_Service.svc/";
 
     public void Login(String email, String pw) {
 
