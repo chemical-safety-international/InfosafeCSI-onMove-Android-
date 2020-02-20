@@ -67,8 +67,8 @@ public class LoginPageAC extends AppCompatActivity {
         Log.d("email", emailText);
         Log.d("password", passwordlText);
 
-        csiWCFMethods wcf = new csiWCFMethods();
-        wcf.Login(emailText, passwordlText);
+//        csiWCFMethods wcf = new csiWCFMethods();
+//        wcf.Login(emailText, passwordlText);
 //        wcf.testing();
 
         Intent intent = new Intent(this, SearchPageAC.class);

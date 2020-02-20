@@ -32,7 +32,7 @@ import java.net.URLEncoder;
 
 public class csiWCFMethods {
 
-    String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
     //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
    // String url = "https://192.168.1.22:8888/CSIMD_WCF/CSI_MD_Service.svc/";
 
@@ -42,16 +42,16 @@ public class csiWCFMethods {
         Log.i("login", "reached login1");
         JSONObject user = new JSONObject();
 
-        HttpClient httpClient = new DefaultHttpClient();
-
-        Log.i("login", "reached login2");
-        HttpPost request = new HttpPost(url + "LoginByEMail");
-
-        //Log.i("login", "reached   " + url + "loginbyEmail");
-//        request.setHeader("Accept", "application/json");
-        //Log.i("login", "reached login4");
-        request.addHeader("content-type", "application/json");
-        //Log.i("login", "reached login5");
+//        HttpClient httpClient = new DefaultHttpClient();
+//
+//        Log.i("login", "reached login2");
+//        HttpPost request = new HttpPost(url + "LoginByEMail");
+//
+//        //Log.i("login", "reached   " + url + "loginbyEmail");
+////        request.setHeader("Accept", "application/json");
+//        //Log.i("login", "reached login4");
+//        request.addHeader("content-type", "application/json");
+//        //Log.i("login", "reached login5");
 
         try {
 
@@ -71,20 +71,26 @@ public class csiWCFMethods {
 
             System.out.println(user);
 
+            Log.i("login", "reached login7");
             try
             {
-                String urlFinal=url+"LoginByEMail";
-                Log.d("url",urlFinal);
-                //HttpPost postMethod = new HttpPost(urlFinal.trim()+""+ URLEncoder.encode(user.toString(),"UTF-8"))
-                HttpPost postMethod = new HttpPost(urlFinal.trim());
-                postMethod.setHeader("Accept", "application/json");
-                postMethod.setHeader("Content-type", "application/json");
+                String urlFinal = url + "LoginByEMail";
+                Log.d("url", urlFinal);
 
+                Log.i("login", "reached login7.1");
+                HttpPost postMethod = new HttpPost(urlFinal.trim());
+                Log.i("login", "reached login7.2");
+                postMethod.setHeader("Accept", "application/json");
+                Log.i("login", "reached login7.3");
+                postMethod.setHeader("Content-type", "application/json");
+                Log.i("login", "reached login7.4");
                 StringEntity entity = new StringEntity(user.toString(), HTTP.UTF_8);
                 postMethod.setEntity(entity);
 
+                Log.i("login", "reached login8");
                 HttpClient hc = new DefaultHttpClient();
 
+                Log.i("login", "reached login9");
                 HttpResponse response = hc.execute(postMethod);
                 Log.i("response", ""+response.toString());
                 HttpEntity entity1 = response.getEntity();
@@ -92,8 +98,8 @@ public class csiWCFMethods {
 
                 //responseText;
                 Log.i("Output", ""+responseText);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
 
@@ -127,9 +133,9 @@ public class csiWCFMethods {
 //            globalVar.apptype = respJSON.getInt("apptype");
 //            globalVar.infosafeid = respJSON.getString("infosafeid");
 
-            System.out.println(globalVar.apptype);
-            System.out.println(globalVar.clientid);
-            System.out.println(globalVar.infosafeid);
+//            System.out.println(globalVar.apptype);
+//            System.out.println(globalVar.clientid);
+//            System.out.println(globalVar.infosafeid);
 //            if (response != null) {
 //                InputStream in = responseEntityentity.getContent();
 //
@@ -141,49 +147,49 @@ public class csiWCFMethods {
 
     }
 
-    public void testing() {
-        HttpParams httpParams = new BasicHttpParams();
-        ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager(httpParams, new SchemeRegistry());
-        HttpClient client = new DefaultHttpClient(connMgr, httpParams);
+//    public void testing() {
+//        HttpParams httpParams = new BasicHttpParams();
+//        ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager(httpParams, new SchemeRegistry());
+//        HttpClient client = new DefaultHttpClient(connMgr, httpParams);
+//
+//        try {
+//            HttpGet get = new HttpGet(url + "loginbyEmail");
+//            HttpResponse response = client.execute(get);
+//            HttpEntity entity = response.getEntity();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
-        try {
-            HttpGet get = new HttpGet(url + "loginbyEmail");
-            HttpResponse response = client.execute(get);
-            HttpEntity entity = response.getEntity();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public String readJSONFeed(String URL) {
-        StringBuilder stringBuilder = new StringBuilder();
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpGet = new HttpPost(URL);
-
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream inputStream = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line;
-                while  ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-                inputStream.close();
-            } else {
-                Log.d("JSON", "Failed to connect1");
-                Log.d("statusCode", response.toString());
-            }
-
-        } catch (Exception e) {
-            Log.d("JSON", "Failed to connect2");
-        }
-
-        return stringBuilder.toString();
-    }
+//    public String readJSONFeed(String URL) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        HttpClient httpClient = new DefaultHttpClient();
+//        HttpPost httpGet = new HttpPost(URL);
+//
+//        try {
+//            HttpResponse response = httpClient.execute(httpGet);
+//            StatusLine statusLine = response.getStatusLine();
+//            int statusCode = statusLine.getStatusCode();
+//            if (statusCode == 200) {
+//                HttpEntity entity = response.getEntity();
+//                InputStream inputStream = entity.getContent();
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//                String line;
+//                while  ((line = reader.readLine()) != null) {
+//                    stringBuilder.append(line);
+//                }
+//                inputStream.close();
+//            } else {
+//                Log.d("JSON", "Failed to connect1");
+//                Log.d("statusCode", response.toString());
+//            }
+//
+//        } catch (Exception e) {
+//            Log.d("JSON", "Failed to connect2");
+//        }
+//
+//        return stringBuilder.toString();
+//    }
 }
