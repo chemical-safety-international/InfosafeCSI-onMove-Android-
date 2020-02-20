@@ -25,8 +25,11 @@
     <string name="table_country">Country</string>
     <string name="table_supplier">Supplier</string>
     <string name="table_unno">UNNO.:</string>
+    <string name="table_unnov">unnov</string>
     <string name="table_pcode">PROD. CODE:</string>
+    <string name="table_pcodev">pcodev</string>
     <string name="table_date">ISSUE DATE:</string>
+    <string name="table_datev">xx/xx/xxxx</string>
 
     <string name="table_Img1">ghsImg1</string>
     <string name="table_Img2">ghsImg2</string>
