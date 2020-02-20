@@ -13,8 +13,11 @@ import android.widget.EditText;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.HttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
@@ -173,5 +176,16 @@ public class LoginPageAC extends AppCompatActivity {
 
     }
 
+    public String readJSONFeed(String URL) {
+        StringBuilder stringBuilder = new StringBuilder();
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(URL);
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+        } catch (Exception e) {
+            Log.d("JSON", "Failed to connect");
+        }
+    }
 
 }
