@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.AsyncTask;
+import android.widget.Toast;
+import android.telephony.mbms.DownloadStatusListener;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import android.widget.EditText;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -25,7 +29,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 
@@ -60,8 +67,8 @@ public class LoginPageAC extends AppCompatActivity {
         Log.d("email", emailText);
         Log.d("password", passwordlText);
 
-//        csiWCFMethods wcf = new csiWCFMethods();
-//        wcf.Login(emailText, passwordlText);
+        csiWCFMethods wcf = new csiWCFMethods();
+        wcf.Login(emailText, passwordlText);
 //        wcf.testing();
 
         Intent intent = new Intent(this, SearchPageAC.class);
@@ -176,16 +183,6 @@ public class LoginPageAC extends AppCompatActivity {
 
     }
 
-    public String readJSONFeed(String URL) {
-        StringBuilder stringBuilder = new StringBuilder();
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(URL);
 
-        try {
-            HttpResponse response = httpClient.execute(httpGet);
-        } catch (Exception e) {
-            Log.d("JSON", "Failed to connect");
-        }
-    }
 
 }
