@@ -1,63 +1,44 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
-import android.os.AsyncTask;
+
 import android.util.Log;
-import android.widget.Toast;
 
-
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.globalVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.criteriaList;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.apache.http.StatusLine;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar.clientid;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
 
 public class csiWCFMethods {
 
-    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
    // String url = "https://192.168.1.22:8888/CSIMD_WCF/CSI_MD_Service.svc/";
 
-    public void Login(String email, String pw) {
 
+    public Boolean Login(String email, String pw) {
 
-        Log.i("login", "reached login1");
+        //crate json object
         JSONObject user = new JSONObject();
 
-//        HttpClient httpClient = new DefaultHttpClient();
-//
-//        Log.i("login", "reached login2");
-//        HttpPost request = new HttpPost(url + "LoginByEMail");
-//
-//        //Log.i("login", "reached   " + url + "loginbyEmail");
-////        request.setHeader("Accept", "application/json");
-//        //Log.i("login", "reached login4");
-//        request.addHeader("content-type", "application/json");
-//        //Log.i("login", "reached login5");
-
         try {
-
-            Log.i("login", "reached login6");
-            user.put("email", "shawn.samuel@chemicalsafety.com.au");
-            user.put("password", "#PEPSimax");
+            // put value in json object
+           // user.put("email", "shawn.samuel@chemicalsafety.com.au");
+            user.put("email", email);
+            //user.put("password", "#PEPSimax");
+            user.put("password", pw);
             user.put("deviceid", "");
             user.put("devicemac", "");
             user.put("phoneno", "");
@@ -71,125 +52,231 @@ public class csiWCFMethods {
 
             System.out.println(user);
 
-            Log.i("login", "reached login7");
-            try
-            {
-                String urlFinal = url + "LoginByEMail";
-                Log.d("url", urlFinal);
+            String urlFinal = url + "LoginByEMail";
 
-                Log.i("login", "reached login7.1");
-                HttpPost postMethod = new HttpPost(urlFinal.trim());
-                Log.i("login", "reached login7.2");
-                postMethod.setHeader("Accept", "application/json");
-                Log.i("login", "reached login7.3");
-                postMethod.setHeader("Content-type", "application/json");
-                Log.i("login", "reached login7.4");
-                StringEntity entity = new StringEntity(user.toString(), HTTP.UTF_8);
-                postMethod.setEntity(entity);
+            //create post method
+            HttpPost postMethod = new HttpPost(urlFinal.trim());
 
-                Log.i("login", "reached login8");
-                HttpClient hc = new DefaultHttpClient();
+            //set header for post method
+            postMethod.setHeader("Accept", "application/json");
+            postMethod.setHeader("Content-type", "application/json");
 
-                Log.i("login", "reached login9");
-                HttpResponse response = hc.execute(postMethod);
-                Log.i("response", ""+response.toString());
-                HttpEntity entity1 = response.getEntity();
-                final String responseText = EntityUtils.toString(entity1);
+            //add json object in post method
+            StringEntity entity = new StringEntity(user.toString(), HTTP.UTF_8);
+            postMethod.setEntity(entity);
 
-                //responseText;
-                Log.i("Output", ""+responseText);
-            } catch (Exception e) {
-                e.printStackTrace();
+            //create session to request
+            HttpClient hc = new DefaultHttpClient();
+
+            //get response from wcf service
+            HttpResponse response = hc.execute(postMethod);
+
+//            Log.i("response", ""+response.toString());
+            HttpEntity entity1 = response.getEntity();
+            final String responseText = EntityUtils.toString(entity1);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+            loginVar.clientid = respJSON.getString("clientid");
+            loginVar.apptype = respJSON.getInt("apptype");
+            loginVar.clientcode = respJSON.getString("clientcode");
+            loginVar.passed = respJSON.getString("passed");
+            loginVar.infosafeid = respJSON.getString("infosafeid");
+
+
+            System.out.println(loginVar.apptype);
+            System.out.println(loginVar.clientid);
+            System.out.println(loginVar.clientcode);
+            System.out.println(loginVar.infosafeid);
+            System.out.println(loginVar.passed);
+
+            //responseText;
+            Log.i("Output", responseText);
+
+            if (clientid != null && !clientid.isEmpty() && clientid != "null") {
+                return true;
+            } else {
+                return false;
             }
-
-
-
-
-//            Log.i("login", "reached login7");
-            //StringEntity entity = new StringEntity(user.toString(), HTTP.UTF_8);
-
-//
-//            Log.i("login", "reached login8");
-            //request.setEntity(entity);
-//
-//            Log.i("login", "reached login9");
-//            //DefaultHttpClient httpClient = new DefaultHttpClient();
-//
-//            Log.i("login", "reached login10");
-            //HttpResponse response = httpClient.execute(request);
-            //Log.i("Output", ""+response);
-
-            //
-//            Log.i("login", "reached login11");
-//            //HttpEntity responseEntityentity = response.getEntity();
-//            String respStr = EntityUtils.toString(response.getEntity());
-//
-//            Log.i("login", "reached login12");
-//            System.out.println(respStr);
-//
-//            JSONObject respJSON = new JSONObject(respStr);
-
-//            globalVar.clientid = respJSON.getString("clientid");
-//            globalVar.apptype = respJSON.getInt("apptype");
-//            globalVar.infosafeid = respJSON.getString("infosafeid");
-
-//            System.out.println(globalVar.apptype);
-//            System.out.println(globalVar.clientid);
-//            System.out.println(globalVar.infosafeid);
-//            if (response != null) {
-//                InputStream in = responseEntityentity.getContent();
-//
-//            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
     }
 
-//    public void testing() {
-//        HttpParams httpParams = new BasicHttpParams();
-//        ThreadSafeClientConnManager connMgr = new ThreadSafeClientConnManager(httpParams, new SchemeRegistry());
-//        HttpClient client = new DefaultHttpClient(connMgr, httpParams);
-//
-//        try {
-//            HttpGet get = new HttpGet(url + "loginbyEmail");
-//            HttpResponse response = client.execute(get);
-//            HttpEntity entity = response.getEntity();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    public void SearchCriteriaList() {
+        JSONObject id = new JSONObject();
 
-//    public String readJSONFeed(String URL) {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        HttpClient httpClient = new DefaultHttpClient();
-//        HttpPost httpGet = new HttpPost(URL);
-//
-//        try {
-//            HttpResponse response = httpClient.execute(httpGet);
-//            StatusLine statusLine = response.getStatusLine();
-//            int statusCode = statusLine.getStatusCode();
-//            if (statusCode == 200) {
-//                HttpEntity entity = response.getEntity();
-//                InputStream inputStream = entity.getContent();
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//                String line;
-//                while  ((line = reader.readLine()) != null) {
-//                    stringBuilder.append(line);
-//                }
-//                inputStream.close();
-//            } else {
-//                Log.d("JSON", "Failed to connect1");
-//                Log.d("statusCode", response.toString());
-//            }
-//
-//        } catch (Exception e) {
-//            Log.d("JSON", "Failed to connect2");
-//        }
-//
-//        return stringBuilder.toString();
-//    }
+        try {
+            id.put("ClientCode", loginVar.clientid);
+            id.put("AppType", loginVar.apptype);
+            id.put("UserID", loginVar.infosafeid);
+
+            System.out.println(id);
+
+            String urlFinal = url + "GetSearchCriteriaList";
+
+            HttpPost postMethod = new HttpPost(urlFinal.trim());
+
+            postMethod.setHeader("Accept", "application/json");
+            postMethod.setHeader("Content-type", "application/json");
+
+            StringEntity entity = new StringEntity(id.toString(), HTTP.UTF_8);
+            postMethod.setEntity(entity);
+
+            HttpClient hc = new DefaultHttpClient();
+
+            HttpResponse response = hc.execute(postMethod);
+
+            HttpEntity entity1 = response.getEntity();
+            final String responseText = EntityUtils.toString(entity1);
+
+            Log.i("Output", responseText);
+
+//            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+//            return false;
+        }
+    }
+
+    public void SearchReturnList() {
+
+        JSONObject passV = new JSONObject();
+        JSONArray emptyArray = new JSONArray();
+        JSONArray advArray = new JSONArray();
+
+        String advanced;
+        String type = "2";
+        String singleValue = null;
+
+        try {
+            passV.put("client", clientid);
+            passV.put("uid", loginVar.infosafeid);
+            passV.put("apptp", loginVar.apptype);
+            passV.put("p", "1");
+            passV.put("psize", "50");
+
+            //product name search bar check
+            if (criteriaList.pnameInput != null && !criteriaList.pnameInput.isEmpty()) {
+
+               String pnameStr = criteriaList.pnameInput.trim();
+               singleValue = "0" + pnameStr;
+               type = "2";
+               System.out.println(singleValue);
+
+               JSONObject pnameJson = new JSONObject();
+               JSONArray pnArray = new JSONArray();
+
+                pnArray.put(singleValue);
+
+               pnameJson.put("type", type);
+               pnameJson.put("isgroup", "0");
+               pnameJson.put("groups", emptyArray);
+               pnameJson.put("values", pnArray);
+
+               advArray.put(pnameJson);
+            }
+
+            //supplier search bar check
+            if (criteriaList.supplierInput != null && !criteriaList.supplierInput.isEmpty()) {
+
+                String supStr = criteriaList.supplierInput.trim();
+                singleValue = "0" + supStr;
+                type = "4";
+                System.out.println(singleValue);
+
+                JSONObject supJSON = new JSONObject();
+                JSONArray supArray = new JSONArray();
+
+                supArray.put(singleValue);
+
+                supJSON.put("type", type);
+                supJSON.put("isgroup", "0");
+                supJSON.put("groups", emptyArray);
+                supJSON.put("values", supArray);
+
+                advArray.put(supJSON);
+            }
+
+            //product code search bar check
+            if (criteriaList.pcodeInput != null && !criteriaList.pcodeInput.isEmpty()) {
+
+                String pcodeStr = criteriaList.pcodeInput.trim();
+                singleValue = "0" + pcodeStr;
+                type = "8";
+                System.out.println(singleValue);
+
+                JSONObject pcJSON = new JSONObject();
+                JSONArray pcArray = new JSONArray();
+
+                pcArray.put(singleValue);
+
+                pcJSON.put("type", type);
+                pcJSON.put("isgroup", "0");
+                pcJSON.put("groups", emptyArray);
+                pcJSON.put("values", pcArray);
+
+                advArray.put(pcJSON);
+            }
+
+            if (advArray.length() > 1) {
+                advanced = "1";
+            } else {
+                advanced = "";
+                if (singleValue != null && !singleValue.isEmpty()) {
+                    singleValue = singleValue.substring(1);
+                }
+            }
+
+            passV.put("c", type);
+            passV.put("v", singleValue);
+            passV.put("advanced", advanced);
+            passV.put("advancedsitetype", "3");
+            passV.put("advanceditems", advArray);
+
+            System.out.println(passV);
+
+            String urlFinal = url + "GetSDSSearchResultsPage";
+
+            HttpPost postMethod = new HttpPost(urlFinal.trim());
+
+            postMethod.setHeader("Accept", "application/json");
+            postMethod.setHeader("Content-type", "application/json");
+
+            StringEntity entity = new StringEntity(passV.toString(), HTTP.UTF_8);
+            postMethod.setEntity(entity);
+
+            HttpClient hc = new DefaultHttpClient();
+
+            HttpResponse response = hc.execute(postMethod);
+
+            HttpEntity entity1 = response.getEntity();
+            final String responseText = EntityUtils.toString(entity1);
+
+            Log.i("Output", responseText);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+            JSONArray dataArray = new JSONArray();
+
+            dataArray = respJSON.getJSONArray("data");
+
+            for (int i = 0; i < dataArray.length(); i++) {
+                String sdsno1 = dataArray.getJSONObject(i).getString("sdsno");
+
+                String pname1 = dataArray.getJSONObject(i).getString("name");
+                String com1 = dataArray.getJSONObject(i).getString("com");
+                
+
+
+//                searchItemList.tableList.add(new searchItemList(sdsno1,pname1));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

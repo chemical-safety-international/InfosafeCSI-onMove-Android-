@@ -60,129 +60,79 @@ public class LoginPageAC extends AppCompatActivity {
 
     }
 
+
+
     public void loginBtnTapped(View view) {
+
+
+
+//        ThreadA threadA = new ThreadA();
+//        threadA.go();
+
+//        csiWCFMethods wcf = new csiWCFMethods();
+//        wcf.Login(emailText, passwordlText);
+//        wcf.testing();
+
+//        PrimeThread p = new PrimeThread(143);
+//        p.start();
+//
+//
+//        Intent intent = new Intent(this, SearchPageAC.class);
+//        startActivity(intent);
+        callLoginWCF();
+    }
+
+    public void callLoginWCF() {
+
         String emailText = email.getText().toString();
         String passwordlText = password.getText().toString();
 
         Log.d("email", emailText);
         Log.d("password", passwordlText);
 
-//        csiWCFMethods wcf = new csiWCFMethods();
-//        wcf.Login(emailText, passwordlText);
-//        wcf.testing();
+        csiWCFMethods wcf = new csiWCFMethods();
+        if (wcf.Login(emailText,passwordlText ) == true) {
+            toSeachAC();
+        } else {
+            Log.d("error", "login failed");
+        }
+    }
+
+    public void toSeachAC() {
 
         Intent intent = new Intent(this, SearchPageAC.class);
         startActivity(intent);
     }
 
-
-    private void Login1() {
-        Log.i("login", "reached login1");
-        String url = "https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-
-        try {
-            HttpPost request = new HttpPost(url + "loginbyEmail");
-            request.setHeader("Accept", "application/json");
-            request.setHeader("Content-type", "application/json");
-
-            JSONStringer json = new JSONStringer()
-                    .object()
-                        .key("email").value("shawn.samuel@chemicalsafety.com.au")
-                        .endObject()
-                    .object()
-                        .key("password").value("#PEPSimax")
-                        .endObject();
-
-            StringEntity entity = new StringEntity(json.toString(), "UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            entity.setContentType("application/json");
-
-            request.setEntity(entity);
-
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpResponse response = httpClient.execute(request);
-
-            //recieve
-//            HttpEntity responseEntity = response.getEntity();
-//            String value = EntityUtils.toString(responseEntity);
-
-//            char[] buffer = new char[(int)responseEntity.getContentLength()];
-//            InputStream stream = responseEntity.getContent();
-//            InputSreamReader reader = new InputStreamReader(stream);
-//            reader.read(buffer);
-
-
-//            Log.i("Return", value);
-
-        } catch (JSONException e) {
-            Log.e("error", "unexpected Json exception", e);
-        } catch (UnsupportedEncodingException e) {
-            Log.e("error", "Entity created failed", e);
-        } catch (IOException e) {
-            Log.e("error", "Execute failed", e);
-        }
-    }
-
-    public void Login2() {
-
-//    class readThis extends AsyncTask<String, Void, String> {
-//        protected String doInBackground(String... params) {
-//
-//        }
-//    }
-        Log.i("login", "reached login1");
-        JSONObject user = new JSONObject();
-
-        Log.i("login", "reached login2");
-        HttpPost request = new HttpPost("http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/loginbyEmail");
-        Log.i("login", "reached login3");
-        request.setHeader("Accept", "application/json");
-        Log.i("login", "reached login4");
-        request.setHeader("Content-type", "application/json");
-        Log.i("login", "reached login5");
-
-        try {
-//            JSONStringer user = new JSONStringer()
-////                    .object()
-////                        .key("email").value("shawn.samuel@chemicalsafety.com.au")
-////                    .endObject();
-            Log.i("login", "reached login6");
-            user.put("email", "shawn.samuel@chemicalsafety.com.au");
-            user.put("password", "#PEPSimax");
-            user.put("deviceid", "");
-            user.put("devicemac", "");
-            user.put("phoneno", "");
-            user.put("devicename", "");
-            user.put("devicemodel", "");
-            user.put("deviceserialno", "");
-            user.put("deviceSEID", "");
-            user.put("deviceIMEI", "");
-            user.put("deviceMEID", "");
-            user.put("sourceip", "");
-
-            Log.i("login", "reached login7");
-            StringEntity entity = new StringEntity(user.toString());
-
-//            Toast.makeText(this, user.toString() + "\n", Toast.LENGTH_LONG).show();
-            Log.i("login", "reached login8");
-            request.setEntity(entity);
-
-            Log.i("login", "reached login9");
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-
-            Log.i("login", "reached login10");
-            HttpResponse response = httpClient.execute(request);
-
-//            Toast.makeText(this, response.getStatusLine() + "\n", Toast.LENGTH_SHORT).show();
-
-
-
-        } catch (Exception e) {
-            Log.e("error", e.getMessage());
+    public class ThreadA {
+        public void go() {
+            Log.d("reach", "1");
+            PrimeThread p = new PrimeThread(143);
+            p.start();
+            synchronized (p) {
+                try {
+                    p.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.d("reach", "3");
+                toSeachAC();
+            }
         }
 
     }
 
+    class PrimeThread extends Thread {
+        long minPrime;
+        PrimeThread(long minPrime) {
+            this.minPrime = minPrime;
+        }
 
+        public void run() {
+            Log.d("reach", "2");
+            csiWCFMethods wcf = new csiWCFMethods();
+            wcf.Login("a","a" );
+        }
+    }
 
 }

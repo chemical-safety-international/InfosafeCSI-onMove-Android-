@@ -1,6 +1,6 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.Entities;
 
-public class globalVar {
+public class loginVar {
     public static int apptype;
     public static String clientcode;
     public static String clientid;
