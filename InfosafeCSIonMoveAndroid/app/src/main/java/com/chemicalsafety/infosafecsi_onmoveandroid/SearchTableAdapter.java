@@ -10,11 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 
 import java.util.ArrayList;
 
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
-    private ArrayList<SearchTableItem> searchTableList;
+//    private ArrayList<SearchTableItem> searchTableList;
 
     public static class SearchTableViewHolder extends RecyclerView.ViewHolder {
 
@@ -44,8 +45,12 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
     }
 
-    public SearchTableAdapter(ArrayList<SearchTableItem> itemList) {
-        searchTableList = itemList;
+//    public SearchTableAdapter(ArrayList<SearchTableItem> itemList) {
+//        searchTableList = itemList;
+//    }
+
+    public SearchTableAdapter(ArrayList<searchItemList> itemList) {
+        searchItemList.tableList = itemList;
     }
 
     @NonNull
@@ -58,19 +63,29 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SearchTableViewHolder holder, int position) {
-        SearchTableItem currentItem = searchTableList.get(position);
+//        SearchTableItem currentItem = searchTableList.get(position);
 
-        holder.pnameA.setText(currentItem.getPname());
-        holder.countryA.setText(currentItem.getCountry());
-        holder.supplierA.setText(currentItem.getSupplier());
+//        holder.pnameA.setText(currentItem.getPname());
+//        holder.countryA.setText(currentItem.getCountry());
+//        holder.supplierA.setText(currentItem.getSupplier());
+//        holder.unnoA.setText(currentItem.getUnno());
+//        holder.pcodeA.setText(currentItem.getPcode());
+//        holder.dateA.setText(currentItem.getDate());
+
+        searchItemList currentItem = searchItemList.tableList.get(position);
+
+        holder.pnameA.setText(currentItem.getProdname());
+        holder.countryA.setText(currentItem.getCom_Country());
+        holder.supplierA.setText(currentItem.getCompany());
         holder.unnoA.setText(currentItem.getUnno());
-        holder.pcodeA.setText(currentItem.getPcode());
-        holder.dateA.setText(currentItem.getDate());
+        holder.pcodeA.setText(currentItem.getProdcode());
+        holder.dateA.setText(currentItem.getIssueDate());
     }
 
     @Override
     public int getItemCount() {
 
-        return searchTableList.size();
+//        return searchTableList.size();
+        return searchItemList.tableList.size();
     }
 }

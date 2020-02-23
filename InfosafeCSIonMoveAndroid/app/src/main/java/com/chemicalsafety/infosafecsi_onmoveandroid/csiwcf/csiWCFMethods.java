@@ -17,14 +17,16 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar.clientid;
+import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList.tableList;
 
 
 public class csiWCFMethods {
 
-    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
    // String url = "https://192.168.1.22:8888/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
@@ -260,19 +262,40 @@ public class csiWCFMethods {
 
             JSONObject respJSON = new JSONObject(responseText);
 
-            JSONArray dataArray = new JSONArray();
+            JSONArray dataArray;
+
 
             dataArray = respJSON.getJSONArray("data");
 
+            System.out.println(dataArray);
+            System.out.println("devide..............................");
             for (int i = 0; i < dataArray.length(); i++) {
-                String sdsno1 = dataArray.getJSONObject(i).getString("sdsno");
 
-                String pname1 = dataArray.getJSONObject(i).getString("name");
-                String com1 = dataArray.getJSONObject(i).getString("com");
-                
+                JSONObject item = dataArray.getJSONObject(i);
+
+                JSONObject sdsno1 = item.getJSONObject("name");
+                String sdsno2 = sdsno1.getString("value");
+
+                JSONObject pname1 = item.getJSONObject("com");
+                String pname2 = pname1.getString("value");
+
+                JSONObject date1 = item.getJSONObject("issue");
+                String date2 = date1.getString("value");
+
+                JSONObject key1 = item.getJSONObject("key");
+                String key2 = key1.getString("value");
+
+                JSONObject unno1 = item.getJSONObject("unno");
+                String unno2 = unno1.getString("value");
+
+                JSONObject code1 = item.getJSONObject("code");
+                String code2 = code1.getString("value");
+
+                String coun1 = item.getString("country");
+                String pitgs = item.getString("sdsghspic");
 
 
-//                searchItemList.tableList.add(new searchItemList(sdsno1,pname1));
+                searchItemList.tableList.add(new searchItemList(sdsno2, pname2, date2, key2, unno2, code2, coun1, pitgs));
             }
 
         } catch (Exception e) {
