@@ -301,7 +301,14 @@ public class csiWCFMethods {
                 String pitgs = item.getString("sdsghspic");
 
                 //fix and match the pitgrams
-                String[] imgsCode = null;
+                String[] imgsCode = new String[5];
+                imgsCode[0] = "";
+                imgsCode[1] = "";
+                imgsCode[2] = "";
+                imgsCode[3] = "";
+                imgsCode[4] = "";
+
+
                 if (pitgs.contains(",")) {
                     String[] imgs = pitgs.split(",");
                     int num = imgs.length;
@@ -349,7 +356,7 @@ public class csiWCFMethods {
                     searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
                 } else {
 
-                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
                 }
 
 
