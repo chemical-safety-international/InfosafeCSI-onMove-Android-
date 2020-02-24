@@ -21,11 +21,15 @@ public class searchItemList {
     private String GHS_Pictogram;
     private String Com_Country;
 //    private String haz;
-
+    private String imgV1;
+    private String imgV2;
+    private String imgV3;
+    private String imgV4;
+    private String imgV5;
 
 //    public searchItemList(String sdsnov, String synnov, String companyv, String issueDatev, String prodnamev, String prodtypev, String ispartialv, String psv, String unnov, String subrisk1v, String prodcodev, String dgclassv, String GHS_Pictogramv, String Com_Countryv, String hazv) {
 //
-    public searchItemList(String synnov, String companyv, String issueDatev, String prodnamev, String unnov, String prodcodev, String GHS_Pictogramv, String Com_Countryv) {
+    public searchItemList(String companyv, String issueDatev, String prodnamev, String unnov, String prodcodev, String GHS_Pictogramv, String Com_Countryv, String synnov, String imgV1v, String imgV2v, String imgV3v, String imgV4v, String imgV5v) {
 
 //        sdsno = sdsnov;
         synno = synnov;
@@ -42,6 +46,11 @@ public class searchItemList {
         GHS_Pictogram = GHS_Pictogramv;
         Com_Country = Com_Countryv;
 //        haz = hazv;
+        imgV1 = imgV1v;
+        imgV2 = imgV2v;
+        imgV3 = imgV3v;
+        imgV4 = imgV4v;
+        imgV5 = imgV5v;
 
     }
 
@@ -49,9 +58,9 @@ public class searchItemList {
 //        return sdsno;
 //    }
 
-    public String getSynno() {
-        return synno;
-    }
+//    public String getSynno() {
+//        return synno;
+//    }
 
     public String getCompany() {
         return company;
@@ -86,4 +95,13 @@ public class searchItemList {
     public String getCom_Country() { return Com_Country;}
 
 //    public String getHaz() { return haz;}
+    public String getImgV1() { return imgV1;}
+
+    public String getImgV2() { return imgV2;}
+
+    public String getImgV3() { return imgV3;}
+
+    public String getImgV4() { return imgV4;}
+
+    public String getImgV5() { return imgV5;}
 }

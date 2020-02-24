@@ -54,7 +54,7 @@ public class SearchPageAC extends AppCompatActivity {
         wcf.SearchReturnList();
 
 
-//        Intent intent = new Intent(this, SearchTablePageAC.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, SearchTablePageAC.class);
+        startActivity(intent);
     }
 }

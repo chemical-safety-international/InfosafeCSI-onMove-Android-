@@ -25,9 +25,9 @@ import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemLi
 
 public class csiWCFMethods {
 
-    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-   // String url = "https://192.168.1.22:8888/CSIMD_WCF/CSI_MD_Service.svc/";
+    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+
 
 
     public Boolean Login(String email, String pw) {
@@ -146,6 +146,7 @@ public class csiWCFMethods {
 
     public void SearchReturnList() {
 
+        //create variables
         JSONObject passV = new JSONObject();
         JSONArray emptyArray = new JSONArray();
         JSONArray advArray = new JSONArray();
@@ -155,6 +156,7 @@ public class csiWCFMethods {
         String singleValue = null;
 
         try {
+            //create JSON send values
             passV.put("client", clientid);
             passV.put("uid", loginVar.infosafeid);
             passV.put("apptp", loginVar.apptype);
@@ -224,6 +226,7 @@ public class csiWCFMethods {
                 advArray.put(pcJSON);
             }
 
+            //check the if it is multi or single search
             if (advArray.length() > 1) {
                 advanced = "1";
             } else {
@@ -239,8 +242,9 @@ public class csiWCFMethods {
             passV.put("advancedsitetype", "3");
             passV.put("advanceditems", advArray);
 
-            System.out.println(passV);
+//            System.out.println(passV);
 
+            //create JSON type and send request to WCF
             String urlFinal = url + "GetSDSSearchResultsPage";
 
             HttpPost postMethod = new HttpPost(urlFinal.trim());
@@ -264,20 +268,22 @@ public class csiWCFMethods {
 
             JSONArray dataArray;
 
-
+            //get the values from data
             dataArray = respJSON.getJSONArray("data");
 
-            System.out.println(dataArray);
-            System.out.println("devide..............................");
+            //store each item
             for (int i = 0; i < dataArray.length(); i++) {
 
                 JSONObject item = dataArray.getJSONObject(i);
 
-                JSONObject sdsno1 = item.getJSONObject("name");
-                String sdsno2 = sdsno1.getString("value");
+//                JSONObject sdsno1 = item.getJSONObject("sdsno");
+//                String sdsno2 = sdsno1.getString("value");
 
-                JSONObject pname1 = item.getJSONObject("com");
+                JSONObject pname1 = item.getJSONObject("name");
                 String pname2 = pname1.getString("value");
+
+                JSONObject com1 = item.getJSONObject("com");
+                String com2 = com1.getString("value");
 
                 JSONObject date1 = item.getJSONObject("issue");
                 String date2 = date1.getString("value");
@@ -291,11 +297,56 @@ public class csiWCFMethods {
                 JSONObject code1 = item.getJSONObject("code");
                 String code2 = code1.getString("value");
 
-                String coun1 = item.getString("country");
+                String coun1 = item.getString("scountry");
                 String pitgs = item.getString("sdsghspic");
 
+                //fix and match the pitgrams
+                String[] imgs = pitgs.split(",");
+                int num = imgs.length;
+                String[] imgsCode = null;
+//                System.out.println(pitgs);
+//                System.out.println(num);
+//                System.out.println(imgs[0]);
+//                System.out.println(imgs[1]);
 
-                searchItemList.tableList.add(new searchItemList(sdsno2, pname2, date2, key2, unno2, code2, coun1, pitgs));
+                for (int n = 0; n < num; n++) {
+                    if (imgs[i].toLowerCase() == "flame") {
+                        String imgCode = "ghs02";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "skull and crossbones") {
+                        String imgCode = "ghs06";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "flame over circle") {
+                        String imgCode = "ghs03";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "exclamation mark") {
+                        String imgCode = "ghs07";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "environment") {
+                        String imgCode = "ghs09";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "health hazard") {
+                        String imgCode = "ghs08";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "corrosion") {
+                        String imgCode = "ghs05";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "gas cylinder") {
+                        String imgCode = "ghs04";
+                        imgsCode[i] = imgCode;
+                    } else if (imgs[i].toLowerCase() == "exploding bomb") {
+                        String imgCode = "ghs01";
+                        imgsCode[i] = imgCode;
+                    } else {
+                        imgsCode[i] = "";
+                    }
+
+                    System.out.println(imgsCode[i]);
+                }
+
+
+
+                searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
             }
 
         } catch (Exception e) {
