@@ -301,52 +301,58 @@ public class csiWCFMethods {
                 String pitgs = item.getString("sdsghspic");
 
                 //fix and match the pitgrams
-                String[] imgs = pitgs.split(",");
-                int num = imgs.length;
                 String[] imgsCode = null;
+                if (pitgs.contains(",")) {
+                    String[] imgs = pitgs.split(",");
+                    int num = imgs.length;
+
+                    for (int n = 0; n < num; n++) {
+                        if (imgs[i].toLowerCase() == "flame") {
+                            String imgCode = "ghs02";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "skull and crossbones") {
+                            String imgCode = "ghs06";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "flame over circle") {
+                            String imgCode = "ghs03";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "exclamation mark") {
+                            String imgCode = "ghs07";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "environment") {
+                            String imgCode = "ghs09";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "health hazard") {
+                            String imgCode = "ghs08";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "corrosion") {
+                            String imgCode = "ghs05";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "gas cylinder") {
+                            String imgCode = "ghs04";
+                            imgsCode[i] = imgCode;
+                        } else if (imgs[i].toLowerCase() == "exploding bomb") {
+                            String imgCode = "ghs01";
+                            imgsCode[i] = imgCode;
+                        } else {
+                            imgsCode[i] = "";
+                        }
+                        System.out.println(imgsCode[i]);
+                }
+
+
 //                System.out.println(pitgs);
 //                System.out.println(num);
 //                System.out.println(imgs[0]);
 //                System.out.println(imgs[1]);
 
-                for (int n = 0; n < num; n++) {
-                    if (imgs[i].toLowerCase() == "flame") {
-                        String imgCode = "ghs02";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "skull and crossbones") {
-                        String imgCode = "ghs06";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "flame over circle") {
-                        String imgCode = "ghs03";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "exclamation mark") {
-                        String imgCode = "ghs07";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "environment") {
-                        String imgCode = "ghs09";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "health hazard") {
-                        String imgCode = "ghs08";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "corrosion") {
-                        String imgCode = "ghs05";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "gas cylinder") {
-                        String imgCode = "ghs04";
-                        imgsCode[i] = imgCode;
-                    } else if (imgs[i].toLowerCase() == "exploding bomb") {
-                        String imgCode = "ghs01";
-                        imgsCode[i] = imgCode;
-                    } else {
-                        imgsCode[i] = "";
-                    }
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+                } else {
 
-                    System.out.println(imgsCode[i]);
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
                 }
 
 
-
-                searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
             }
 
         } catch (Exception e) {
