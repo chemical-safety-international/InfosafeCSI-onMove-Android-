@@ -3,6 +3,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
 
 import org.json.JSONArray;
@@ -148,10 +149,114 @@ public class csiWCF_VM {
             passV.put("advancedsitetype", "3");
             passV.put("advanceditems", advArray);
 
-            return true;
+            csiWCFMethods wcf = new csiWCFMethods();
+            String responseText = wcf.SearchReturnList(passV);
+
+            JSONObject respJSON = new JSONObject(responseText);
+            JSONArray dataArray;
+
+            //get the values from data
+            dataArray = respJSON.getJSONArray("data");
+
+            //store each item
+            for (int i = 0; i < dataArray.length(); i++) {
+
+                JSONObject item = dataArray.getJSONObject(i);
+
+//                JSONObject sdsno1 = item.getJSONObject("sdsno");
+//                String sdsno2 = sdsno1.getString("value");
+
+                JSONObject pname1 = item.getJSONObject("name");
+                String pname2 = pname1.getString("value");
+
+                JSONObject com1 = item.getJSONObject("com");
+                String com2 = com1.getString("value");
+
+                JSONObject date1 = item.getJSONObject("issue");
+                String date2 = date1.getString("value");
+
+                JSONObject key1 = item.getJSONObject("key");
+                String key2 = key1.getString("value");
+
+                JSONObject unno1 = item.getJSONObject("unno");
+                String unno2 = unno1.getString("value");
+
+                JSONObject code1 = item.getJSONObject("code");
+                String code2 = code1.getString("value");
+
+                String coun1 = item.getString("scountry");
+                String pitgs = item.getString("sdsghspic");
+
+                //fix and match the pitgrams
+
+                if (pitgs.contains(",")) {
+                    String[] imgs = pitgs.split(",");
+
+                    int num = imgs.length;
+                    String[] imgsCode = new String[num];
+
+                    for (int n = 0; n < num; n++) {
+
+                        if (imgs[n].toLowerCase().trim().equals("flame")) {
+                            String imgCode = "ghs02";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("skull and crossbones")) {
+                            String imgCode = "ghs06";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("flame over circle")) {
+                            String imgCode = "ghs03";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("exclamation mark")) {
+                            String imgCode = "ghs07";
+//                            int imgCode = R.drawable.ghs07;
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("environment")) {
+                            String imgCode = "ghs09";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("health hazard")) {
+                            String imgCode = "ghs08";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("corrosion")) {
+                            String imgCode = "ghs05";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("gas cylinder")) {
+                            String imgCode = "ghs04";
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("exploding bomb")) {
+                            String imgCode = "ghs01";
+                            imgsCode[n] = imgCode;
+                        } else {
+                            imgsCode[n] = "";
+                        }
+                        Log.i("imgsCode", imgsCode[n]);
+                    }
+
+                    if (num == 2) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], "", "", ""));
+                        return true;
+                    } else if (num == 3) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], "", ""));
+                        return true;
+                    } else if (num == 4) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], ""));
+                        return true;
+                    } else if (num == 5) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+                        return true;
+                    }
+
+                    return false;
+                } else {
+
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
+                    return true;
+                }
+
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+        return false;
     }
 }
