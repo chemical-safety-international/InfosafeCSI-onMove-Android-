@@ -15,8 +15,8 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".SearchTablePageAC"></activity>
-        <activity android:name=".SearchPageAC" android:noHistory="true"/>
-        <activity android:name=".LoginPageAC" android:noHistory="true"/>
+        <activity android:name=".SearchPageAC" />
+        <activity android:name=".LoginPageAC" />
         <activity android:name=".StartupPageAC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

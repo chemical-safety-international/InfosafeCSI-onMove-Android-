@@ -1,6 +1,9 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
@@ -17,6 +21,8 @@ import java.util.ArrayList;
 
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
 //    private ArrayList<SearchTableItem> searchTableList;
+
+
 
     public static class SearchTableViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,6 +39,14 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         public TextView pcodeA;
         public TextView dateA;
 
+//        private Context context;
+//
+//        public void TabAdapter(FragmentManager fm, Context context) {
+//            super(fm);
+//            this.context = context;
+//        }
+
+
         public SearchTableViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -44,6 +58,10 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             dateA = itemView.findViewById(R.id.dav);
 
             img1 = itemView.findViewById(R.id.img1);
+            img2 = itemView.findViewById(R.id.img2);
+            img3 = itemView.findViewById(R.id.img3);
+            img4 = itemView.findViewById(R.id.img4);
+            img5 = itemView.findViewById(R.id.img5);
         }
 
     }
@@ -79,27 +97,47 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         String img4v = currentItem.getImgV4();
         String img5v = currentItem.getImgV5();
 
+        System.out.println("Adapter");
+        System.out.println(img1v);
+        System.out.println(img2v);
+
     try {
-        Class res = R.drawable.class;
-        Field field1 = res.getField(img1v);
-        int id1 = field1.getInt(null);
-        holder.img1.setImageResource(id1);
 
-        Field field2 = res.getField(img2v);
-        int id2 = field2.getInt(null);
-        holder.img1.setImageResource(id2);
 
-        Field field3 = res.getField(img3v);
-        int id3 = field3.getInt(null);
-        holder.img1.setImageResource(id3);
+        if (!img1v.isEmpty() && img1v != null) {
+            Class res1 = R.drawable.class;
+            Field field1 = res1.getField(img1v);
+            int id1 = field1.getInt(null);
+            holder.img1.setImageResource(id1);
+        }
 
-        Field field4 = res.getField(img4v);
-        int id4 = field4.getInt(null);
-        holder.img1.setImageResource(id4);
 
-        Field field5 = res.getField(img5v);
-        int id5 = field5.getInt(null);
-        holder.img1.setImageResource(id5);
+        if (!img2v.isEmpty() && img2v != null) {
+            Class res2 = R.drawable.class;
+            Field field2 = res2.getField(img2v);
+            int id2 = field2.getInt(null);
+            holder.img2.setImageResource(id2);
+        }
+
+        if (!img3v.isEmpty() && img3v != null) {
+            Class res3 = R.drawable.class;
+            Field field3 = res3.getField(img3v);
+            int id3 = field3.getInt(null);
+            holder.img3.setImageResource(id3);
+        }
+
+        if (!img4v.isEmpty() && img4v != null) {
+            Class res4 = R.drawable.class;
+            Field field4 = res4.getField(img4v);
+            int id4 = field4.getInt(null);
+            holder.img4.setImageResource(id4);
+        }
+        if (!img5v.isEmpty() && img5v != null) {
+            Class res5 = R.drawable.class;
+            Field field5 = res5.getField(img5v);
+            int id5 = field5.getInt(null);
+            holder.img5.setImageResource(id5);
+        }
 
     } catch (Exception e) {
         e.printStackTrace();

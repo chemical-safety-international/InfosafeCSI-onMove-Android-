@@ -6,6 +6,7 @@ import android.util.Log;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.criteriaList;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
+import com.chemicalsafety.infosafecsi_onmoveandroid.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -301,62 +302,71 @@ public class csiWCFMethods {
                 String pitgs = item.getString("sdsghspic");
 
                 //fix and match the pitgrams
-                String[] imgsCode = new String[5];
-                imgsCode[0] = "";
-                imgsCode[1] = "";
-                imgsCode[2] = "";
-                imgsCode[3] = "";
-                imgsCode[4] = "";
 
+//                imgsCode[0] = "";
+//                imgsCode[1] = "";
+//                imgsCode[2] = "";
+//                imgsCode[3] = "";
+//                imgsCode[4] = "";
 
                 if (pitgs.contains(",")) {
                     String[] imgs = pitgs.split(",");
-                    int num = imgs.length;
 
+                    int num = imgs.length;
+                    String[] imgsCode = new String[num];
+//
                     for (int n = 0; n < num; n++) {
-                        if (imgs[i].toLowerCase() == "flame") {
+//                        Log.i("imgs" + n, imgs[n]);
+//                        Log.i("lowercase", imgs[n].toLowerCase());
+                        if (imgs[n].toLowerCase().trim().equals("flame")) {
                             String imgCode = "ghs02";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "skull and crossbones") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("skull and crossbones")) {
                             String imgCode = "ghs06";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "flame over circle") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("flame over circle")) {
                             String imgCode = "ghs03";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "exclamation mark") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("exclamation mark")) {
                             String imgCode = "ghs07";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "environment") {
+//                            int imgCode = R.drawable.ghs07;
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("environment")) {
                             String imgCode = "ghs09";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "health hazard") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("health hazard")) {
                             String imgCode = "ghs08";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "corrosion") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("corrosion")) {
                             String imgCode = "ghs05";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "gas cylinder") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("gas cylinder")) {
                             String imgCode = "ghs04";
-                            imgsCode[i] = imgCode;
-                        } else if (imgs[i].toLowerCase() == "exploding bomb") {
+                            imgsCode[n] = imgCode;
+                        } else if (imgs[n].toLowerCase().trim().equals("exploding bomb")) {
                             String imgCode = "ghs01";
-                            imgsCode[i] = imgCode;
+                            imgsCode[n] = imgCode;
                         } else {
-                            imgsCode[i] = "";
+                            imgsCode[n] = "";
                         }
-                        System.out.println(imgsCode[i]);
+                        Log.i("imgsCode", imgsCode[n]);
                 }
 
+                    if (num == 2) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], "", "", ""));
+                    } else if (num == 3) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], "", ""));
+                    } else if (num == 4) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], ""));
+                    } else if (num == 5) {
+                        searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+                    }
 
-//                System.out.println(pitgs);
-//                System.out.println(num);
-//                System.out.println(imgs[0]);
-//                System.out.println(imgs[1]);
 
-                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+
                 } else {
 
-                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
                 }
 
 
