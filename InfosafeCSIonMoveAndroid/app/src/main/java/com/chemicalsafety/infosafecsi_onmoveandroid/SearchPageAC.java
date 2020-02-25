@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.criteriaList;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
+import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 public class SearchPageAC extends AppCompatActivity {
 
@@ -35,8 +38,10 @@ public class SearchPageAC extends AppCompatActivity {
 
 
     public void callCriteriaList() {
+
         csiWCFMethods wcf = new csiWCFMethods();
         wcf.SearchCriteriaList();
+
     }
 
     public void logOffBtnTapped(View view) {
@@ -46,15 +51,21 @@ public class SearchPageAC extends AppCompatActivity {
     }
 
     public void searchBtnTapped(View view) {
-        criteriaList.pnameInput = pnameET.getText().toString();
-        criteriaList.pcodeInput = pcodeET.getText().toString();
-        criteriaList.supplierInput = supplierET.getText().toString();
+        searchVar.pnameInput = pnameET.getText().toString();
+        searchVar.pcodeInput = pcodeET.getText().toString();
+        searchVar.supplierInput = supplierET.getText().toString();
 
-        csiWCFMethods wcf = new csiWCFMethods();
-        wcf.SearchReturnList();
+//        csiWCFMethods wcf = new csiWCFMethods();
+//        wcf.SearchReturnList();
+
+        csiWCF_VM wcf =new csiWCF_VM();
+        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype) == true) {
+            Intent intent = new Intent(this, SearchTablePageAC.class);
+            startActivity(intent);
+        } else {
+            Log.i("error", "Search failed!.");
+        }
 
 
-        Intent intent = new Intent(this, SearchTablePageAC.class);
-        startActivity(intent);
     }
 }

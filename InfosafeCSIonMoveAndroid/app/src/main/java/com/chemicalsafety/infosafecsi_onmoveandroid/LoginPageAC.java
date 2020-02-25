@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.os.AsyncTask;
-import android.widget.Toast;
-import android.telephony.mbms.DownloadStatusListener;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
@@ -14,27 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.HttpEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
+import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 
 public class LoginPageAC extends AppCompatActivity {
@@ -70,7 +47,7 @@ public class LoginPageAC extends AppCompatActivity {
 //        threadA.go();
 
 //        csiWCFMethods wcf = new csiWCFMethods();
-//        wcf.Login(emailText, passwordlText);
+//        wcf.LoginByEMail(emailText, passwordlText);
 //        wcf.testing();
 
 //        PrimeThread p = new PrimeThread(143);
@@ -90,7 +67,7 @@ public class LoginPageAC extends AppCompatActivity {
         Log.d("email", emailText);
         Log.d("password", passwordlText);
 
-        csiWCFMethods wcf = new csiWCFMethods();
+        csiWCF_VM wcf = new csiWCF_VM();
         if (wcf.Login(emailText,passwordlText ) == true) {
             toSeachAC();
         } else {
@@ -131,7 +108,7 @@ public class LoginPageAC extends AppCompatActivity {
         public void run() {
             Log.d("reach", "2");
             csiWCFMethods wcf = new csiWCFMethods();
-            wcf.Login("a","a" );
+            wcf.LoginByEMail("a","a" );
         }
     }
 

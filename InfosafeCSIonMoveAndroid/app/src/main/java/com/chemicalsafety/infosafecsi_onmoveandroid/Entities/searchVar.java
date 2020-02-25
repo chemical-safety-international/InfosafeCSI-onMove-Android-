@@ -1,6 +1,6 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.Entities;
 
-public class criteriaList {
+public class searchVar {
 
     public static String pnameInput;
     public static String supplierInput;

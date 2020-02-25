@@ -139,6 +139,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             holder.img5.setImageResource(id5);
         }
 
+
     } catch (Exception e) {
         e.printStackTrace();
     }

@@ -3,10 +3,9 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
 import android.util.Log;
 
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.criteriaList;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
-import com.chemicalsafety.infosafecsi_onmoveandroid.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,10 +17,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar.clientid;
-import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList.tableList;
 
 
 public class csiWCFMethods {
@@ -31,7 +28,7 @@ public class csiWCFMethods {
 
 
 
-    public Boolean Login(String email, String pw) {
+    public String LoginByEMail(String email, String pw) {
 
         //crate json object
         JSONObject user = new JSONObject();
@@ -74,42 +71,25 @@ public class csiWCFMethods {
             //get response from wcf service
             HttpResponse response = hc.execute(postMethod);
 
-//            Log.i("response", ""+response.toString());
             HttpEntity entity1 = response.getEntity();
             final String responseText = EntityUtils.toString(entity1);
 
             JSONObject respJSON = new JSONObject(responseText);
 
-            loginVar.clientid = respJSON.getString("clientid");
-            loginVar.apptype = respJSON.getInt("apptype");
-            loginVar.clientcode = respJSON.getString("clientcode");
-            loginVar.passed = respJSON.getString("passed");
-            loginVar.infosafeid = respJSON.getString("infosafeid");
-
-
-            System.out.println(loginVar.apptype);
-            System.out.println(loginVar.clientid);
-            System.out.println(loginVar.clientcode);
-            System.out.println(loginVar.infosafeid);
-            System.out.println(loginVar.passed);
 
             //responseText;
-            Log.i("Output", responseText);
+//            Log.i("Output", responseText);
 
-            if (clientid != null && !clientid.isEmpty() && clientid != "null") {
-                return true;
-            } else {
-                return false;
-            }
+            return responseText;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
 
     }
 
-    public void SearchCriteriaList() {
+    public String SearchCriteriaList() {
         JSONObject id = new JSONObject();
 
         try {
@@ -138,10 +118,10 @@ public class csiWCFMethods {
 
             Log.i("Output", responseText);
 
-//            return true;
+            return responseText;
         } catch (Exception e) {
             e.printStackTrace();
-//            return false;
+            return null;
         }
     }
 
@@ -165,9 +145,9 @@ public class csiWCFMethods {
             passV.put("psize", "50");
 
             //product name search bar check
-            if (criteriaList.pnameInput != null && !criteriaList.pnameInput.isEmpty()) {
+            if (searchVar.pnameInput != null && !searchVar.pnameInput.isEmpty()) {
 
-               String pnameStr = criteriaList.pnameInput.trim();
+               String pnameStr = searchVar.pnameInput.trim();
                singleValue = "0" + pnameStr;
                type = "2";
                System.out.println(singleValue);
@@ -186,9 +166,9 @@ public class csiWCFMethods {
             }
 
             //supplier search bar check
-            if (criteriaList.supplierInput != null && !criteriaList.supplierInput.isEmpty()) {
+            if (searchVar.supplierInput != null && !searchVar.supplierInput.isEmpty()) {
 
-                String supStr = criteriaList.supplierInput.trim();
+                String supStr = searchVar.supplierInput.trim();
                 singleValue = "0" + supStr;
                 type = "4";
                 System.out.println(singleValue);
@@ -207,9 +187,9 @@ public class csiWCFMethods {
             }
 
             //product code search bar check
-            if (criteriaList.pcodeInput != null && !criteriaList.pcodeInput.isEmpty()) {
+            if (searchVar.pcodeInput != null && !searchVar.pcodeInput.isEmpty()) {
 
-                String pcodeStr = criteriaList.pcodeInput.trim();
+                String pcodeStr = searchVar.pcodeInput.trim();
                 singleValue = "0" + pcodeStr;
                 type = "8";
                 System.out.println(singleValue);
@@ -303,21 +283,14 @@ public class csiWCFMethods {
 
                 //fix and match the pitgrams
 
-//                imgsCode[0] = "";
-//                imgsCode[1] = "";
-//                imgsCode[2] = "";
-//                imgsCode[3] = "";
-//                imgsCode[4] = "";
-
                 if (pitgs.contains(",")) {
                     String[] imgs = pitgs.split(",");
 
                     int num = imgs.length;
                     String[] imgsCode = new String[num];
-//
+
                     for (int n = 0; n < num; n++) {
-//                        Log.i("imgs" + n, imgs[n]);
-//                        Log.i("lowercase", imgs[n].toLowerCase());
+
                         if (imgs[n].toLowerCase().trim().equals("flame")) {
                             String imgCode = "ghs02";
                             imgsCode[n] = imgCode;
@@ -362,13 +335,10 @@ public class csiWCFMethods {
                         searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
                     }
 
-
-
                 } else {
 
                     searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
                 }
-
 
             }
 
