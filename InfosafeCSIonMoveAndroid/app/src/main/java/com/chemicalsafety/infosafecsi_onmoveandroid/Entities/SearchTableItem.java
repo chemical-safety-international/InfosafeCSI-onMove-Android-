@@ -1,6 +1,10 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.Entities;
 
+import java.util.ArrayList;
+
 public class SearchTableItem {
+
+
     private String pname;
     private String country;
     private String supplier;
@@ -40,4 +44,16 @@ public class SearchTableItem {
     public String getDate() {
         return date;
     }
+
+//    private String sdsno;
+//
+//    public static ArrayList<SearchTableItem> sdsnoList = new ArrayList<>();
+//
+//    public SearchTableItem(String sdsnov) {
+//        this.sdsno = sdsnov;
+//    }
+//
+//    public String getSdsno() {
+//        return sdsno;
+//    }
 }

@@ -22,4 +22,9 @@ public class StartupPageAC extends AppCompatActivity {
         Intent intent = new Intent(this, LoginPageAC.class);
         startActivity(intent);
     }
+
+    public void testBtnTapped(View view) {
+        Intent intent = new Intent(this, SDSViewMainPageAC.class);
+        startActivity(intent);
+    }
 }

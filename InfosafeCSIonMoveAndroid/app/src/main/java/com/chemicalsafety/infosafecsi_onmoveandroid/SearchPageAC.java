@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -51,13 +52,21 @@ public class SearchPageAC extends AppCompatActivity {
     }
 
     public void searchBtnTapped(View view) {
+
+        //hid the soft keyboard
+        try {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //get the search bars input
         searchVar.pnameInput = pnameET.getText().toString();
         searchVar.pcodeInput = pcodeET.getText().toString();
         searchVar.supplierInput = supplierET.getText().toString();
 
-//        csiWCFMethods wcf = new csiWCFMethods();
-//        wcf.SearchReturnList();
-
+        //call the Search WCF
         csiWCF_VM wcf =new csiWCF_VM();
         if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype) == true) {
             Intent intent = new Intent(this, SearchTablePageAC.class);

@@ -9,15 +9,16 @@
 
     <Button
         android:id="@+id/searchLogoff"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@drawable/button_states"
+        android:onClick="logOffBtnTapped"
         android:text="@string/search_logoff"
         android:textColor="@android:color/white"
-        android:onClick="logOffBtnTapped"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +84,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@drawable/button_states"
         android:onClick="searchBtnTapped"
         android:text="@string/search_button"
         android:textColor="@android:color/white"

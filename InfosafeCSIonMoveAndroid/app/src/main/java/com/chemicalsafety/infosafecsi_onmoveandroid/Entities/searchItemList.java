@@ -6,6 +6,8 @@ public class searchItemList {
 
     public static ArrayList<searchItemList> tableList = new ArrayList<>();
 
+    public static String[] sdsnoArray;
+
 //    private String sdsno;
     private String synno;
     private String company;

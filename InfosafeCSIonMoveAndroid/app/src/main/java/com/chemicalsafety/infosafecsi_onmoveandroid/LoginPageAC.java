@@ -7,6 +7,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -38,7 +39,6 @@ public class LoginPageAC extends AppCompatActivity {
     }
 
 
-
     public void loginBtnTapped(View view) {
 
 
@@ -60,6 +60,14 @@ public class LoginPageAC extends AppCompatActivity {
     }
 
     public void callLoginWCF() {
+
+        //hid the soft keyboard
+        try {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String emailText = email.getText().toString();
         String passwordlText = password.getText().toString();

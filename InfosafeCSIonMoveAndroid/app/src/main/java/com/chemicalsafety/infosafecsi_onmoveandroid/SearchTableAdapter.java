@@ -1,26 +1,44 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
-
+import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
+import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
 //    private ArrayList<SearchTableItem> searchTableList;
+    private ItemClickListener listener;
+    private Context context;
+    private Activity activity;
+
+//    public SearchTableAdapter(Context context, Activity activity) {
+////        this.context = context;
+////        this.activity = activity;
+////        listener = (ItemClickListener)context;
+////    }
+
+    public SearchTableAdapter(Context context) {
+        this.context = context;
+    }
 
 
 
@@ -39,12 +57,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         public TextView pcodeA;
         public TextView dateA;
 
-//        private Context context;
-//
-//        public void TabAdapter(FragmentManager fm, Context context) {
-//            super(fm);
-//            this.context = context;
-//        }
+        public Button sdsviewBtn;
 
 
         public SearchTableViewHolder(@NonNull View itemView) {
@@ -62,6 +75,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             img3 = itemView.findViewById(R.id.img3);
             img4 = itemView.findViewById(R.id.img4);
             img5 = itemView.findViewById(R.id.img5);
+
+            sdsviewBtn = itemView.findViewById(R.id.sdsviewBtn);
         }
 
     }
@@ -80,10 +95,11 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchTableViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchTableViewHolder holder, final int position) {
 
         searchItemList currentItem = searchItemList.tableList.get(position);
 
+        //set values to textviews
         holder.pnameA.setText(currentItem.getProdname());
         holder.countryA.setText(currentItem.getCom_Country());
         holder.supplierA.setText(currentItem.getCompany());
@@ -91,67 +107,126 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         holder.pcodeA.setText(currentItem.getProdcode());
         holder.dateA.setText(currentItem.getIssueDate());
 
+        //set values to imgs
         String img1v = currentItem.getImgV1();
         String img2v = currentItem.getImgV2();
         String img3v = currentItem.getImgV3();
         String img4v = currentItem.getImgV4();
         String img5v = currentItem.getImgV5();
 
-        System.out.println("Adapter");
-        System.out.println(img1v);
-        System.out.println(img2v);
+//        System.out.println("Adapter");
+//        System.out.println(img1v);
+//        System.out.println(img2v);
 
-    try {
+        try {
+
+            //match images and set into imageviews
+            if (!img1v.isEmpty() && img1v != null) {
+                Class res1 = R.drawable.class;
+                Field field1 = res1.getField(img1v);
+                int id1 = field1.getInt(null);
+                holder.img1.setImageResource(id1);
+            }
 
 
-        if (!img1v.isEmpty() && img1v != null) {
-            Class res1 = R.drawable.class;
-            Field field1 = res1.getField(img1v);
-            int id1 = field1.getInt(null);
-            holder.img1.setImageResource(id1);
+            if (!img2v.isEmpty() && img2v != null) {
+                Class res2 = R.drawable.class;
+                Field field2 = res2.getField(img2v);
+                int id2 = field2.getInt(null);
+                holder.img2.setImageResource(id2);
+            }
+
+            if (!img3v.isEmpty() && img3v != null) {
+                Class res3 = R.drawable.class;
+                Field field3 = res3.getField(img3v);
+                int id3 = field3.getInt(null);
+                holder.img3.setImageResource(id3);
+            }
+
+            if (!img4v.isEmpty() && img4v != null) {
+                Class res4 = R.drawable.class;
+                Field field4 = res4.getField(img4v);
+                int id4 = field4.getInt(null);
+                holder.img4.setImageResource(id4);
+            }
+            if (!img5v.isEmpty() && img5v != null) {
+                Class res5 = R.drawable.class;
+                Field field5 = res5.getField(img5v);
+                int id5 = field5.getInt(null);
+                holder.img5.setImageResource(id5);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
-        if (!img2v.isEmpty() && img2v != null) {
-            Class res2 = R.drawable.class;
-            Field field2 = res2.getField(img2v);
-            int id2 = field2.getInt(null);
-            holder.img2.setImageResource(id2);
-        }
-
-        if (!img3v.isEmpty() && img3v != null) {
-            Class res3 = R.drawable.class;
-            Field field3 = res3.getField(img3v);
-            int id3 = field3.getInt(null);
-            holder.img3.setImageResource(id3);
-        }
-
-        if (!img4v.isEmpty() && img4v != null) {
-            Class res4 = R.drawable.class;
-            Field field4 = res4.getField(img4v);
-            int id4 = field4.getInt(null);
-            holder.img4.setImageResource(id4);
-        }
-        if (!img5v.isEmpty() && img5v != null) {
-            Class res5 = R.drawable.class;
-            Field field5 = res5.getField(img5v);
-            int id5 = field5.getInt(null);
-            holder.img5.setImageResource(id5);
-        }
+//        System.out.println(position);
+        holder.sdsviewBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
 
 
-    } catch (Exception e) {
-        e.printStackTrace();
+
+
+
+//                v.getContext().startActivity(new Intent(context, SDSViewMainPageAC.class));
+
+//                Intent intent = new Intent(activity, SDSViewMainPageAC.class);
+//                activity.startActivity(intent);
+
+//                Intent intent = new Intent(context, SDSViewMainPageAC.class);
+//                context.startActivity(intent);
+
+                try {
+                    System.out.println("Reach here");
+
+//                String sdsno = "1CH0100";
+                    String sdsno = searchItemList.sdsnoArray[position];
+                    System.out.println("passV sdsNO:" + sdsno);
+//                String sdsno = SearchTableItem.sdsnoList.get(position);
+                    String clientid, uid, rtype;
+                    int apptp;
+
+                    clientid = loginVar.clientid;
+                    uid = loginVar.infosafeid;
+                    apptp = loginVar.apptype;
+                    rtype = "1";
+
+                    csiWCF_VM callpreview = new csiWCF_VM();
+
+                    callpreview.Preview(clientid, uid, sdsno, apptp, rtype);
+//                    context.startActivity(new Intent(context, SearchPageAC.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                listener.startBtnActivity(position);
+
+            }
+        });
+
+
     }
 
-
-
-    }
 
     @Override
     public int getItemCount() {
 
 //        return searchTableList.size();
         return searchItemList.tableList.size();
+    }
+
+    public interface ItemClickListener{
+        public void startBtnActivity(int index);
+    }
+
+    public class MainActivity extends AppCompatActivity implements ItemClickListener {
+        public void startBtnActivity(int index){
+            Log.i("reach","here2"+index);
+            Intent intent = new Intent(MainActivity.this, SDSViewMainPageAC.class);
+            startActivity(intent);
+        }
     }
 }

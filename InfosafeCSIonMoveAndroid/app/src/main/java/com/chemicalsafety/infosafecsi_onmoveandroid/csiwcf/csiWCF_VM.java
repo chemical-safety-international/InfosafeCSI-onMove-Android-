@@ -2,14 +2,16 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
 import android.util.Log;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.SearchTableAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar.clientid;
+import java.util.Arrays;
+
 
 public class csiWCF_VM {
 
@@ -152,11 +154,18 @@ public class csiWCF_VM {
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.SearchReturnList(passV);
 
+//            Log.i("output", responseText);
+
             JSONObject respJSON = new JSONObject(responseText);
             JSONArray dataArray;
 
             //get the values from data
             dataArray = respJSON.getJSONArray("data");
+
+            String[] sdsnoArray1 = new String[dataArray.length()];
+
+            searchItemList.tableList.clear();
+            searchItemList.tableList.removeAll(searchItemList.tableList);
 
             //store each item
             for (int i = 0; i < dataArray.length(); i++) {
@@ -186,6 +195,11 @@ public class csiWCF_VM {
 
                 String coun1 = item.getString("scountry");
                 String pitgs = item.getString("sdsghspic");
+
+
+                //get sdsno and stored
+                sdsnoArray1[i] = key2;
+                System.out.println(sdsnoArray1[i]);
 
                 //fix and match the pitgrams
 
@@ -228,35 +242,71 @@ public class csiWCF_VM {
                         } else {
                             imgsCode[n] = "";
                         }
-                        Log.i("imgsCode", imgsCode[n]);
+//                        Log.i("imgsCode", imgsCode[n]);
+
                     }
 
                     if (num == 2) {
                         searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], "", "", ""));
-                        return true;
+
                     } else if (num == 3) {
                         searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], "", ""));
-                        return true;
+
                     } else if (num == 4) {
                         searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], ""));
-                        return true;
+
                     } else if (num == 5) {
                         searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
-                        return true;
+
                     }
 
-                    return false;
                 } else {
 
                     searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
-                    return true;
+
                 }
 
             }
+
+            if (searchItemList.tableList.size() == 0 || searchItemList.tableList.isEmpty()) {
+
+                return false;
+            } else {
+                searchItemList.sdsnoArray = Arrays.copyOf(sdsnoArray1,sdsnoArray1.length);
+                return true;
+            }
+
         }catch (Exception e) {
+
             e.printStackTrace();
             return false;
         }
-        return false;
+
+    }
+
+    public Boolean Preview(String clientid, String uid, String sdsno, int apptp, String rtype) {
+
+        System.out.println(searchItemList.tableList);
+
+        try {
+            JSONObject passV = new JSONObject();
+            passV.put("client", clientid);
+            passV.put("apptp", apptp);
+            passV.put("sds", sdsno);
+            passV.put("rtype", rtype);
+            passV.put("regetFormat", "1");
+            passV.put("f", "");
+            passV.put("subf","");
+            passV.put("uid", uid);
+
+            csiWCFMethods wcf = new csiWCFMethods();
+            String responseText = wcf.ViewSDS_Classification(passV);
+            Log.i("Output classification:", responseText);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

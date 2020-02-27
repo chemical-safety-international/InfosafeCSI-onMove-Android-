@@ -37,4 +37,35 @@
     <string name="table_Img4">ghsImg4</string>
     <string name="table_Img5">ghsImg5</string>
 
+    <string name="table_viewsdsbtn">View SDS</string>
+
+    //SDSView main page texts
+    <string name="sdsm_sdsbtn">SDS</string>
+    <string name="sdsm_prevbtn">Preview</string>
+    <string name="sdsm_ghsbtn">GHS</string>
+    <string name="sdsm_dgbtn">DG</string>
+    <string name="sdsm_faidbtn">F.AID</string>
+
+    <string name="sdsm_ghstitle">GHS CLASSFICATION</string>
+    <string name="sdsm_haztitle">HAZARD STATEMENT(S)</string>
+    <string name="sdsm_prectitle">PRECAUTIONARY STATEMENT(S)</string>
+    <string name="sdsm_transtitle">TRANSPORT INFORMATION</string>
+    <string name="sdsm_pstitle">POISONS SCHEDULE</string>
+
+    <string name="sdsm_ghsvalue">ghs value</string>
+    <string name="sdsm_hazvalue">haz value</string>
+    <string name="sdsm_precvalue">prec value</string>
+    <string name="sdsm_tivalue">ti value</string>
+    <string name="sdsm_psvalue">ps value</string>
+
+    <string name="sdsm_ghscImg1">ghscImg1</string>
+    <string name="sdsm_ghscImg2">ghscImg2</string>
+    <string name="sdsm_ghscImg3">ghscImg3</string>
+    <string name="sdsm_ghscImg4">ghscImg4</string>
+    <string name="sdsm_ghscImg5">ghscImg5</string>
+
+    <string name="sdsm_tiImg">tiImg</string>
+    <string name="sdsm_tisubImg1">tisubImg1</string>
+    <string name="sdsm_tisubImg2">tisubImg2</string>
+
 </resources>
