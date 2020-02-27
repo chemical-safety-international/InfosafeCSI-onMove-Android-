@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 import com.chemicalsafety.infosafecsi_onmoveandroid.SearchTableAdapter;
 
@@ -302,6 +303,53 @@ public class csiWCF_VM {
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.ViewSDS_Classification(passV);
             Log.i("Output classification:", responseText);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+            String formatcode = respJSON.getString("formatcode");
+            previewVar.formatcode = formatcode;
+
+
+
+            String classification = respJSON.getString("classification");
+            previewVar.classification = classification;
+
+            String dg = respJSON.getString("dg");
+            previewVar.dg = dg;
+
+
+
+            String hstate = respJSON.getString("hstate");
+            previewVar.hstate = hstate;
+
+            String ps = respJSON.getString("ps");
+            previewVar.ps = ps;
+
+//            String pstate = respJSON.getString("psatate");
+//            previewVar.pstate = pstate;
+
+            String pic = respJSON.getString("pic");
+            previewVar.pic = pic;
+
+            String rphase = respJSON.getString("rphrase");
+            previewVar.rphrase = rphase;
+
+            String sds = respJSON.getString("sds");
+            previewVar.sds = sds;
+
+            String sphrase = respJSON.getString("sphrase");
+            previewVar.sphrase = sphrase;
+
+            String ps_general = respJSON.getString("ps_general");
+            previewVar.ps_general = ps_general;
+
+            String ps_response = respJSON.getString("ps_response");
+            previewVar.ps_response = ps_response;
+
+            String ps_prevention = respJSON.getString("ps_prevention");
+            previewVar.ps_prevention = ps_prevention;
+
+
             return true;
 
         } catch (Exception e) {
