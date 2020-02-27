@@ -1,8 +1,5 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
@@ -25,20 +21,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
-//    private ArrayList<SearchTableItem> searchTableList;
-    private ItemClickListener listener;
-    private Context context;
-    private Activity activity;
 
-//    public SearchTableAdapter(Context context, Activity activity) {
-////        this.context = context;
-////        this.activity = activity;
-////        listener = (ItemClickListener)context;
-////    }
-
-    public SearchTableAdapter(Context context) {
-        this.context = context;
-    }
 
 
 
@@ -114,9 +97,6 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         String img4v = currentItem.getImgV4();
         String img5v = currentItem.getImgV5();
 
-//        System.out.println("Adapter");
-//        System.out.println(img1v);
-//        System.out.println(img2v);
 
         try {
 
@@ -161,31 +141,13 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             e.printStackTrace();
         }
 
-
-//        System.out.println(position);
+        //set button action
         holder.sdsviewBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-
-
-
-
-//                v.getContext().startActivity(new Intent(context, SDSViewMainPageAC.class));
-
-//                Intent intent = new Intent(activity, SDSViewMainPageAC.class);
-//                activity.startActivity(intent);
-
-//                Intent intent = new Intent(context, SDSViewMainPageAC.class);
-//                context.startActivity(intent);
-
                 try {
-                    System.out.println("Reach here");
-
-//                String sdsno = "1CH0100";
                     String sdsno = searchItemList.sdsnoArray[position];
                     System.out.println("passV sdsNO:" + sdsno);
-//                String sdsno = SearchTableItem.sdsnoList.get(position);
                     String clientid, uid, rtype;
                     int apptp;
 
@@ -196,13 +158,18 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
                     csiWCF_VM callpreview = new csiWCF_VM();
 
-                    callpreview.Preview(clientid, uid, sdsno, apptp, rtype);
-//                    context.startActivity(new Intent(context, SearchPageAC.class));
+                    // get the GHS value and go to the activity
+                    if (callpreview.Preview(clientid, uid, sdsno, apptp, rtype) == true) {
+
+                        v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+
+                    } else {
+                        System.out.println("Error, call GHS failed");
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-//                listener.startBtnActivity(position);
 
             }
         });

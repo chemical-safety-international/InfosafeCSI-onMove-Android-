@@ -44,7 +44,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
         ghsvalue.setText(previewVar.classification);
         hazvalue.setText(previewVar.hstate);
-        precvalue.setText(previewVar.ps_general + previewVar.ps_response + previewVar.ps_prevention);
+        precvalue.setText( "General: \n" + previewVar.ps_general + "\n" + "Response: \n" + previewVar.ps_response + " \n" + "Prevention: \n" + previewVar.ps_prevention);
         psvalue.setText(previewVar.ps);
 
 //        tivalue.setText(previewVar.);

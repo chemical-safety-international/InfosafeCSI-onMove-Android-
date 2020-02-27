@@ -54,13 +54,4 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="testBtnTapped"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="286dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

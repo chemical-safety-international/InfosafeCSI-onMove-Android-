@@ -37,7 +37,7 @@
     <string name="table_Img4">ghsImg4</string>
     <string name="table_Img5">ghsImg5</string>
 
-    <string name="table_viewsdsbtn">View SDS</string>
+    <string name="table_viewdetailsbtn">View Details</string>
 
     //SDSView main page texts
     <string name="sdsm_sdsbtn">SDS</string>
