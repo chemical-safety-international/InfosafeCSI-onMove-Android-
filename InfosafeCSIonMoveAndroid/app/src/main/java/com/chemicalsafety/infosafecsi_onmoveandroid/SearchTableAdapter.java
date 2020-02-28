@@ -159,7 +159,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                     csiWCF_VM callpreview = new csiWCF_VM();
 
                     // get the GHS value and go to the activity
-                    if (callpreview.Preview(clientid, uid, sdsno, apptp, rtype) == true) {
+                    if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype) == true) {
+                        callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype);
 
                         v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
 

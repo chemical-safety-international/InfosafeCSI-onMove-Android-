@@ -18,8 +18,8 @@ import org.json.JSONObject;
 
 public class csiWCFMethods {
 
-    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
 
@@ -172,6 +172,35 @@ public class csiWCFMethods {
             final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output classification:", responseText);
+
+            return responseText;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String ViewSDS_Transport(JSONObject passV) {
+        try {
+            String urlFinal = url + "ViewSDS_Transport";
+
+            HttpPost postMethod = new HttpPost(urlFinal.trim());
+
+            postMethod.setHeader("Accept", "application/json");
+            postMethod.setHeader("Content-type", "application/json");
+
+            StringEntity entity = new StringEntity(passV.toString(), HTTP.UTF_8);
+            postMethod.setEntity(entity);
+
+            HttpClient hc = new DefaultHttpClient();
+
+            HttpResponse response = hc.execute(postMethod);
+
+            HttpEntity entity1 = response.getEntity();
+            final String responseText = EntityUtils.toString(entity1);
+
+//            Log.i("Output TI Information:", responseText);
 
             return responseText;
 

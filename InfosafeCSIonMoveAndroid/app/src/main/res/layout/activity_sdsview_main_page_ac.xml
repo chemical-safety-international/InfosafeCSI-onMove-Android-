@@ -116,8 +116,7 @@
                 android:layout_marginTop="15dp"
                 android:contentDescription="@string/sdsm_ghscImg1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ghstitle"
-                app:srcCompat="@drawable/ghs02" />
+                app:layout_constraintTop_toBottomOf="@+id/ghstitle" />
 
             <ImageView
                 android:id="@+id/ghscImg2"
@@ -127,8 +126,7 @@
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@string/sdsm_ghscImg2"
                 app:layout_constraintStart_toEndOf="@+id/ghscImg1"
-                app:layout_constraintTop_toTopOf="@+id/ghscImg1"
-                app:srcCompat="@drawable/ghs01" />
+                app:layout_constraintTop_toTopOf="@+id/ghscImg1" />
 
             <ImageView
                 android:id="@+id/ghscImg3"
@@ -138,8 +136,7 @@
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@string/sdsm_ghscImg3"
                 app:layout_constraintStart_toEndOf="@+id/ghscImg2"
-                app:layout_constraintTop_toTopOf="@+id/ghscImg2"
-                app:srcCompat="@drawable/ghs04" />
+                app:layout_constraintTop_toTopOf="@+id/ghscImg2" />
 
             <ImageView
                 android:id="@+id/ghscImg4"
@@ -150,8 +147,7 @@
                 android:layout_marginTop="70dp"
                 android:contentDescription="@string/sdsm_ghscImg4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ghstitle"
-                app:srcCompat="@drawable/ghs08" />
+                app:layout_constraintTop_toBottomOf="@+id/ghstitle" />
 
             <ImageView
                 android:id="@+id/ghscImg5"
@@ -161,8 +157,7 @@
                 android:layout_marginLeft="10dp"
                 android:contentDescription="@string/sdsm_ghscImg5"
                 app:layout_constraintStart_toEndOf="@+id/ghscImg4"
-                app:layout_constraintTop_toTopOf="@+id/ghscImg4"
-                app:srcCompat="@drawable/ghs07" />
+                app:layout_constraintTop_toTopOf="@+id/ghscImg4" />
 
             <TextView
                 android:id="@+id/haztitle"
@@ -242,8 +237,7 @@
                 android:layout_marginTop="30dp"
                 android:contentDescription="@string/sdsm_tiImg"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:srcCompat="@drawable/ghs01" />
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <ImageView
                 android:id="@+id/tisubImg1"
@@ -254,8 +248,7 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/sdsm_tisubImg1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:srcCompat="@drawable/ghs03" />
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <ImageView
                 android:id="@+id/tisubImg2"
@@ -264,8 +257,7 @@
                 android:layout_marginTop="6dp"
                 android:contentDescription="@string/sdsm_tisubImg2"
                 app:layout_constraintStart_toStartOf="@+id/tisubImg1"
-                app:layout_constraintTop_toBottomOf="@+id/tisubImg1"
-                app:srcCompat="@drawable/ghs07" />
+                app:layout_constraintTop_toBottomOf="@+id/tisubImg1" />
 
             <TextView
                 android:id="@+id/tivalue"

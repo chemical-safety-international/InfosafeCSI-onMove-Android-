@@ -90,6 +90,7 @@
         android:layout_marginRight="75dp"
         android:text="@string/login_remember"
         android:textColor="@android:color/white"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPW" />

@@ -68,4 +68,19 @@
     <string name="sdsm_tisubImg1">tisubImg1</string>
     <string name="sdsm_tisubImg2">tisubImg2</string>
 
+    //Preview GHS information texts
+    <string name="ps_general">&lt;b>General:&lt;/b></string>
+    <string name="ps_prevention">&lt;b>Prevention:&lt;/b></string>
+    <string name="ps_response">&lt;b>Response:&lt;/b></string>
+    <string name="ps_storage">&lt;b>Storage:&lt;/b></string>
+    <string name="ps_disposal">&lt;b>Disposal:&lt;/b></string>
+
+
+    //Preview TI information texts
+    <string name="ti_unno"> &lt;b>UNNO&lt;/b></string>
+    <string name="ti_dgclass"> &lt;b>DG CLASS&lt;/b></string>
+    <string name="ti_haz"> &lt;b>HAZCHEM CODE&lt;/b></string>
+    <string name="ti_packgrp"> &lt;b>PACKAGING GROUP&lt;/b></string>
+    <string name="ti_psn"> &lt;b>PROPER SHIPPING NAME&lt;/b></string>
+
 </resources>

@@ -2,11 +2,10 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
 import android.util.Log;
 
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewTIVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
-import com.chemicalsafety.infosafecsi_onmoveandroid.SearchTableAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -285,9 +284,9 @@ public class csiWCF_VM {
 
     }
 
-    public Boolean Preview(String clientid, String uid, String sdsno, int apptp, String rtype) {
+    public Boolean PreviewGHS(String clientid, String uid, String sdsno, int apptp, String rtype) {
 
-        System.out.println(searchItemList.tableList);
+//        System.out.println(searchItemList.tableList);
 
         try {
             JSONObject passV = new JSONObject();
@@ -307,54 +306,236 @@ public class csiWCF_VM {
             JSONObject respJSON = new JSONObject(responseText);
 
             String formatcode = respJSON.getString("formatcode");
-            previewVar.formatcode = formatcode;
+            previewGHSVar.formatcode = formatcode;
 
 
+            if (previewGHSVar.formatcode == "0F" || previewGHSVar.formatcode == "0A") {
+                String classification = respJSON.getString("classification");
+                previewGHSVar.classification = classification;
 
-            String classification = respJSON.getString("classification");
-            previewVar.classification = classification;
+                String dg = respJSON.getString("dg");
+                previewGHSVar.dg = dg;
 
-            String dg = respJSON.getString("dg");
-            previewVar.dg = dg;
+                String hstate = respJSON.getString("hstate");
+                previewGHSVar.hstate = hstate;
 
-
-
-            String hstate = respJSON.getString("hstate");
-            previewVar.hstate = hstate;
-
-            String ps = respJSON.getString("ps");
-            previewVar.ps = ps;
+                String ps = respJSON.getString("ps");
+                previewGHSVar.ps = ps;
 
 //            String pstate = respJSON.getString("psatate");
-//            previewVar.pstate = pstate;
+//            previewGHSVar.pstate = pstate;
 
-            String pic = respJSON.getString("pic");
-            previewVar.pic = pic;
+                String pic = respJSON.getString("pic");
+                previewGHSVar.pic = pic;
 
-            String rphase = respJSON.getString("rphrase");
-            previewVar.rphrase = rphase;
+                String rphase = respJSON.getString("rphrase");
+                previewGHSVar.rphrase = rphase;
 
-            String sds = respJSON.getString("sds");
-            previewVar.sds = sds;
+                String sds = respJSON.getString("sds");
+                previewGHSVar.sds = sds;
 
-            String sphrase = respJSON.getString("sphrase");
-            previewVar.sphrase = sphrase;
+                String sphrase = respJSON.getString("sphrase");
+                previewGHSVar.sphrase = sphrase;
 
-            String ps_general = respJSON.getString("ps_general");
-            previewVar.ps_general = ps_general;
+                String ps_general = respJSON.getString("ps_general");
+                previewGHSVar.ps_general = ps_general;
 
-            String ps_response = respJSON.getString("ps_response");
-            previewVar.ps_response = ps_response;
+                String ps_response = respJSON.getString("ps_response");
+                previewGHSVar.ps_response = ps_response;
 
-            String ps_prevention = respJSON.getString("ps_prevention");
-            previewVar.ps_prevention = ps_prevention;
+                String ps_prevention = respJSON.getString("ps_prevention");
+                previewGHSVar.ps_prevention = ps_prevention;
+
+                String ps_disposal = respJSON.getString("ps_disposal");
+                previewGHSVar.ps_disposal = ps_disposal;
+
+                String ps_storage = respJSON.getString("ps_storage");
+                previewGHSVar.ps_storage = ps_storage;
+            } else {
+                String classification = respJSON.getString("classification");
+                previewGHSVar.classification = classification;
+
+                String dg = respJSON.getString("dg");
+                previewGHSVar.dg = dg;
+
+                String hstate = respJSON.getString("hstate");
+                previewGHSVar.hstate = hstate;
+
+                String pic = respJSON.getString("pic");
+                previewGHSVar.pic = pic;
+
+//                String pstate = respJSON.getString("psatate");
+//                previewGHSVar.pstate = pstate;
+
+                String sds = respJSON.getString("sds");
+                previewGHSVar.sds = sds;
+
+                String sphrase = respJSON.getString("sphrase");
+                previewGHSVar.sphrase = sphrase;
+
+                String rphase = respJSON.getString("rphrase");
+                previewGHSVar.rphrase = rphase;
+
+                String ps_general = respJSON.getString("ps_general");
+                previewGHSVar.ps_general = ps_general;
+
+                String ps_response = respJSON.getString("ps_response");
+                previewGHSVar.ps_response = ps_response;
+
+                String ps_prevention = respJSON.getString("ps_prevention");
+                previewGHSVar.ps_prevention = ps_prevention;
+
+                String ps_disposal = respJSON.getString("ps_disposal");
+                previewGHSVar.ps_disposal = ps_disposal;
+
+                String ps_storage = respJSON.getString("ps_storage");
+                previewGHSVar.ps_storage = ps_storage;
+            }
 
 
-            return true;
+            if (previewGHSVar.pic.contains(",")) {
+                String[] imgs = previewGHSVar.pic.split(",");
+
+                int num = imgs.length;
+                String[] imgsCode = new String[num];
+
+                for (int n = 0; n < num; n++) {
+
+                    if (imgs[n].toLowerCase().trim().equals("flame")) {
+                        String imgCode = "ghs02";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("skull and crossbones")) {
+                        String imgCode = "ghs06";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("flame over circle")) {
+                        String imgCode = "ghs03";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("exclamation mark")) {
+                        String imgCode = "ghs07";
+//                            int imgCode = R.drawable.ghs07;
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("environment")) {
+                        String imgCode = "ghs09";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("health hazard")) {
+                        String imgCode = "ghs08";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("corrosion")) {
+                        String imgCode = "ghs05";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("gas cylinder")) {
+                        String imgCode = "ghs04";
+                        imgsCode[n] = imgCode;
+                    } else if (imgs[n].toLowerCase().trim().equals("exploding bomb")) {
+                        String imgCode = "ghs01";
+                        imgsCode[n] = imgCode;
+                    } else {
+                        imgsCode[n] = "";
+                    }
+//                        Log.i("imgsCode", imgsCode[n]);
+
+                }
+
+                if (num == 2) {
+                    previewGHSVar.ghscImgList.add(new previewGHSVar(imgsCode[0], imgsCode[1], "", "", ""));
+
+                } else if (num == 3) {
+                    previewGHSVar.ghscImgList.add(new previewGHSVar(imgsCode[0], imgsCode[1], imgsCode[2], "", ""));
+
+                } else if (num == 4) {
+                    previewGHSVar.ghscImgList.add(new previewGHSVar(imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], ""));
+
+                } else if (num == 5) {
+                    previewGHSVar.ghscImgList.add(new previewGHSVar(imgsCode[0], imgsCode[1], imgsCode[2], imgsCode[3], imgsCode[4]));
+
+                }
+
+            } else {
+
+                previewGHSVar.ghscImgList.add(new previewGHSVar(previewGHSVar.pic.trim().toLowerCase(), "", "", "", ""));
+
+            }
+
+            if (previewGHSVar.sds != null && !previewGHSVar.sds.isEmpty() && previewGHSVar.sds != "null") {
+                return true;
+            } else {
+                return false;
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
+    public Boolean PreviewTI(String clientid, String uid, String sdsno, int apptp, String rtype) {
+
+        try {
+
+            JSONObject passV = new JSONObject();
+            passV.put("client", clientid);
+            passV.put("apptp", apptp);
+            passV.put("sds", sdsno);
+            passV.put("rtype", rtype);
+            passV.put("regetFormat", "1");
+            passV.put("f", "");
+            passV.put("subf","");
+            passV.put("uid", uid);
+
+
+            csiWCFMethods wcf = new csiWCFMethods();
+            String responseText = wcf.ViewSDS_Transport(passV);
+            Log.i("Output TI information:", responseText);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+
+            previewTIVar.road_unno = respJSON.getString("road_unno");
+            previewTIVar.road_dgclass = respJSON.getString("road_dgclass");
+            previewTIVar.road_hazchem = respJSON.getString("road_hazchem");
+            previewTIVar.road_epg = respJSON.getString("road_epg");
+            previewTIVar.road_ierg = respJSON.getString("road_ierg");
+            previewTIVar.road_packgrp = respJSON.getString("road_packgrp");
+            previewTIVar.road_packmethod = respJSON.getString("road_packmethod");
+            previewTIVar.road_psn = respJSON.getString("road_psn");
+            previewTIVar.road_subrisks = respJSON.getString("road_subrisks");
+
+            previewTIVar.imdg_dgclass = respJSON.getString("imdg_dgclass");
+            previewTIVar.imdg_ems = respJSON.getString("imdg_ems");
+            previewTIVar.imdg_subrisks = respJSON.getString("imdg_subrisks");
+            previewTIVar.imdg_mp = respJSON.getString("imdg_mp");
+            previewTIVar.imdg_packgrp = respJSON.getString("imdg_packgrp");
+            previewTIVar.imdg_psn = respJSON.getString("imdg_psn");
+            previewTIVar.imdg_unno = respJSON.getString("imdg_unno");
+
+            previewTIVar.iata_dgclass = respJSON.getString("iata_dgclass");
+            previewTIVar.iata_packgrp = respJSON.getString("iata_packgrp");
+            previewTIVar.iata_psn = respJSON.getString("iata_psn");
+            previewTIVar.iata_subrisks = respJSON.getString("iata_subrisks");
+            previewTIVar.iata_symbol = respJSON.getString("iata_symbol");
+            previewTIVar.iata_unno = respJSON.getString("iata_unno");
+
+            String dgimgs = previewTIVar.road_dgclass;
+            if (dgimgs.contains(".")) {
+                dgimgs = dgimgs.replace(".", "");
+            }
+            previewTIVar.dgImg = "dg" + dgimgs;
+
+            if(previewTIVar.road_unno != null && !previewTIVar.road_unno.isEmpty() && previewTIVar.road_unno != "null") {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
 }
