@@ -91,7 +91,7 @@ public class LoginPageAC extends AppCompatActivity {
 
     public class ThreadA {
         public void go() {
-            Log.d("reach", "1");
+//            Log.d("reach", "1");
             PrimeThread p = new PrimeThread(143);
             p.start();
             synchronized (p) {
@@ -100,7 +100,7 @@ public class LoginPageAC extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.d("reach", "3");
+//                Log.d("reach", "3");
                 toSeachAC();
             }
         }
@@ -114,7 +114,7 @@ public class LoginPageAC extends AppCompatActivity {
         }
 
         public void run() {
-            Log.d("reach", "2");
+//            Log.d("reach", "2");
             csiWCFMethods wcf = new csiWCFMethods();
             wcf.LoginByEMail("a","a" );
         }

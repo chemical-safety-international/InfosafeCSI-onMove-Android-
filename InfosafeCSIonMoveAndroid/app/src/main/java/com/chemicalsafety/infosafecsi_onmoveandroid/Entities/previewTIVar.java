@@ -28,4 +28,8 @@ public class previewTIVar {
     public static String iata_symbol;
 
     public static String dgImg;
+
+    public static String subImg1;
+    public static String subImg2;
+
 }

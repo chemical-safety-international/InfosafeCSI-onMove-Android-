@@ -212,7 +212,7 @@ public class csiWCFMethods {
 
     public String ViewSDS(JSONObject passV) {
         try {
-            String urlFinal = url + "ViewSDS_Classification";
+            String urlFinal = url + "ViewSDS";
 
             HttpPost postMethod = new HttpPost(urlFinal.trim());
 
@@ -229,7 +229,7 @@ public class csiWCFMethods {
             HttpEntity entity1 = response.getEntity();
             final String responseText = EntityUtils.toString(entity1);
 
-            Log.i("Output ViewSDS:", responseText);
+//            Log.i("Output ViewSDS:", responseText);
 
             return responseText;
 

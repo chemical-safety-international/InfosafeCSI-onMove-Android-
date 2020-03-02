@@ -5,6 +5,7 @@ import android.util.Log;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewTIVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.sdspdfVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 
 import org.json.JSONArray;
@@ -199,7 +200,7 @@ public class csiWCF_VM {
 
                 //get sdsno and stored
                 sdsnoArray1[i] = key2;
-                System.out.println(sdsnoArray1[i]);
+//                System.out.println(sdsnoArray1[i]);
 
                 //fix and match the pitgrams
 
@@ -301,7 +302,7 @@ public class csiWCF_VM {
 
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.ViewSDS_Classification(passV);
-            Log.i("Output classification:", responseText);
+//            Log.i("Output classification:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
 
@@ -486,7 +487,7 @@ public class csiWCF_VM {
 
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.ViewSDS_Transport(passV);
-            Log.i("Output TI information:", responseText);
+//            Log.i("Output TI information:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
 
@@ -522,6 +523,40 @@ public class csiWCF_VM {
             }
             previewTIVar.dgImg = "dg" + dgimgs;
 
+//            Log.i("SUBIMGS", previewTIVar.road_subrisks);
+//            System.out.println(previewTIVar.road_subrisks);
+
+            String[] subImgsArray = previewTIVar.road_subrisks.split(" ");
+
+
+
+            if (subImgsArray.length == 2) {
+                previewTIVar.subImg1 = subImgsArray[0];
+                previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
+                previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
+
+                previewTIVar.subImg2 = subImgsArray[1];
+                previewTIVar.subImg2 = previewTIVar.subImg2.replace(".", "");
+                previewTIVar.subImg2 = "dg" + previewTIVar.subImg2;
+
+            } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
+                previewTIVar.subImg1 = subImgsArray[0];
+                previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
+                previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
+
+                previewTIVar.subImg2 = "";
+            } else {
+                previewTIVar.subImg1 = "";
+                previewTIVar.subImg2 = "";
+            }
+
+//            System.out.println("DG value:");
+//            System.out.println(previewTIVar.dgImg);
+//            System.out.println("Subs value1:");
+//            System.out.println(previewTIVar.subImg1);
+//            System.out.println("Subs value2:");
+//            System.out.println(previewTIVar.subImg2);
+
             if(previewTIVar.road_unno != null && !previewTIVar.road_unno.isEmpty() && previewTIVar.road_unno != "null") {
                 return true;
             } else {
@@ -534,6 +569,37 @@ public class csiWCF_VM {
             e.printStackTrace();
             return false;
         }
+
+    }
+
+    public Boolean ViewSDS(String clientid, String uid, String sdsno, int apptp, String rtype) {
+
+        try {
+            JSONObject passV = new JSONObject();
+            passV.put("client", clientid);
+            passV.put("apptp", apptp);
+            passV.put("sds", sdsno);
+            passV.put("rtype", rtype);
+            passV.put("regetFormat", "1");
+            passV.put("f", "");
+            passV.put("subf","");
+            passV.put("uid", uid);
+
+
+            csiWCFMethods wcf = new csiWCFMethods();
+            String responseText = wcf.ViewSDS(passV);
+            Log.i("Output ViewSDS PDF:", responseText);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+            sdspdfVar.sdspdf = respJSON.getString("html");
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
 
     }
 

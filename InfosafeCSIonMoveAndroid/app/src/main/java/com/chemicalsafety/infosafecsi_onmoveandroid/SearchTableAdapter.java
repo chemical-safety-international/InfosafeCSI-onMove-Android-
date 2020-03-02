@@ -151,6 +151,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                     String clientid, uid, rtype;
                     int apptp;
 
+                    searchItemList.sdsno = sdsno;
                     clientid = loginVar.clientid;
                     uid = loginVar.infosafeid;
                     apptp = loginVar.apptype;
@@ -160,9 +161,9 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
                     // get the GHS value and go to the activity
                     if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype) == true) {
-                        callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype);
-
-                        v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+                        if (callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype)){
+                            v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+                        }
 
                     } else {
                         System.out.println("Error, call GHS failed");

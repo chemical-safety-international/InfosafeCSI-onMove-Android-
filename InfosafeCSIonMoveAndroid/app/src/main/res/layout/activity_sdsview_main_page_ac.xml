@@ -37,6 +37,7 @@
         android:background="@color/colorLightBlack"
         android:text="@string/sdsm_sdsbtn"
         android:textColor="@android:color/white"
+        android:onClick="sdsBtnTapped"
         app:layout_constraintEnd_toStartOf="@+id/prevBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

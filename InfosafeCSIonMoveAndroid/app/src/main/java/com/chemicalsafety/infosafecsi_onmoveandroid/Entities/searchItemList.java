@@ -29,6 +29,8 @@ public class searchItemList {
     private String imgV4;
     private String imgV5;
 
+    public static String sdsno;
+
 //    public searchItemList(String sdsnov, String synnov, String companyv, String issueDatev, String prodnamev, String prodtypev, String ispartialv, String psv, String unnov, String subrisk1v, String prodcodev, String dgclassv, String GHS_Pictogramv, String Com_Countryv, String hazv) {
 //
     public searchItemList(String companyv, String issueDatev, String prodnamev, String unnov, String prodcodev, String GHS_Pictogramv, String Com_Countryv, String synnov, String imgV1v, String imgV2v, String imgV3v, String imgV4v, String imgV5v) {
