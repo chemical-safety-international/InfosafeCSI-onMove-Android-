@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ViewSDSPageAC">
 
-    <WebView
-        android:id="@+id/pdfview"
-        android:layout_width="411dp"
-        android:layout_height="733dp"
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfviewer"
+        android:layout_width="412dp"
+        android:layout_height="726dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

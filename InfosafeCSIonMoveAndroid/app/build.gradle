@@ -33,4 +33,7 @@ dependencies {
 //    complie 'org.apache.httpcomponents:httpcore:4.4.1'
 //    complie 'org.apache.httpcomponents:httpcore:4.5'
 
+    //Add library
+    implementation 'com.github.barteksc:android-pdf-viewer:2.3.0'
+
 }

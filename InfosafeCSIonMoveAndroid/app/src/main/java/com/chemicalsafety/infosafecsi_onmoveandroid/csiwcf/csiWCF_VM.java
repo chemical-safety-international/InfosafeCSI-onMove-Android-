@@ -588,6 +588,7 @@ public class csiWCF_VM {
 
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.ViewSDS(passV);
+
             Log.i("Output ViewSDS PDF:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);

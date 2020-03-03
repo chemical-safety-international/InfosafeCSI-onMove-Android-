@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<!--    <uses-permission android:name="android.permission.BLUETOOTH"/>-->
+<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>-->
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ViewSDSPageAC"></activity>
+        <activity android:name=".ViewSDSPageAC"/>
         <activity android:name=".SDSViewMainPageAC" />
         <activity android:name=".SearchTablePageAC" />
         <activity android:name=".SearchPageAC" />
