@@ -7,84 +7,102 @@
     android:background="@drawable/card"
     tools:context=".SDSViewMainPageAC">
 
-    <ProgressBar
-        android:id="@+id/sdsprogressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:max="100"
-        android:progress="0"
-        android:progressTint="@color/colorLightBlack"
-        app:layout_constraintBottom_toBottomOf="@+id/sdsBtn"
-        app:layout_constraintEnd_toStartOf="@+id/prevBtn"
-        app:layout_constraintStart_toStartOf="@+id/sdsBtn"
-        app:layout_constraintTop_toTopOf="@+id/sdsBtn" />
-
-    <Button
-        android:id="@+id/prevBtn"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:background="@color/colorLightBlack"
-        android:text="@string/sdsm_prevbtn"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/ghsBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/ghsBtn"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:background="@color/colorLightBlack"
-        android:text="@string/sdsm_ghsbtn"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/dgBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/sdsBtn"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:background="@color/colorLightBlack"
-        android:onClick="sdsBtnTapped"
-        android:text="@string/sdsm_sdsbtn"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/prevBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/dgBtn"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:background="@color/colorLightBlack"
-        android:text="@string/sdsm_dgbtn"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/faidBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/faidBtn"
-        android:layout_width="88dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
-        android:background="@color/colorLightBlack"
-        android:text="@string/sdsm_faidbtn"
-        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/sdsprogressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="81dp"
+            android:layout_height="49dp"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="@color/colorLightBlack"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <Button
+                android:id="@+id/sdsBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightBlack"
+                android:onClick="sdsBtnTapped"
+                android:text="@string/sdsm_sdsbtn"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/prevBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightBlack"
+                android:text="@string/sdsm_prevbtn"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/ghsBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightBlack"
+                android:text="@string/sdsm_ghsbtn"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/dgBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightBlack"
+                android:text="@string/sdsm_dgbtn"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/faidBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightBlack"
+                android:text="@string/sdsm_faidbtn"
+                android:textColor="@android:color/white" />
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
-        android:layout_width="410dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prevBtn">
+        app:layout_constraintTop_toBottomOf="@+id/buttonsLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -108,9 +126,10 @@
 
             <TextView
                 android:id="@+id/ghstitle"
-                android:layout_width="176dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:text="@string/sdsm_ghstitle"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
@@ -176,6 +195,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="@string/sdsm_haztitle"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -204,6 +224,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="@string/sdsm_prectitle"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -232,6 +253,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="@string/sdsm_transtitle"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -291,6 +313,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:text="@string/sdsm_pstitle"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -316,8 +339,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

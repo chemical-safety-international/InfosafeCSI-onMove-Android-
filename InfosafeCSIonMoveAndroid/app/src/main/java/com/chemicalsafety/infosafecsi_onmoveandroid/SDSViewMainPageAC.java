@@ -37,6 +37,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     ProgressBar sdsprogressBar;
 
+    int sdsBtnwidth;
+
 //    private long mLastClickTime = 0;
     private boolean sdsget = false;
 //    int progress = 0;
@@ -82,6 +84,11 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 //        PrimeThread p = new PrimeThread(143);
 //        p.start();
 
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        sdsBtnwidth = sdsBtn.getWidth();
     }
 
     public void setValues() {
@@ -201,6 +208,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
                 sdsBtn.setBackgroundColor(Color.TRANSPARENT);
+
+                sdsprogressBar.getLayoutParams().width = sdsBtnwidth;
 
             }
         });
