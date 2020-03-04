@@ -83,4 +83,25 @@
     <string name="ti_packgrp"> &lt;b>PACKAGING GROUP&lt;/b></string>
     <string name="ti_psn"> &lt;b>PROPER SHIPPING NAME&lt;/b></string>
 
+    //TI information texts
+    <string name="ti_roadBtn">ROAD</string>
+    <string name="ti_seaBtn">SEA</string>
+    <string name="ti_airBtn">AIR</string>
+
+    <string name="tis_unno">UNNO</string>
+    <string name="tis_class">CLASS</string>
+    <string name="tis_subr">S.RISK</string>
+    <string name="tis_PG">PG</string>
+    <string name="tis_psntitle">PROPER SHIPPING NAME</string>
+    <string name="tis_symboltitle">SYMBOL</string>
+    <string name="tis_emstitle">EMS</string>
+    <string name="tis_mptitle">MARINE POLLUTANT</string>
+    <string name="tis_haztitle">HAZCHEM CODE</string>
+    <string name="tis_epgtitle">EPG NUMBER</string>
+    <string name="tis_inotitle">IERG NUMBER</string>
+    <string name="tis_pmtitle">PACKAGING METHOD</string>
+    <string name="tis_dgImg">TI single page DG Img</string>
+    <string name="tis_subImg1">TI single page sub Img1</string>
+    <string name="tis_subImg2">TI single page sub Img2</string>
+
 </resources>
