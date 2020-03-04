@@ -214,21 +214,21 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
             tivalue.setText(fromHtml(unnotitle + "<br/>" + previewTIVar.road_unno + "<br/><br/>" + dgtitle + "<br/>" + previewTIVar.road_dgclass + "<br/><br/>" + haztitle + "<br/>" + previewTIVar.road_hazchem + "<br/><br/>" + pgtitle + "<br/>" + previewTIVar.road_packgrp + "<br/><br/>" + psntitle + "<br/>" + previewTIVar.road_psn));
 
-            if (!previewTIVar.dgImg.isEmpty() && previewTIVar.dgImg.equals("dg")) {
+            if (!previewTIVar.dgImg.isEmpty() && !previewTIVar.dgImg.equals("dg")) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.dgImg);
                 int id1 = field1.getInt(null);
                 tiImg.setImageResource(id1);
             }
 
-            if (!previewTIVar.subImg1.isEmpty() && previewTIVar.subImg1.equals("dg")) {
+            if (!previewTIVar.subImg1.isEmpty() && !previewTIVar.subImg1.equals("dg")) {
                 Class res2 = R.drawable.class;
                 Field field2 = res2.getField(previewTIVar.subImg1);
                 int id2 = field2.getInt(null);
                 tisubImg1.setImageResource(id2);
             }
 
-            if (!previewTIVar.subImg2.isEmpty() && previewTIVar.subImg2.equals("dg")) {
+            if (!previewTIVar.subImg2.isEmpty() && !previewTIVar.subImg2.equals("dg")) {
                 Class res3 = R.drawable.class;
                 Field field3 = res3.getField(previewTIVar.subImg2);
                 int id3 = field3.getInt(null);
@@ -469,6 +469,48 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             }
         });
 
+        tisunv.setText(previewTIVar.road_unno);
+        tisdgv.setText(previewTIVar.road_dgclass);
+        tisriskv.setText(previewTIVar.road_subrisks);
+        tispgv.setText(previewTIVar.road_packgrp);
+        tispsnv.setText(previewTIVar.road_psn);
+
+        tishcv.setText(previewTIVar.road_hazchem);
+        tisepgv.setText(previewTIVar.road_epg);
+        tisinov.setText(previewTIVar.road_ierg);
+        tispmv.setText(previewTIVar.road_packmethod);
+
+        tissymv.setText("");
+        tisemsv.setText("");
+        tismpv.setText("");
+
+        setTIimgs(previewTIVar.road_dgclass, previewTIVar.road_subrisks);
+
+        try {
+            if (!previewTIVar.tisdgImg.equals("dg")) {
+                Class res1 = R.drawable.class;
+                Field field1 = res1.getField(previewTIVar.tisdgImg);
+                int id1 = field1.getInt(null);
+                tisdgImg.setImageResource(id1);
+            }
+
+            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
+                Class res2 = R.drawable.class;
+                Field field2 = res2.getField(previewTIVar.tissubImg1);
+                int id2 = field2.getInt(null);
+                tissubImg1.setImageResource(id2);
+            }
+
+            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
+                Class res3 = R.drawable.class;
+                Field field3 = res3.getField(previewTIVar.tissubImg2);
+                int id3 = field3.getInt(null);
+                tissubImg2.setImageResource(id3);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -484,6 +526,49 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 dgSC.setBackgroundResource(R.drawable.tis_seabg);
             }
         });
+
+        tisunv.setText(previewTIVar.imdg_unno);
+        tisdgv.setText(previewTIVar.imdg_dgclass);
+        tisriskv.setText(previewTIVar.imdg_subrisks);
+        tispgv.setText(previewTIVar.imdg_packgrp);
+        tispsnv.setText(previewTIVar.imdg_psn);
+
+        tishcv.setText("");
+        tisepgv.setText("");
+        tisinov.setText("");
+        tispmv.setText("");
+
+        tissymv.setText("");
+        tisemsv.setText(previewTIVar.imdg_ems);
+        tismpv.setText(previewTIVar.imdg_mp);
+
+        setTIimgs(previewTIVar.imdg_dgclass, previewTIVar.imdg_subrisks);
+
+        try {
+            if (!previewTIVar.tisdgImg.equals("dg")) {
+                Class res1 = R.drawable.class;
+                Field field1 = res1.getField(previewTIVar.tisdgImg);
+                int id1 = field1.getInt(null);
+                tisdgImg.setImageResource(id1);
+            }
+
+            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
+                Class res2 = R.drawable.class;
+                Field field2 = res2.getField(previewTIVar.tissubImg1);
+                int id2 = field2.getInt(null);
+                tissubImg1.setImageResource(id2);
+            }
+
+            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
+                Class res3 = R.drawable.class;
+                Field field3 = res3.getField(previewTIVar.tissubImg2);
+                int id3 = field3.getInt(null);
+                tissubImg2.setImageResource(id3);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setTIPageAirBtn() {
@@ -498,6 +583,49 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 dgSC.setBackgroundResource(R.drawable.tis_airbg);
             }
         });
+
+        tisunv.setText(previewTIVar.iata_unno);
+        tisdgv.setText(previewTIVar.iata_dgclass);
+        tisriskv.setText(previewTIVar.iata_subrisks);
+        tispgv.setText(previewTIVar.iata_packgrp);
+        tispsnv.setText(previewTIVar.iata_psn);
+
+        tishcv.setText("");
+        tisepgv.setText("");
+        tisinov.setText("");
+        tispmv.setText("");
+
+        tissymv.setText(previewTIVar.iata_symbol);
+        tisemsv.setText("");
+        tismpv.setText("");
+
+        setTIimgs(previewTIVar.iata_dgclass, previewTIVar.iata_subrisks);
+
+        try {
+            if (!previewTIVar.tisdgImg.equals("dg")) {
+                Class res1 = R.drawable.class;
+                Field field1 = res1.getField(previewTIVar.tisdgImg);
+                int id1 = field1.getInt(null);
+                tisdgImg.setImageResource(id1);
+            }
+
+            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
+                Class res2 = R.drawable.class;
+                Field field2 = res2.getField(previewTIVar.tissubImg1);
+                int id2 = field2.getInt(null);
+                tissubImg1.setImageResource(id2);
+            }
+
+            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
+                Class res3 = R.drawable.class;
+                Field field3 = res3.getField(previewTIVar.tissubImg2);
+                int id3 = field3.getInt(null);
+                tissubImg2.setImageResource(id3);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void roadBtnTapped(View v) {
@@ -510,5 +638,44 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     public void airBtnTapped(View v) {
         setTIPageAirBtn();
+    }
+
+    public void setTIimgs(String dgv, String subv) {
+
+        tisdgImg.setImageDrawable(null);
+        tissubImg1.setImageDrawable(null);
+        tissubImg2.setImageDrawable(null);
+
+        String dgimgs = dgv;
+        if (dgimgs.contains(".")) {
+            dgimgs = dgimgs.replace(".", "");
+        }
+        previewTIVar.tisdgImg = "dg" + dgimgs;
+
+//            Log.i("SUBIMGS", previewTIVar.road_subrisks);
+//            System.out.println(previewTIVar.road_subrisks);
+
+        String[] subImgsArray = subv.split(" ");
+
+        if (subImgsArray.length == 2) {
+            previewTIVar.tissubImg1 = subImgsArray[0];
+            previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
+            previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
+
+            previewTIVar.tissubImg2 = subImgsArray[1];
+            previewTIVar.tissubImg2 = previewTIVar.tissubImg2.replace(".", "");
+            previewTIVar.tissubImg2 = "dg" + previewTIVar.tissubImg2;
+
+        } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
+            previewTIVar.tissubImg1 = subImgsArray[0];
+            previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
+            previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
+
+            previewTIVar.tissubImg2 = "";
+        } else {
+            previewTIVar.tissubImg1 = "";
+            previewTIVar.tissubImg2 = "";
+        }
+
     }
 }

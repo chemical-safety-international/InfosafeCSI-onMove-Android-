@@ -32,4 +32,9 @@ public class previewTIVar {
     public static String subImg1;
     public static String subImg2;
 
+    public static String tisdgImg;
+
+    public static String tissubImg1;
+    public static String tissubImg2;
+
 }
