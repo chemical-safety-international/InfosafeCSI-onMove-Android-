@@ -104,4 +104,12 @@
     <string name="tis_subImg1">TI single page sub Img1</string>
     <string name="tis_subImg2">TI single page sub Img2</string>
 
+    //First AID texts
+    <string name="fa_inhtitle">INHALATION</string>
+    <string name="fa_ingtitle">INGESTION</string>
+    <string name="fa_skintitle">SKIN</string>
+    <string name="fa_eyetitle">EYE</string>
+    <string name="fa_faftitle">FIRST AID FACILITIES</string>
+    <string name="fa_atd">ADVICE TO DOCTOR</string>
+
 </resources>

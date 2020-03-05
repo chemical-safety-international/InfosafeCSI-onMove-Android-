@@ -97,7 +97,13 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         String img4v = currentItem.getImgV4();
         String img5v = currentItem.getImgV5();
 
+        holder.img1.setImageDrawable(null);
+        holder.img2.setImageDrawable(null);
+        holder.img3.setImageDrawable(null);
+        holder.img4.setImageDrawable(null);
+        holder.img5.setImageDrawable(null);
 
+//        Log.i("single ghs img:", img1v);
         try {
 
             //match images and set into imageviews
@@ -147,7 +153,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             public void onClick(View v) {
                 try {
                     String sdsno = searchItemList.sdsnoArray[position];
-                    System.out.println("passV sdsNO:" + sdsno);
+//                    System.out.println("passV sdsNO:" + sdsno);
                     String clientid, uid, rtype;
                     int apptp;
 
@@ -160,13 +166,19 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                     csiWCF_VM callpreview = new csiWCF_VM();
 
                     // get the GHS value and go to the activity
-                    if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype) == true) {
+                    if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype)) {
                         if (callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype)){
-                            v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+                            if (callpreview.PreviewFAID(clientid, uid, sdsno, apptp, rtype)) {
+                                v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+                            } else {
+                                Log.i("Error", "call first aid failed");
+                            }
+                        } else {
+                            Log.i("Error", "call TI information failed");
                         }
 
                     } else {
-                        System.out.println("Error, call GHS failed");
+                        Log.i("Error", "call GHS failed");
                     }
 
                 } catch (Exception e) {

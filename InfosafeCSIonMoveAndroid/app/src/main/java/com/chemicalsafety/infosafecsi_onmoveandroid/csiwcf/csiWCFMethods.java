@@ -45,7 +45,7 @@ public class csiWCFMethods {
             user.put("deviceMEID", "");
             user.put("sourceip", "");
 
-            System.out.println(user);
+//            System.out.println(user);
 
             String urlFinal = url + "LoginByEMail";
 
@@ -111,7 +111,7 @@ public class csiWCFMethods {
             HttpEntity entity1 = response.getEntity();
             final String responseText = EntityUtils.toString(entity1);
 
-            Log.i("Output", responseText);
+//            Log.i("Output", responseText);
 
             return responseText;
         } catch (Exception e) {
@@ -230,6 +230,35 @@ public class csiWCFMethods {
             final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output ViewSDS:", responseText);
+
+            return responseText;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String ViewSDS_FirstAid(JSONObject passV) {
+        try {
+            String urlFinal = url + "ViewSDS_FirstAid";
+
+            HttpPost postMethod = new HttpPost(urlFinal.trim());
+
+            postMethod.setHeader("Accept", "application/json");
+            postMethod.setHeader("Content-type", "application/json");
+
+            StringEntity entity = new StringEntity(passV.toString(), HTTP.UTF_8);
+            postMethod.setEntity(entity);
+
+            HttpClient hc = new DefaultHttpClient();
+
+            HttpResponse response = hc.execute(postMethod);
+
+            HttpEntity entity1 = response.getEntity();
+            final String responseText = EntityUtils.toString(entity1);
+
+//            Log.i("Output ViewSDS_FirstAid:", responseText);
 
             return responseText;
 

@@ -1,13 +1,10 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +14,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewTIVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
-import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 import java.lang.reflect.Field;
@@ -43,7 +40,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     ProgressBar sdsprogressBar;
 
     //scrollviews
-    ScrollView preghsSC, dgSC;
+    ScrollView preghsSC, tiSC, faSC;
 
     //TI layout images, buttons and textviews
     Button tisroadBtn, tisseaBtn, tisairBtn;
@@ -53,6 +50,11 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     TextView tisuntitle, tisdgtitle, tisrisktitle, tispgtitle, tispsntitle, tissymtitle, tisemstitle, tismptitle, tishctitle, tisepgtitle, tisinotitle, tispmtitle;
 
     TextView tisunv, tisdgv, tisriskv, tispgv, tispsnv, tissymv, tisemsv, tismpv, tishcv, tisepgv, tisinov, tispmv;
+
+    //First AID layout textviews
+    TextView inhtitle, ingtitle, skintitle, eyetitle, faftitle, atdtitle;
+
+    TextView fainhv, faingv, faskinv, faeyev, fafafv, faatdv;
 
     int sdsBtnwidth;
 
@@ -97,7 +99,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         sdsprogressBar = findViewById(R.id.sdsprogressBar);
 
         preghsSC = findViewById(R.id.PRE_GHSScrollView);
-        dgSC = findViewById(R.id.TIScrollView);
+        tiSC = findViewById(R.id.TIScrollView);
+        faSC = findViewById(R.id.FAIDScrollView);
 
         tisroadBtn = findViewById(R.id.roadBtn);
         tisseaBtn = findViewById(R.id.seaBtn);
@@ -119,6 +122,13 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tisepgv = findViewById(R.id.tisepgv);
         tisinov = findViewById(R.id.tisinov);
         tispmv = findViewById(R.id.tispmv);
+
+        fainhv = findViewById(R.id.inhv);
+        faingv = findViewById(R.id.ingv);
+        faskinv = findViewById(R.id.skinv);
+        faeyev = findViewById(R.id.eyev);
+        fafafv = findViewById(R.id.fafv);
+        faatdv = findViewById(R.id.atdv);
 
         setValues();
         setBtnsValues();
@@ -143,11 +153,26 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public void setValues() {
+        //hide other layout
+        tiSC.setVisibility(View.INVISIBLE);
+        faSC.setVisibility(View.INVISIBLE);
+
+        //default the imgs
+        ghscImg1.setImageDrawable(null);
+        ghscImg2.setImageDrawable(null);
+        ghscImg3.setImageDrawable(null);
+        ghscImg4.setImageDrawable(null);
+        ghscImg5.setImageDrawable(null);
+
+        tiImg.setImageDrawable(null);
+        tisubImg1.setImageDrawable(null);
+        tisubImg2.setImageDrawable(null);
 
         //set GHS textviews' value
         ghsvalue.setText(previewGHSVar.classification);
         hazvalue.setText(previewGHSVar.hstate);
         psvalue.setText(previewGHSVar.ps);
+//        psvalue.setText("00000");
 
         String ghsgentitle = getString(R.string.ps_general);
         String ghspretitle = getString(R.string.ps_prevention);
@@ -213,8 +238,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             String psntitle = getString(R.string.ti_psn);
 
             tivalue.setText(fromHtml(unnotitle + "<br/>" + previewTIVar.road_unno + "<br/><br/>" + dgtitle + "<br/>" + previewTIVar.road_dgclass + "<br/><br/>" + haztitle + "<br/>" + previewTIVar.road_hazchem + "<br/><br/>" + pgtitle + "<br/>" + previewTIVar.road_packgrp + "<br/><br/>" + psntitle + "<br/>" + previewTIVar.road_psn));
+//            Log.i("DG String", previewTIVar.dgImg);
 
-            if (!previewTIVar.dgImg.isEmpty() && !previewTIVar.dgImg.equals("dg")) {
+            if (previewTIVar.dgImg != null && !previewTIVar.dgImg.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.dgImg);
                 int id1 = field1.getInt(null);
@@ -251,7 +277,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                dgSC.setVisibility(View.INVISIBLE);
+                tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
 
                 sdsBtn.setEnabled(false);
@@ -333,7 +359,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public Boolean callViewSDS() {
-        Log.i("View SDS", "CallViewSDS");
+//        Log.i("View SDS", "CallViewSDS");
 
         String rtype = "1";
         int apptp = loginVar.apptype;
@@ -351,7 +377,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public void sdsBtnTapped(View v) {
-        Log.i("View SDS", "Tapped sdsbtn" + sdsget);
+//        Log.i("View SDS", "Tapped sdsbtn" + sdsget);
 
         if (sdsget) {
             Intent intent = new Intent(this, ViewSDSPageAC.class);
@@ -364,8 +390,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                dgSC.setVisibility(View.INVISIBLE);
+                tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
+                faSC.setVisibility(View.INVISIBLE);
 
                 ghsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
@@ -402,8 +429,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                dgSC.setVisibility(View.INVISIBLE);
+                tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
+                faSC.setVisibility(View.INVISIBLE);
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
@@ -440,8 +468,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                dgSC.setVisibility(View.VISIBLE);
+                tiSC.setVisibility(View.VISIBLE);
                 preghsSC.setVisibility(View.INVISIBLE);
+                faSC.setVisibility(View.INVISIBLE);
                 setTIPageBtns();
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
@@ -453,6 +482,16 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public void setTIPageBtns() {
+        if (previewTIVar.imdg_unno.isEmpty()) {
+            tisseaBtn.setVisibility(View.INVISIBLE);
+        } else {
+            tisseaBtn.setVisibility(View.VISIBLE);
+        }
+        if(previewTIVar.iata_unno.isEmpty()) {
+            tisairBtn.setVisibility(View.INVISIBLE);
+        } else {
+            tisairBtn.setVisibility(View.VISIBLE);
+        }
         setTIPageRoadBtn();
     }
 
@@ -465,7 +504,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
 
-                dgSC.setBackgroundResource(R.drawable.tis_roadbg);
+                tiSC.setBackgroundResource(R.drawable.tis_roadbg);
             }
         });
 
@@ -487,7 +526,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setTIimgs(previewTIVar.road_dgclass, previewTIVar.road_subrisks);
 
         try {
-            if (!previewTIVar.tisdgImg.equals("dg")) {
+            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.tisdgImg);
                 int id1 = field1.getInt(null);
@@ -523,7 +562,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
                 tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
 
-                dgSC.setBackgroundResource(R.drawable.tis_seabg);
+                tiSC.setBackgroundResource(R.drawable.tis_seabg);
             }
         });
 
@@ -545,7 +584,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setTIimgs(previewTIVar.imdg_dgclass, previewTIVar.imdg_subrisks);
 
         try {
-            if (!previewTIVar.tisdgImg.equals("dg")) {
+            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.tisdgImg);
                 int id1 = field1.getInt(null);
@@ -580,7 +619,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
 
-                dgSC.setBackgroundResource(R.drawable.tis_airbg);
+                tiSC.setBackgroundResource(R.drawable.tis_airbg);
             }
         });
 
@@ -602,7 +641,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setTIimgs(previewTIVar.iata_dgclass, previewTIVar.iata_subrisks);
 
         try {
-            if (!previewTIVar.tisdgImg.equals("dg")) {
+            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.tisdgImg);
                 int id1 = field1.getInt(null);
@@ -646,36 +685,81 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tissubImg1.setImageDrawable(null);
         tissubImg2.setImageDrawable(null);
 
+
+
         String dgimgs = dgv;
-        if (dgimgs.contains(".")) {
-            dgimgs = dgimgs.replace(".", "");
+
+//        System.out.println("Before");
+//        Log.i("values for road", dgimgs);
+
+        if (dgimgs.contains("None")) {
+            previewTIVar.tisdgImg = "";
+        } else {
+            if (dgimgs.contains(".")) {
+                dgimgs = dgimgs.replace(".", "");
+            }
+            previewTIVar.tisdgImg = "dg" + dgimgs;
         }
-        previewTIVar.tisdgImg = "dg" + dgimgs;
+//        System.out.println("after");
+//        Log.i("values 2:", previewTIVar.tisdgImg);
 
 //            Log.i("SUBIMGS", previewTIVar.road_subrisks);
 //            System.out.println(previewTIVar.road_subrisks);
-
-        String[] subImgsArray = subv.split(" ");
-
-        if (subImgsArray.length == 2) {
-            previewTIVar.tissubImg1 = subImgsArray[0];
-            previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
-            previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
-
-            previewTIVar.tissubImg2 = subImgsArray[1];
-            previewTIVar.tissubImg2 = previewTIVar.tissubImg2.replace(".", "");
-            previewTIVar.tissubImg2 = "dg" + previewTIVar.tissubImg2;
-
-        } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
-            previewTIVar.tissubImg1 = subImgsArray[0];
-            previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
-            previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
-
-            previewTIVar.tissubImg2 = "";
-        } else {
+        if (subv.contains("None")) {
             previewTIVar.tissubImg1 = "";
             previewTIVar.tissubImg2 = "";
+        } else {
+            String[] subImgsArray = subv.split(" ");
+
+            if (subImgsArray.length == 2) {
+                previewTIVar.tissubImg1 = subImgsArray[0];
+                previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
+                previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
+
+                previewTIVar.tissubImg2 = subImgsArray[1];
+                previewTIVar.tissubImg2 = previewTIVar.tissubImg2.replace(".", "");
+                previewTIVar.tissubImg2 = "dg" + previewTIVar.tissubImg2;
+
+            } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
+                previewTIVar.tissubImg1 = subImgsArray[0];
+                previewTIVar.tissubImg1 = previewTIVar.tissubImg1.replace(".", "");
+                previewTIVar.tissubImg1 = "dg" + previewTIVar.tissubImg1;
+
+                previewTIVar.tissubImg2 = "";
+            } else {
+                previewTIVar.tissubImg1 = "";
+                previewTIVar.tissubImg2 = "";
+            }
         }
 
+
+    }
+
+    public void faBtnTapped(View v) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tiSC.setVisibility(View.INVISIBLE);
+                preghsSC.setVisibility(View.INVISIBLE);
+                faSC.setVisibility(View.VISIBLE);
+
+                previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+                dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+                faBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+                ghsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+
+                setFAIDValues();
+            }
+        });
+    }
+
+    public void setFAIDValues() {
+
+        fainhv.setText(previewFAIDVar.inhalation);
+        faingv.setText(previewFAIDVar.ingestion);
+        faskinv.setText(previewFAIDVar.skin);
+        faeyev.setText(previewFAIDVar.eye);
+        fafafv.setText(previewFAIDVar.fafacilities);
+        faatdv.setText(previewFAIDVar.advdoctor);
     }
 }

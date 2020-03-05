@@ -72,8 +72,8 @@ public class LoginPageAC extends AppCompatActivity {
         String emailText = email.getText().toString();
         String passwordlText = password.getText().toString();
 
-        Log.d("email", emailText);
-        Log.d("password", passwordlText);
+//        Log.d("email", emailText);
+//        Log.d("password", passwordlText);
 
         csiWCF_VM wcf = new csiWCF_VM();
         if (wcf.Login(emailText,passwordlText ) == true) {

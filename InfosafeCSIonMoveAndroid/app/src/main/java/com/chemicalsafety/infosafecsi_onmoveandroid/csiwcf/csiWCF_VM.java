@@ -3,6 +3,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewTIVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.sdspdfVar;
@@ -79,7 +80,7 @@ public class csiWCF_VM {
                 String pnameStr = pnameInput.trim();
                 singleValue = "0" + pnameStr;
                 type = "2";
-                System.out.println(singleValue);
+//                System.out.println(singleValue);
 
                 JSONObject pnameJson = new JSONObject();
                 JSONArray pnArray = new JSONArray();
@@ -100,7 +101,7 @@ public class csiWCF_VM {
                 String supStr = supplierInput.trim();
                 singleValue = "0" + supStr;
                 type = "4";
-                System.out.println(singleValue);
+//                System.out.println(singleValue);
 
                 JSONObject supJSON = new JSONObject();
                 JSONArray supArray = new JSONArray();
@@ -121,7 +122,7 @@ public class csiWCF_VM {
                 String pcodeStr = pcodeInput.trim();
                 singleValue = "0" + pcodeStr;
                 type = "8";
-                System.out.println(singleValue);
+//                System.out.println(singleValue);
 
                 JSONObject pcJSON = new JSONObject();
                 JSONArray pcArray = new JSONArray();
@@ -263,7 +264,40 @@ public class csiWCF_VM {
 
                 } else {
 
-                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, pitgs.trim().toLowerCase(), "", "", "", ""));
+                    String ghsimginput = pitgs.trim().toLowerCase();
+                    String imgCode;
+                    if (ghsimginput.toLowerCase().trim().equals("flame")) {
+                        imgCode = "ghs02";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("skull and crossbones")) {
+                        imgCode = "ghs06";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("flame over circle")) {
+                        imgCode = "ghs03";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("exclamation mark")) {
+                        imgCode = "ghs07";
+//                            int imgCode = R.drawable.ghs07;
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("environment")) {
+                        imgCode = "ghs09";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("health hazard")) {
+                        imgCode = "ghs08";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("corrosion")) {
+                        imgCode = "ghs05";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("gas cylinder")) {
+                        imgCode = "ghs04";
+
+                    } else if (ghsimginput.toLowerCase().trim().equals("exploding bomb")) {
+                        imgCode = "ghs01";
+
+                    } else {
+                        imgCode = "";
+                    }
+                    searchItemList.tableList.add(new searchItemList(com2, date2, pname2, unno2, code2, pitgs, coun1, key2, imgCode, "", "", "", ""));
 
                 }
 
@@ -288,6 +322,24 @@ public class csiWCF_VM {
     public Boolean PreviewGHS(String clientid, String uid, String sdsno, int apptp, String rtype) {
 
 //        System.out.println(searchItemList.tableList);
+        previewGHSVar.formatcode = "";
+        previewGHSVar.classification = "";
+        previewGHSVar.dg = "";
+        previewGHSVar.ps = "";
+        previewGHSVar.pstate = "";
+        previewGHSVar.pic = "";
+        previewGHSVar.rphrase = "";
+        previewGHSVar.sds = "";
+        previewGHSVar.sphrase = "";
+        previewGHSVar.ps_general = "";
+        previewGHSVar.ps_response = "";
+        previewGHSVar.ps_prevention = "";
+        previewGHSVar.ps_storage = "";
+        previewGHSVar.ps_disposal = "";
+
+        previewGHSVar.ghscImgList.clear();
+        previewGHSVar.ghscImgList.removeAll(previewGHSVar.ghscImgList);
+
 
         try {
             JSONObject passV = new JSONObject();
@@ -368,6 +420,9 @@ public class csiWCF_VM {
 //                String pstate = respJSON.getString("psatate");
 //                previewGHSVar.pstate = pstate;
 
+                String ps = respJSON.getString("ps");
+                previewGHSVar.ps = ps;
+
                 String sds = respJSON.getString("sds");
                 previewGHSVar.sds = sds;
 
@@ -393,6 +448,8 @@ public class csiWCF_VM {
                 previewGHSVar.ps_storage = ps_storage;
             }
 
+//            System.out.println("Reach here");
+//            Log.i("original pic value", previewGHSVar.pic);
 
             if (previewGHSVar.pic.contains(",")) {
                 String[] imgs = previewGHSVar.pic.split(",");
@@ -453,7 +510,41 @@ public class csiWCF_VM {
 
             } else {
 
-                previewGHSVar.ghscImgList.add(new previewGHSVar(previewGHSVar.pic.trim().toLowerCase(), "", "", "", ""));
+                String ghsimginput = previewGHSVar.pic.trim().toLowerCase();
+                String imgCode;
+                if (ghsimginput.toLowerCase().trim().equals("flame")) {
+                    imgCode = "ghs02";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("skull and crossbones")) {
+                    imgCode = "ghs06";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("flame over circle")) {
+                    imgCode = "ghs03";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("exclamation mark")) {
+                    imgCode = "ghs07";
+//                            int imgCode = R.drawable.ghs07;
+
+                } else if (ghsimginput.toLowerCase().trim().equals("environment")) {
+                    imgCode = "ghs09";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("health hazard")) {
+                    imgCode = "ghs08";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("corrosion")) {
+                    imgCode = "ghs05";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("gas cylinder")) {
+                    imgCode = "ghs04";
+
+                } else if (ghsimginput.toLowerCase().trim().equals("exploding bomb")) {
+                    imgCode = "ghs01";
+
+                } else {
+                    imgCode = "";
+                }
+//                Log.i("after convert img1:", imgCode);
+                previewGHSVar.ghscImgList.add(new previewGHSVar(imgCode, "", "", "", ""));
 
             }
 
@@ -471,6 +562,35 @@ public class csiWCF_VM {
     }
 
     public Boolean PreviewTI(String clientid, String uid, String sdsno, int apptp, String rtype) {
+        previewTIVar.road_unno = "";
+        previewTIVar.road_dgclass = "";
+        previewTIVar.road_subrisks = "";
+        previewTIVar.road_packgrp = "";
+        previewTIVar.road_psn = "";
+        previewTIVar.road_hazchem = "";
+        previewTIVar.road_epg = "";
+        previewTIVar.road_ierg = "";
+        previewTIVar.road_packmethod = "";
+
+        previewTIVar.imdg_unno = "";
+        previewTIVar.imdg_dgclass = "";
+        previewTIVar.imdg_subrisks = "";
+        previewTIVar.imdg_packgrp = "";
+        previewTIVar.imdg_psn = "";
+        previewTIVar.imdg_ems = "";
+        previewTIVar.imdg_mp = "";
+
+        previewTIVar.iata_unno = "";
+        previewTIVar.iata_dgclass = "";
+        previewTIVar.iata_subrisks = "";
+        previewTIVar.iata_packgrp = "";
+        previewTIVar.iata_psn = "";
+        previewTIVar.iata_symbol = "";
+
+        previewTIVar.dgImg = "";
+        previewTIVar.subImg1 = "";
+        previewTIVar.subImg2 = "";
+
 
         try {
 
@@ -491,16 +611,65 @@ public class csiWCF_VM {
 
             JSONObject respJSON = new JSONObject(responseText);
 
+            if (respJSON.getString("road_unno").toLowerCase().contains("none")) {
+                previewTIVar.road_unno = "None";
+            } else {
+                previewTIVar.road_unno = respJSON.getString("road_unno");
+            }
 
-            previewTIVar.road_unno = respJSON.getString("road_unno");
-            previewTIVar.road_dgclass = respJSON.getString("road_dgclass");
+            if (respJSON.getString("road_dgclass").toLowerCase().contains("none")) {
+                previewTIVar.road_dgclass = "None";
+            } else {
+                previewTIVar.road_dgclass = respJSON.getString("road_dgclass");
+
+                String dgimgs = previewTIVar.road_dgclass;
+                if (dgimgs.contains(".")) {
+                    dgimgs = dgimgs.replace(".", "");
+                }
+                previewTIVar.dgImg = "dg" + dgimgs;
+            }
+
+            if (respJSON.getString("road_subrisks").toLowerCase().contains("none")) {
+                previewTIVar.road_subrisks = "None";
+            } else {
+                previewTIVar.road_subrisks = respJSON.getString("road_subrisks");
+
+                String[] subImgsArray = previewTIVar.road_subrisks.split(" ");
+
+                if (subImgsArray.length == 2) {
+                    previewTIVar.subImg1 = subImgsArray[0];
+                    previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
+                    previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
+
+                    previewTIVar.subImg2 = subImgsArray[1];
+                    previewTIVar.subImg2 = previewTIVar.subImg2.replace(".", "");
+                    previewTIVar.subImg2 = "dg" + previewTIVar.subImg2;
+
+                } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
+                    previewTIVar.subImg1 = subImgsArray[0];
+                    previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
+                    previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
+
+                    previewTIVar.subImg2 = "";
+                } else {
+                    previewTIVar.subImg1 = "";
+                    previewTIVar.subImg2 = "";
+                }
+            }
+
+            if (respJSON.getString("road_packgrp").toLowerCase().contains("none")) {
+                previewTIVar.road_packgrp = "None";
+            } else {
+                previewTIVar.road_packgrp = respJSON.getString("road_packgrp");
+            }
+
             previewTIVar.road_hazchem = respJSON.getString("road_hazchem");
             previewTIVar.road_epg = respJSON.getString("road_epg");
             previewTIVar.road_ierg = respJSON.getString("road_ierg");
-            previewTIVar.road_packgrp = respJSON.getString("road_packgrp");
+
             previewTIVar.road_packmethod = respJSON.getString("road_packmethod");
             previewTIVar.road_psn = respJSON.getString("road_psn");
-            previewTIVar.road_subrisks = respJSON.getString("road_subrisks");
+
 
             previewTIVar.imdg_dgclass = respJSON.getString("imdg_dgclass");
             previewTIVar.imdg_ems = respJSON.getString("imdg_ems");
@@ -517,38 +686,12 @@ public class csiWCF_VM {
             previewTIVar.iata_symbol = respJSON.getString("iata_symbol");
             previewTIVar.iata_unno = respJSON.getString("iata_unno");
 
-            String dgimgs = previewTIVar.road_dgclass;
-            if (dgimgs.contains(".")) {
-                dgimgs = dgimgs.replace(".", "");
-            }
-            previewTIVar.dgImg = "dg" + dgimgs;
+
 
 //            Log.i("SUBIMGS", previewTIVar.road_subrisks);
 //            System.out.println(previewTIVar.road_subrisks);
 
-            String[] subImgsArray = previewTIVar.road_subrisks.split(" ");
 
-
-
-            if (subImgsArray.length == 2) {
-                previewTIVar.subImg1 = subImgsArray[0];
-                previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
-                previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
-
-                previewTIVar.subImg2 = subImgsArray[1];
-                previewTIVar.subImg2 = previewTIVar.subImg2.replace(".", "");
-                previewTIVar.subImg2 = "dg" + previewTIVar.subImg2;
-
-            } else if (subImgsArray.length == 1 && !subImgsArray[0].equals("")) {
-                previewTIVar.subImg1 = subImgsArray[0];
-                previewTIVar.subImg1 = previewTIVar.subImg1.replace(".", "");
-                previewTIVar.subImg1 = "dg" + previewTIVar.subImg1;
-
-                previewTIVar.subImg2 = "";
-            } else {
-                previewTIVar.subImg1 = "";
-                previewTIVar.subImg2 = "";
-            }
 
 //            System.out.println("DG value:");
 //            System.out.println(previewTIVar.dgImg);
@@ -574,6 +717,8 @@ public class csiWCF_VM {
 
     public Boolean ViewSDS(String clientid, String uid, String sdsno, int apptp, String rtype) {
 
+        sdspdfVar.sdspdf = "";
+
         try {
             JSONObject passV = new JSONObject();
             passV.put("client", clientid);
@@ -589,7 +734,7 @@ public class csiWCF_VM {
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.ViewSDS(passV);
 
-            Log.i("Output ViewSDS PDF:", responseText);
+//            Log.i("Output ViewSDS PDF:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
 
@@ -601,7 +746,53 @@ public class csiWCF_VM {
             return false;
         }
 
+    }
 
+    public Boolean PreviewFAID(String clientid, String uid, String sdsno, int apptp, String rtype) {
+
+        previewFAIDVar.inhalation = "";
+        previewFAIDVar.ingestion = "";
+        previewFAIDVar.skin = "";
+        previewFAIDVar.eye = "";
+        previewFAIDVar.fafacilities = "";
+        previewFAIDVar.advdoctor = "";
+        previewFAIDVar.sdsno = "";
+
+        try {
+
+            JSONObject passV = new JSONObject();
+            passV.put("client", clientid);
+            passV.put("apptp", apptp);
+            passV.put("sds", sdsno);
+            passV.put("rtype", rtype);
+            passV.put("regetFormat", "1");
+            passV.put("f", "");
+            passV.put("subf","");
+            passV.put("uid", uid);
+
+
+            csiWCFMethods wcf = new csiWCFMethods();
+            String responseText = wcf.ViewSDS_FirstAid(passV);
+
+//            Log.i("Output F.AID:", responseText);
+
+            JSONObject respJSON = new JSONObject(responseText);
+
+
+            previewFAIDVar.inhalation = respJSON.getString("inhalation");
+            previewFAIDVar.ingestion = respJSON.getString("ingestion");
+            previewFAIDVar.skin = respJSON.getString("skin");
+            previewFAIDVar.eye = respJSON.getString("eye");
+            previewFAIDVar.fafacilities = respJSON.getString("fafacilities");
+            previewFAIDVar.advdoctor = respJSON.getString("advdoctor");
+            previewFAIDVar.sdsno = respJSON.getString("sds");
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
