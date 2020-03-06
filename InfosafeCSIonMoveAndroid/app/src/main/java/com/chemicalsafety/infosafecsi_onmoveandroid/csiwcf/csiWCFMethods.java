@@ -18,8 +18,8 @@ import org.json.JSONObject;
 
 public class csiWCFMethods {
 
-    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    //String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
 

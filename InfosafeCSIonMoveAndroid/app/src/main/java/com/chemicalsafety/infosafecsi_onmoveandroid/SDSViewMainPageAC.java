@@ -1,11 +1,12 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,49 +68,70 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sdsview_main_page_ac);
 
+        //connect ghs titles
         ghstitle = findViewById(R.id.ghstitle);
         haztitle = findViewById(R.id.haztitle);
         prectitle = findViewById(R.id.prectitle);
         tititle = findViewById(R.id.tititle);
         pstitle = findViewById(R.id.pstitle);
 
-
+        //connect ghs values
         ghsvalue = findViewById(R.id.ghsvalue);
         hazvalue = findViewById(R.id.hazvalue);
         precvalue = findViewById(R.id.precvalue);
         tivalue = findViewById(R.id.tivalue);
         psvalue = findViewById(R.id.psvalue);
 
+        //connect ghs images
         ghscImg1 = findViewById(R.id.ghscImg1);
         ghscImg2 = findViewById(R.id.ghscImg2);
         ghscImg3 = findViewById(R.id.ghscImg3);
         ghscImg4 = findViewById(R.id.ghscImg4);
         ghscImg5 = findViewById(R.id.ghscImg5);
 
+        //connect preview ti images
         tiImg = findViewById(R.id.tiImg);
         tisubImg1 = findViewById(R.id.tisubImg1);
         tisubImg2 = findViewById(R.id.tisubImg2);
 
+        //connect top tool buttons
         sdsBtn = findViewById(R.id.sdsBtn);
         previewBtn = findViewById(R.id.prevBtn);
         ghsBtn = findViewById(R.id.ghsBtn);
         dgBtn = findViewById(R.id.dgBtn);
         faBtn = findViewById(R.id.faidBtn);
 
+        //connect scrollviews & sds progress bar
         sdsprogressBar = findViewById(R.id.sdsprogressBar);
 
         preghsSC = findViewById(R.id.PRE_GHSScrollView);
         tiSC = findViewById(R.id.TIScrollView);
         faSC = findViewById(R.id.FAIDScrollView);
 
+        //connect ti buttons
         tisroadBtn = findViewById(R.id.roadBtn);
         tisseaBtn = findViewById(R.id.seaBtn);
         tisairBtn = findViewById(R.id.airBtn);
 
+        //connect ti titles
+        tisuntitle = findViewById(R.id.tisunno);
+        tisdgtitle = findViewById(R.id.tisdg);
+        tisrisktitle = findViewById(R.id.tisrisk);
+        tispsntitle = findViewById(R.id.tispsntitle);
+        tissymtitle = findViewById(R.id.tissymtitle);
+        tisemstitle = findViewById(R.id.tisemstitle);
+        tismptitle = findViewById(R.id.tismptitle);
+        tishctitle = findViewById(R.id.tishaztitle);
+        tisepgtitle = findViewById(R.id.tisepgtitle);
+        tisinotitle = findViewById(R.id.tisinotitle);
+        tispmtitle = findViewById(R.id.tispmtitle);
+
+        //connect ti images
         tisdgImg = findViewById(R.id.tisdgImg);
         tissubImg1 = findViewById(R.id.tissubImg1);
         tissubImg2 = findViewById(R.id.tissubImg2);
 
+        //connect ti values
         tisunv = findViewById(R.id.tisunv);
         tisdgv = findViewById(R.id.tisdgv);
         tisriskv = findViewById(R.id.tisriskv);
@@ -123,6 +145,15 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tisinov = findViewById(R.id.tisinov);
         tispmv = findViewById(R.id.tispmv);
 
+        //connect fa titles
+        inhtitle = findViewById(R.id.inhtitle);
+        ingtitle = findViewById(R.id.ingtitle);
+        skintitle = findViewById(R.id.skintitle);
+        eyetitle = findViewById(R.id.eyetitle);
+        faftitle = findViewById(R.id.faftitle);
+        atdtitle = findViewById(R.id.atdtitle);
+
+        //connect fa values
         fainhv = findViewById(R.id.inhv);
         faingv = findViewById(R.id.ingv);
         faskinv = findViewById(R.id.skinv);
@@ -168,6 +199,10 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tisubImg1.setImageDrawable(null);
         tisubImg2.setImageDrawable(null);
 
+        //init the constrainst set
+        ConstraintSet set = new ConstraintSet();
+        ConstraintLayout layout;
+
         //set GHS textviews' value
         ghsvalue.setText(previewGHSVar.classification);
         hazvalue.setText(previewGHSVar.hstate);
@@ -183,8 +218,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         precvalue.setText(fromHtml(ghsgentitle + "<br/>" + previewGHSVar.ps_general + "<br/><br/>" + ghsrestitle + "<br/>" + previewGHSVar.ps_response + "<br/><br/>" + ghspretitle + "<br/>" + previewGHSVar.ps_prevention + "<br/><br/>" + ghsstotitle + "<br/>" + previewGHSVar.ps_storage + "<br/><br/>" + ghsdistitle + "<br/>" + previewGHSVar.ps_disposal));
 
 
-        //set ghs images' value
-
+        //get ghs images' value
         previewGHSVar ghsItems = previewGHSVar.ghscImgList.get(0);
         String ghsimg1v = ghsItems.getGhscimg1();
         String ghsimg2v = ghsItems.getGhscimg2();
@@ -193,21 +227,25 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         String ghsimg5v = ghsItems.getGhscimg5();
 
         try {
-
             //match images and set into imageviews
             if (!ghsimg1v.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(ghsimg1v);
                 int id1 = field1.getInt(null);
                 ghscImg1.setImageResource(id1);
+                ghscImg1.setVisibility(View.VISIBLE);
+            } else {
+                ghscImg1.setVisibility(View.GONE);
             }
-
 
             if (!ghsimg2v.isEmpty()) {
                 Class res2 = R.drawable.class;
                 Field field2 = res2.getField(ghsimg2v);
                 int id2 = field2.getInt(null);
                 ghscImg2.setImageResource(id2);
+                ghscImg2.setVisibility(View.VISIBLE);
+            } else {
+                ghscImg2.setVisibility(View.GONE);
             }
 
             if (!ghsimg3v.isEmpty()) {
@@ -215,6 +253,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 Field field3 = res3.getField(ghsimg3v);
                 int id3 = field3.getInt(null);
                 ghscImg3.setImageResource(id3);
+                ghscImg3.setVisibility(View.VISIBLE);
+            } else {
+                ghscImg3.setVisibility(View.GONE);
             }
 
             if (!ghsimg4v.isEmpty()) {
@@ -222,12 +263,43 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 Field field4 = res4.getField(ghsimg4v);
                 int id4 = field4.getInt(null);
                 ghscImg4.setImageResource(id4);
+                ghscImg4.setVisibility(View.VISIBLE);
+
+                //rebuild the constraint of image4 and ghs value when image4 is exist
+                layout = (ConstraintLayout) findViewById(R.id.PRE_GHSCL);
+                set.clone(layout);
+                set.connect(R.id.ghscImg4, ConstraintSet.TOP, R.id.ghstitle, ConstraintSet.BOTTOM, 170);
+//                set.clear(R.id.ghsvalue, ConstraintSet.TOP);
+                set.connect(R.id.ghsvalue, ConstraintSet.TOP, R.id.ghscImg4, ConstraintSet.BOTTOM, 15);
+                set.applyTo(layout);
+
+            } else {
+                ghscImg4.setVisibility(View.GONE);
+
+                //rebuild the constraint of image4 and ghs value when image4 not exist and for image1 exist/ not exist
+                layout = (ConstraintLayout) findViewById(R.id.PRE_GHSCL);
+                set.clone(layout);
+                set.clear(R.id.ghscImg4, ConstraintSet.TOP);
+                if (!ghsimg1v.isEmpty() && ghsimg4v.isEmpty()) {
+                    set.connect(R.id.ghsvalue, ConstraintSet.TOP, R.id.ghscImg1, ConstraintSet.BOTTOM, 15);
+                } else if (ghsimg1v.isEmpty() && ghsimg4v.isEmpty()) {
+                    set.connect(R.id.ghsvalue, ConstraintSet.TOP, R.id.ghstitle, ConstraintSet.BOTTOM, 15);
+                }
+////                else {
+//////                    set.connect(R.id.ghscImg4, ConstraintSet.BOTTOM, R.id.ghsvalue, ConstraintSet.TOP, 15);
+////                    set.clear(R.id.ghsvalue, ConstraintSet.TOP);
+////                }
+                set.applyTo(layout);
             }
+
             if (!ghsimg5v.isEmpty()) {
                 Class res5 = R.drawable.class;
                 Field field5 = res5.getField(ghsimg5v);
                 int id5 = field5.getInt(null);
                 ghscImg5.setImageResource(id5);
+                ghscImg5.setVisibility(View.VISIBLE);
+            } else {
+                ghscImg5.setVisibility(View.GONE);
             }
 
             //set TI textviews' value
@@ -240,11 +312,28 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             tivalue.setText(fromHtml(unnotitle + "<br/>" + previewTIVar.road_unno + "<br/><br/>" + dgtitle + "<br/>" + previewTIVar.road_dgclass + "<br/><br/>" + haztitle + "<br/>" + previewTIVar.road_hazchem + "<br/><br/>" + pgtitle + "<br/>" + previewTIVar.road_packgrp + "<br/><br/>" + psntitle + "<br/>" + previewTIVar.road_psn));
 //            Log.i("DG String", previewTIVar.dgImg);
 
+            //setup the ti images
             if (previewTIVar.dgImg != null && !previewTIVar.dgImg.isEmpty()) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(previewTIVar.dgImg);
                 int id1 = field1.getInt(null);
                 tiImg.setImageResource(id1);
+
+                tiImg.setVisibility(View.VISIBLE);
+
+                //rebuild the constraint of ti image and ti value
+                layout = (ConstraintLayout) findViewById(R.id.PRE_GHSCL);
+                set.clone(layout);
+                set.connect(R.id.tivalue, ConstraintSet.TOP, R.id.tiImg, ConstraintSet.BOTTOM, 20);
+
+            } else {
+                tiImg.setVisibility(View.GONE);
+
+                //rebuild the constraint of ti image and ti value
+                layout = (ConstraintLayout) findViewById(R.id.PRE_GHSCL);
+                set.clone(layout);
+                set.connect(R.id.tivalue, ConstraintSet.TOP, R.id.tititle, ConstraintSet.BOTTOM, 20);
+                set.applyTo(layout);
             }
 
             if (!previewTIVar.subImg1.isEmpty() && !previewTIVar.subImg1.equals("dg")) {
@@ -252,6 +341,15 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 Field field2 = res2.getField(previewTIVar.subImg1);
                 int id2 = field2.getInt(null);
                 tisubImg1.setImageResource(id2);
+
+                tisubImg1.setVisibility(View.VISIBLE);
+
+
+                set.applyTo(layout);
+            } else {
+                tisubImg1.setVisibility(View.GONE);
+
+
             }
 
             if (!previewTIVar.subImg2.isEmpty() && !previewTIVar.subImg2.equals("dg")) {
@@ -259,6 +357,10 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 Field field3 = res3.getField(previewTIVar.subImg2);
                 int id3 = field3.getInt(null);
                 tisubImg2.setImageResource(id3);
+
+                tisubImg2.setVisibility(View.VISIBLE);
+            } else {
+                tisubImg2.setVisibility(View.GONE);
             }
 
 //            sdsBtn.setOnClickListener(new View.OnClickListener() {
@@ -482,6 +584,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public void setTIPageBtns() {
+
         if (previewTIVar.imdg_unno.isEmpty()) {
             tisseaBtn.setVisibility(View.INVISIBLE);
         } else {
@@ -500,9 +603,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             @Override
             public void run() {
 
-                tisroadBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-                tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
-                tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+                tisroadBtn.setBackgroundResource(R.drawable.tipage_tappedbuttons_states);
+                tisseaBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
+                tisairBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
 
                 tiSC.setBackgroundResource(R.drawable.tis_roadbg);
             }
@@ -514,42 +617,62 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tispgv.setText(previewTIVar.road_packgrp);
         tispsnv.setText(previewTIVar.road_psn);
 
-        tishcv.setText(previewTIVar.road_hazchem);
-        tisepgv.setText(previewTIVar.road_epg);
-        tisinov.setText(previewTIVar.road_ierg);
-        tispmv.setText(previewTIVar.road_packmethod);
+        if (!previewTIVar.road_hazchem.isEmpty()) {
+            tishcv.setText(previewTIVar.road_hazchem);
+
+            tishctitle.setVisibility(View.VISIBLE);
+            tishcv.setVisibility(View.VISIBLE);
+        } else {
+            tishctitle.setVisibility(View.GONE);
+            tishcv.setVisibility(View.GONE);
+        }
+
+        if (!previewTIVar.road_epg.isEmpty()) {
+            tisepgv.setText(previewTIVar.road_epg);
+
+            tisepgtitle.setVisibility(View.VISIBLE);
+            tisepgv.setVisibility(View.VISIBLE);
+        } else {
+            tisepgtitle.setVisibility(View.GONE);
+            tisepgv.setVisibility(View.GONE);
+        }
+
+        if (!previewTIVar.road_ierg.isEmpty()) {
+            tisinov.setText(previewTIVar.road_ierg);
+
+            tisinotitle.setVisibility(View.VISIBLE);
+            tisinov.setVisibility(View.VISIBLE);
+        } else {
+            tisinotitle.setVisibility(View.GONE);
+            tisinov.setVisibility(View.GONE);
+        }
+
+        if (!previewTIVar.road_packmethod.isEmpty()) {
+            tispmv.setText(previewTIVar.road_packmethod);
+
+            tispmtitle.setVisibility(View.VISIBLE);
+            tispmv.setVisibility(View.VISIBLE);
+        } else {
+            tispmtitle.setVisibility(View.GONE);
+            tispmv.setVisibility(View.GONE);
+        }
+
 
         tissymv.setText("");
+        tissymtitle.setVisibility(View.GONE);
+        tissymv.setVisibility(View.GONE);
+
         tisemsv.setText("");
+        tisemstitle.setVisibility(View.GONE);
+        tisemsv.setVisibility(View.GONE);
+
         tismpv.setText("");
+        tismptitle.setVisibility(View.GONE);
+        tismpv.setVisibility(View.GONE);
 
-        setTIimgs(previewTIVar.road_dgclass, previewTIVar.road_subrisks);
+        getTIimgs(previewTIVar.road_dgclass, previewTIVar.road_subrisks);
 
-        try {
-            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
-                Class res1 = R.drawable.class;
-                Field field1 = res1.getField(previewTIVar.tisdgImg);
-                int id1 = field1.getInt(null);
-                tisdgImg.setImageResource(id1);
-            }
-
-            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
-                Class res2 = R.drawable.class;
-                Field field2 = res2.getField(previewTIVar.tissubImg1);
-                int id2 = field2.getInt(null);
-                tissubImg1.setImageResource(id2);
-            }
-
-            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
-                Class res3 = R.drawable.class;
-                Field field3 = res3.getField(previewTIVar.tissubImg2);
-                int id3 = field3.getInt(null);
-                tissubImg2.setImageResource(id3);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        setTIimgs();
 
     }
 
@@ -558,9 +681,10 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             @Override
             public void run() {
 
-                tisroadBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
-                tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-                tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+
+                tisroadBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
+                tisseaBtn.setBackgroundResource(R.drawable.tipage_tappedbuttons_states);
+                tisairBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
 
                 tiSC.setBackgroundResource(R.drawable.tis_seabg);
             }
@@ -572,42 +696,50 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tispgv.setText(previewTIVar.imdg_packgrp);
         tispsnv.setText(previewTIVar.imdg_psn);
 
+
         tishcv.setText("");
+        tishctitle.setVisibility(View.GONE);
+        tishcv.setVisibility(View.GONE);
+
         tisepgv.setText("");
+        tisepgtitle.setVisibility(View.GONE);
+        tisepgv.setVisibility(View.GONE);
+
         tisinov.setText("");
+        tisinotitle.setVisibility(View.GONE);
+        tisinov.setVisibility(View.GONE);
+
         tispmv.setText("");
+        tispmtitle.setVisibility(View.GONE);
+        tispmv.setVisibility(View.GONE);
 
         tissymv.setText("");
-        tisemsv.setText(previewTIVar.imdg_ems);
-        tismpv.setText(previewTIVar.imdg_mp);
+        tissymtitle.setVisibility(View.GONE);
+        tissymv.setVisibility(View.GONE);
 
-        setTIimgs(previewTIVar.imdg_dgclass, previewTIVar.imdg_subrisks);
-
-        try {
-            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
-                Class res1 = R.drawable.class;
-                Field field1 = res1.getField(previewTIVar.tisdgImg);
-                int id1 = field1.getInt(null);
-                tisdgImg.setImageResource(id1);
-            }
-
-            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
-                Class res2 = R.drawable.class;
-                Field field2 = res2.getField(previewTIVar.tissubImg1);
-                int id2 = field2.getInt(null);
-                tissubImg1.setImageResource(id2);
-            }
-
-            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
-                Class res3 = R.drawable.class;
-                Field field3 = res3.getField(previewTIVar.tissubImg2);
-                int id3 = field3.getInt(null);
-                tissubImg2.setImageResource(id3);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(!previewTIVar.imdg_ems.isEmpty()) {
+            tisemsv.setText(previewTIVar.imdg_ems);
+            tisemstitle.setVisibility(View.VISIBLE);
+            tisemsv.setVisibility(View.VISIBLE);
+        } else {
+            tisemstitle.setVisibility(View.GONE);
+            tisemsv.setVisibility(View.GONE);
         }
+
+        if(!previewTIVar.imdg_mp.isEmpty()) {
+            tismpv.setText(previewTIVar.imdg_mp);
+            tismptitle.setVisibility(View.VISIBLE);
+            tismpv.setVisibility(View.VISIBLE);
+        } else {
+            tismptitle.setVisibility(View.GONE);
+            tismpv.setVisibility(View.GONE);
+        }
+
+
+        getTIimgs(previewTIVar.imdg_dgclass, previewTIVar.imdg_subrisks);
+
+        setTIimgs();
+
     }
 
     public void setTIPageAirBtn() {
@@ -615,9 +747,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             @Override
             public void run() {
 
-                tisroadBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
-                tisseaBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
-                tisairBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+                tisroadBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
+                tisseaBtn.setBackgroundResource(R.drawable.tipage_untapbuttons_states);
+                tisairBtn.setBackgroundResource(R.drawable.tipage_tappedbuttons_states);
 
                 tiSC.setBackgroundResource(R.drawable.tis_airbg);
             }
@@ -630,41 +762,41 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         tispsnv.setText(previewTIVar.iata_psn);
 
         tishcv.setText("");
+        tishctitle.setVisibility(View.GONE);
+        tishcv.setVisibility(View.GONE);
+
         tisepgv.setText("");
+        tisepgtitle.setVisibility(View.GONE);
+        tisepgv.setVisibility(View.GONE);
+
         tisinov.setText("");
+        tisinotitle.setVisibility(View.GONE);
+        tisinov.setVisibility(View.GONE);
+
         tispmv.setText("");
+        tispmtitle.setVisibility(View.GONE);
+        tispmv.setVisibility(View.GONE);
 
-        tissymv.setText(previewTIVar.iata_symbol);
-        tisemsv.setText("");
-        tismpv.setText("");
-
-        setTIimgs(previewTIVar.iata_dgclass, previewTIVar.iata_subrisks);
-
-        try {
-            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
-                Class res1 = R.drawable.class;
-                Field field1 = res1.getField(previewTIVar.tisdgImg);
-                int id1 = field1.getInt(null);
-                tisdgImg.setImageResource(id1);
-            }
-
-            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
-                Class res2 = R.drawable.class;
-                Field field2 = res2.getField(previewTIVar.tissubImg1);
-                int id2 = field2.getInt(null);
-                tissubImg1.setImageResource(id2);
-            }
-
-            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
-                Class res3 = R.drawable.class;
-                Field field3 = res3.getField(previewTIVar.tissubImg2);
-                int id3 = field3.getInt(null);
-                tissubImg2.setImageResource(id3);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(!previewTIVar.iata_symbol.isEmpty()) {
+            tissymv.setText(previewTIVar.iata_symbol);
+            tissymtitle.setVisibility(View.VISIBLE);
+            tissymv.setVisibility(View.VISIBLE);
+        } else {
+            tissymtitle.setVisibility(View.GONE);
+            tissymv.setVisibility(View.GONE);
         }
+
+        tisemsv.setText("");
+        tisemstitle.setVisibility(View.GONE);
+        tisemsv.setVisibility(View.GONE);
+
+        tismpv.setText("");
+        tismptitle.setVisibility(View.GONE);
+        tismpv.setVisibility(View.GONE);
+
+        getTIimgs(previewTIVar.iata_dgclass, previewTIVar.iata_subrisks);
+
+        setTIimgs();
     }
 
     public void roadBtnTapped(View v) {
@@ -679,7 +811,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setTIPageAirBtn();
     }
 
-    public void setTIimgs(String dgv, String subv) {
+    public void getTIimgs(String dgv, String subv) {
 
         tisdgImg.setImageDrawable(null);
         tissubImg1.setImageDrawable(null);
@@ -735,6 +867,63 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     }
 
+    public void setTIimgs() {
+
+        //init the constrainst set
+        ConstraintSet set = new ConstraintSet();
+        ConstraintLayout layout;
+
+        try {
+            if (previewTIVar.tisdgImg != null && !previewTIVar.tisdgImg.isEmpty()) {
+                Class res1 = R.drawable.class;
+                Field field1 = res1.getField(previewTIVar.tisdgImg);
+                int id1 = field1.getInt(null);
+                tisdgImg.setImageResource(id1);
+
+                tisdgImg.setVisibility(View.VISIBLE);
+
+                //rebuild the constraint of ti image and ti value
+                layout = findViewById(R.id.TICL);
+                set.clone(layout);
+                set.connect(R.id.tisunno, ConstraintSet.TOP, R.id.tisdgImg, ConstraintSet.BOTTOM, 40);
+                set.applyTo(layout);
+            } else {
+                tisdgImg.setVisibility(View.GONE);
+
+                //rebuild the constraint of ti image and ti value
+                layout = findViewById(R.id.TICL);
+                set.clone(layout);
+                set.connect(R.id.tisunno, ConstraintSet.TOP, R.id.linearLayout2, ConstraintSet.BOTTOM, 20);
+                set.applyTo(layout);
+            }
+
+            if (!previewTIVar.tissubImg1.isEmpty() && previewTIVar.tissubImg1.equals("dg")) {
+                Class res2 = R.drawable.class;
+                Field field2 = res2.getField(previewTIVar.tissubImg1);
+                int id2 = field2.getInt(null);
+                tissubImg1.setImageResource(id2);
+
+                tissubImg1.setVisibility(View.VISIBLE);
+            } else {
+                tissubImg1.setVisibility(View.GONE);
+            }
+
+            if (!previewTIVar.tissubImg2.isEmpty() && previewTIVar.tissubImg2.equals("dg")) {
+                Class res3 = R.drawable.class;
+                Field field3 = res3.getField(previewTIVar.tissubImg2);
+                int id3 = field3.getInt(null);
+                tissubImg2.setImageResource(id3);
+
+                tissubImg2.setVisibility(View.VISIBLE);
+            } else {
+                tissubImg2.setVisibility(View.GONE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void faBtnTapped(View v) {
         runOnUiThread(new Runnable() {
             @Override
@@ -753,13 +942,62 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         });
     }
 
+    //setup first AID valuse and layout
     public void setFAIDValues() {
 
-        fainhv.setText(previewFAIDVar.inhalation);
-        faingv.setText(previewFAIDVar.ingestion);
-        faskinv.setText(previewFAIDVar.skin);
-        faeyev.setText(previewFAIDVar.eye);
-        fafafv.setText(previewFAIDVar.fafacilities);
-        faatdv.setText(previewFAIDVar.advdoctor);
+        if(!previewFAIDVar.inhalation.isEmpty()) {
+            fainhv.setText(previewFAIDVar.inhalation);
+            inhtitle.setVisibility(View.VISIBLE);
+            fainhv.setVisibility(View.VISIBLE);
+        } else {
+            inhtitle.setVisibility(View.GONE);
+            fainhv.setVisibility(View.GONE);
+        }
+
+        if(!previewFAIDVar.ingestion.isEmpty()) {
+            faingv.setText(previewFAIDVar.ingestion);
+            ingtitle.setVisibility(View.VISIBLE);
+            faingv.setVisibility(View.VISIBLE);
+        } else {
+            ingtitle.setVisibility(View.GONE);
+            faingv.setVisibility(View.GONE);
+        }
+
+        if(!previewFAIDVar.skin.isEmpty()) {
+            faskinv.setText(previewFAIDVar.skin);
+            skintitle.setVisibility(View.VISIBLE);
+            faskinv.setVisibility(View.VISIBLE);
+        } else {
+            skintitle.setVisibility(View.GONE);
+            faskinv.setVisibility(View.GONE);
+        }
+
+        if(!previewFAIDVar.eye.isEmpty()) {
+            faeyev.setText(previewFAIDVar.eye);
+            eyetitle.setVisibility(View.VISIBLE);
+            faeyev.setVisibility(View.VISIBLE);
+        } else {
+            eyetitle.setVisibility(View.GONE);
+            faeyev.setVisibility(View.GONE);
+        }
+
+        if(!previewFAIDVar.fafacilities.isEmpty()) {
+            fafafv.setText(previewFAIDVar.fafacilities);
+            faftitle.setVisibility(View.VISIBLE);
+            fafafv.setVisibility(View.VISIBLE);
+        } else {
+            faftitle.setVisibility(View.GONE);
+            fafafv.setVisibility(View.GONE);
+        }
+
+        if(!previewFAIDVar.advdoctor.isEmpty()) {
+            faatdv.setText(previewFAIDVar.advdoctor);
+            atdtitle.setVisibility(View.VISIBLE);
+            faatdv.setVisibility(View.VISIBLE);
+        } else {
+            atdtitle.setVisibility(View.GONE);
+            faatdv.setVisibility(View.GONE);
+        }
+
     }
 }

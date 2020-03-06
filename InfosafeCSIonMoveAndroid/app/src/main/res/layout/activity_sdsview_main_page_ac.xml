@@ -112,9 +112,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@color/colorLightBlack"
+                android:onClick="faBtnTapped"
                 android:text="@string/sdsm_faidbtn"
-                android:textColor="@android:color/white"
-                android:onClick="faBtnTapped" />
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
@@ -132,6 +132,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/PRE_GHSCL"
             android:layout_width="match_parent"
             android:layout_height="687dp"
             tools:layout_editor_absoluteY="1dp">
@@ -160,7 +161,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorOrange"
+                android:background="@drawable/preview_ghs_textview_states"
                 android:gravity="center"
                 android:text="@string/sdsm_ghstitle"
                 android:textColor="@android:color/white"
@@ -231,7 +232,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorOrange"
+                android:background="@drawable/preview_ghs_textview_states"
                 android:gravity="center"
                 android:text="@string/sdsm_haztitle"
                 android:textColor="@android:color/white"
@@ -265,7 +266,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorOrange"
+                android:background="@drawable/preview_ghs_textview_states"
                 android:gravity="center"
                 android:text="@string/sdsm_prectitle"
                 android:textColor="@android:color/white"
@@ -299,7 +300,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorOrange"
+                android:background="@drawable/preview_ghs_textview_states"
                 android:gravity="center"
                 android:text="@string/sdsm_transtitle"
                 android:textColor="@android:color/white"
@@ -364,7 +365,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/colorOrange"
+                android:background="@drawable/preview_ghs_textview_states"
                 android:gravity="center"
                 android:text="@string/sdsm_pstitle"
                 android:textColor="@android:color/white"
@@ -403,6 +404,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/TICL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -421,9 +423,9 @@
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_states"
+                    android:background="@drawable/tipage_untapbuttons_states"
                     android:onClick="roadBtnTapped"
                     android:text="@string/ti_roadBtn"
                     android:textColor="@android:color/white"
@@ -434,9 +436,9 @@
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_states"
+                    android:background="@drawable/tipage_untapbuttons_states"
                     android:onClick="seaBtnTapped"
                     android:text="@string/ti_seaBtn"
                     android:textColor="@android:color/white"
@@ -447,9 +449,9 @@
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_states"
+                    android:background="@drawable/tipage_untapbuttons_states"
                     android:onClick="airBtnTapped"
                     android:text="@string/ti_airBtn"
                     android:textColor="@android:color/white"
@@ -823,6 +825,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_inhtitle"
                 android:textColor="@color/cardview_light_background"
@@ -855,6 +858,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_ingtitle"
                 android:textColor="@color/cardview_light_background"
@@ -887,6 +891,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_skintitle"
                 android:textColor="@color/cardview_light_background"
@@ -919,6 +924,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_eyetitle"
                 android:textColor="@color/cardview_light_background"
@@ -951,6 +957,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_faftitle"
                 android:textColor="@color/cardview_light_background"
@@ -983,6 +990,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/faidpage_textviews_state"
                 android:gravity="center"
                 android:text="@string/fa_atd"
                 android:textColor="@color/cardview_light_background"

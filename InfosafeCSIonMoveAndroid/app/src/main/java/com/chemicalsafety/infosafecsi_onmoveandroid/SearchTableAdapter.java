@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
@@ -103,6 +105,10 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         holder.img4.setImageDrawable(null);
         holder.img5.setImageDrawable(null);
 
+        //init the constrainst set
+        ConstraintSet set = new ConstraintSet();
+        ConstraintLayout layout;
+
 //        Log.i("single ghs img:", img1v);
         try {
 
@@ -112,6 +118,9 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 Field field1 = res1.getField(img1v);
                 int id1 = field1.getInt(null);
                 holder.img1.setImageResource(id1);
+                holder.img1.setVisibility(View.VISIBLE);
+            } else {
+                holder.img1.setVisibility(View.GONE);
             }
 
 
@@ -120,6 +129,9 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 Field field2 = res2.getField(img2v);
                 int id2 = field2.getInt(null);
                 holder.img2.setImageResource(id2);
+                holder.img2.setVisibility(View.VISIBLE);
+            } else {
+                holder.img2.setVisibility(View.GONE);
             }
 
             if (!img3v.isEmpty() && img3v != null) {
@@ -127,6 +139,9 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 Field field3 = res3.getField(img3v);
                 int id3 = field3.getInt(null);
                 holder.img3.setImageResource(id3);
+                holder.img3.setVisibility(View.VISIBLE);
+            } else {
+                holder.img3.setVisibility(View.GONE);
             }
 
             if (!img4v.isEmpty() && img4v != null) {
@@ -134,12 +149,19 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 Field field4 = res4.getField(img4v);
                 int id4 = field4.getInt(null);
                 holder.img4.setImageResource(id4);
+                holder.img4.setVisibility(View.VISIBLE);
+            } else {
+                holder.img4.setVisibility(View.GONE);
             }
+
             if (!img5v.isEmpty() && img5v != null) {
                 Class res5 = R.drawable.class;
                 Field field5 = res5.getField(img5v);
                 int id5 = field5.getInt(null);
                 holder.img5.setImageResource(id5);
+                holder.img5.setVisibility(View.VISIBLE);
+            } else {
+                holder.img5.setVisibility(View.GONE);
             }
 
 
