@@ -6,7 +6,14 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -204,18 +211,97 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         ConstraintLayout layout;
 
         //set GHS textviews' value
-        ghsvalue.setText(previewGHSVar.classification);
-        hazvalue.setText(previewGHSVar.hstate);
+
+        //build GHS classfication
+        if(!previewGHSVar.classification.isEmpty()) {
+            ghsvalue.setText(previewGHSVar.classification);
+            ghsvalue.setVisibility(View.VISIBLE);
+            ghstitle.setVisibility(View.VISIBLE);
+        } else {
+            ghstitle.setVisibility(View.GONE);
+            ghsvalue.setVisibility(View.GONE);
+            ghsvalue.setText("");
+        }
+
+
+        //build hazard statement
+        if (!previewGHSVar.hstate.isEmpty()) {
+
+            hazvalue.setVisibility(View.VISIBLE);
+            haztitle.setVisibility(View.VISIBLE);
+//        Log.i("haz value", previewGHSVar.hstate);
+            hazvalue.setText(previewGHSVar.hstate);
+        } else {
+
+            haztitle.setVisibility(View.GONE);
+            hazvalue.setVisibility(View.GONE);
+            hazvalue.setText("");
+        }
+
+
         psvalue.setText(previewGHSVar.ps);
-//        psvalue.setText("00000");
 
-        String ghsgentitle = getString(R.string.ps_general);
-        String ghspretitle = getString(R.string.ps_prevention);
-        String ghsrestitle = getString(R.string.ps_response);
-        String ghsstotitle = getString(R.string.ps_storage);
-        String ghsdistitle = getString(R.string.ps_disposal);
 
-        precvalue.setText(fromHtml(ghsgentitle + "<br/>" + previewGHSVar.ps_general + "<br/><br/>" + ghsrestitle + "<br/>" + previewGHSVar.ps_response + "<br/><br/>" + ghspretitle + "<br/>" + previewGHSVar.ps_prevention + "<br/><br/>" + ghsstotitle + "<br/>" + previewGHSVar.ps_storage + "<br/><br/>" + ghsdistitle + "<br/>" + previewGHSVar.ps_disposal));
+        // build precautionary statement
+        String space = "<br/>";
+        String dspace = "<br/><br/>";
+        String comb = "";
+
+
+
+        String ghsgentitle = getString(R.string.ps_general) + space;
+        String ghspretitle = getString(R.string.ps_prevention) + space;
+        String ghsrestitle = getString(R.string.ps_response) + space;
+        String ghsstotitle = getString(R.string.ps_storage) + space;
+        String ghsdistitle = getString(R.string.ps_disposal) + space;
+
+        String genString = fromHtml(ghsgentitle) + previewGHSVar.ps_general;
+
+        String resString = fromHtml(ghsrestitle) + previewGHSVar.ps_response;
+//        String resString = "Response:/n psdfjsdfkjsnfkjnsdf sdjfoisdnfosndofnso sjfiodsjfods  sijodfjosidf/n/n";
+//        SpannableStringBuilder sb = new SpannableStringBuilder(resString);
+//        final StyleSpan bss = new StyleSpan(Typeface.BOLD);
+//        sb.setSpan(bss, 0, 20, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        String preString = fromHtml(ghspretitle) + previewGHSVar.ps_prevention;
+        String stoString = fromHtml(ghsstotitle) + previewGHSVar.ps_storage;
+        String disString = fromHtml(ghsdistitle) + previewGHSVar.ps_disposal;
+
+        if (!previewGHSVar.ps_general.isEmpty()) {
+            comb = genString + fromHtml(dspace);
+        }
+
+        if(!previewGHSVar.ps_response.isEmpty()) {
+            comb = comb + resString + fromHtml(dspace);
+        }
+
+        if(!previewGHSVar.ps_prevention.isEmpty()) {
+            comb = comb + preString + fromHtml(dspace);
+        }
+
+        if(!previewGHSVar.ps_storage.isEmpty()) {
+            comb = comb + stoString + fromHtml(dspace);
+        }
+
+        if(!previewGHSVar.ps_disposal.isEmpty()) {
+            comb = comb + disString;
+        }
+
+
+
+        if (!comb.isEmpty()) {
+            prectitle.setVisibility(View.VISIBLE);
+            precvalue.setVisibility(View.VISIBLE);
+            precvalue.setText(comb);
+        } else {
+            prectitle.setVisibility(View.GONE);
+            precvalue.setVisibility((View.GONE));
+            precvalue.setText("");
+        }
+
+        //precvalue.setText(fromHtml(ghsgentitle) + previewGHSVar.ps_general + fromHtml(dspace + ghsrestitle) + previewGHSVar.ps_response + fromHtml(dspace + ghspretitle) + previewGHSVar.ps_prevention + fromHtml(dspace + ghsstotitle) + previewGHSVar.ps_storage + fromHtml(dspace + ghsdistitle) + previewGHSVar.ps_disposal);
+
+        //precvalue.setText(fromHtml(ghsgentitle + previewGHSVar.ps_general + dspace + ghsrestitle + previewGHSVar.ps_response + dspace + ghspretitle + previewGHSVar.ps_prevention + dspace + ghsstotitle + previewGHSVar.ps_storage + dspace + ghsdistitle + previewGHSVar.ps_disposal));
 
 
         //get ghs images' value
@@ -303,13 +389,52 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             }
 
             //set TI textviews' value
-            String unnotitle = getString(R.string.ti_unno);
-            String dgtitle = getString(R.string.ti_dgclass);
-            String haztitle = getString(R.string.ti_haz);
-            String pgtitle = getString(R.string.ti_packgrp);
-            String psntitle = getString(R.string.ti_psn);
+            String unnotitle = getString(R.string.ti_unno)  + space ;
+            String dgtitle = getString(R.string.ti_dgclass)  + space ;
+            String haztitle = getString(R.string.ti_haz)  + space ;
+            String pgtitle = getString(R.string.ti_packgrp)  + space ;
+            String psntitle = getString(R.string.ti_psn)  + space ;
 
-            tivalue.setText(fromHtml(unnotitle + "<br/>" + previewTIVar.road_unno + "<br/><br/>" + dgtitle + "<br/>" + previewTIVar.road_dgclass + "<br/><br/>" + haztitle + "<br/>" + previewTIVar.road_hazchem + "<br/><br/>" + pgtitle + "<br/>" + previewTIVar.road_packgrp + "<br/><br/>" + psntitle + "<br/>" + previewTIVar.road_psn));
+            String comTIString = "";
+
+            String unnoString = unnotitle + previewTIVar.road_unno;
+            String dgString = dgtitle + previewTIVar.road_dgclass;
+            String hazString = haztitle + previewTIVar.road_hazchem;
+            String pgString = pgtitle + previewTIVar.road_packgrp;
+            String psnString = psntitle + previewTIVar.road_psn;
+
+            if (!previewTIVar.road_unno.isEmpty()) {
+                comTIString = unnoString + dspace;
+            }
+
+            if (!previewTIVar.road_dgclass.isEmpty()) {
+                comTIString = comTIString + dgString + dspace;
+            }
+
+            if (!previewTIVar.road_hazchem.isEmpty()) {
+                comTIString = comTIString + hazString + dspace;
+            }
+
+            if (!previewTIVar.road_packgrp.isEmpty()) {
+                comTIString = comTIString + pgString + dspace;
+            }
+
+            if (!previewTIVar.road_psn.isEmpty()) {
+                comTIString = comTIString + psnString;
+            }
+
+            if (!comTIString.isEmpty()) {
+                tivalue.setText(fromHtml(comTIString));
+                tivalue.setVisibility(View.VISIBLE);
+                tititle.setVisibility(View.VISIBLE);
+            } else {
+                tivalue.setText("");
+                tivalue.setVisibility(View.GONE);
+                tivalue.setVisibility(View.GONE);
+            }
+
+            //tivalue.setText(fromHtml(unnoString + dgString + hazString + pgString + psnString));
+            //tivalue.setText(fromHtml(unnotitle + "<br/>" + previewTIVar.road_unno + "<br/><br/>" + dgtitle + "<br/>" + previewTIVar.road_dgclass + "<br/><br/>" + haztitle + "<br/>" + previewTIVar.road_hazchem + "<br/><br/>" + pgtitle + "<br/>" + previewTIVar.road_packgrp + "<br/><br/>" + psntitle + "<br/>" + previewTIVar.road_psn));
 //            Log.i("DG String", previewTIVar.dgImg);
 
             //setup the ti images
@@ -547,6 +672,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 ghscImg4.setVisibility(View.VISIBLE);
                 ghscImg5.setVisibility(View.VISIBLE);
                 ghsvalue.setVisibility(View.VISIBLE);
+
 
                 haztitle.setVisibility(View.VISIBLE);
                 hazvalue.setVisibility(View.VISIBLE);
