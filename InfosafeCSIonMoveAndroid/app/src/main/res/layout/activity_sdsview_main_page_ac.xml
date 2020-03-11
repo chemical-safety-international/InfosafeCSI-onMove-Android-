@@ -7,6 +7,31 @@
     android:background="@drawable/card"
     tools:context=".SDSViewMainPageAC">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/sdsmaintoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toobarBlack"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sdsmaintoolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/preview_title"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="206dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/linear1"
         android:layout_width="0dp"
@@ -18,7 +43,7 @@
         android:baselineAligned="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/sdsmaintoolbar">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

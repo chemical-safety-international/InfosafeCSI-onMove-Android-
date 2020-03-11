@@ -227,7 +227,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
     public class MainActivity extends AppCompatActivity implements ItemClickListener {
         public void startBtnActivity(int index){
-            Log.i("reach","here2"+index);
+//            Log.i("reach","here2"+index);
             Intent intent = new Intent(MainActivity.this, SDSViewMainPageAC.class);
             startActivity(intent);
         }

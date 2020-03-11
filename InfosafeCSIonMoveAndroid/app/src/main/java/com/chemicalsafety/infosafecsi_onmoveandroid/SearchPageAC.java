@@ -66,15 +66,30 @@ public class SearchPageAC extends AppCompatActivity {
         searchVar.pcodeInput = pcodeET.getText().toString();
         searchVar.supplierInput = supplierET.getText().toString();
 
-        //call the Search WCF
-        csiWCF_VM wcf =new csiWCF_VM();
-        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype) == true) {
-            Intent intent = new Intent(this, SearchTablePageAC.class);
-            startActivity(intent);
-        } else {
-            Log.i("error", "Search failed!.");
-        }
+        DialogFragment df = new DialogFragment();
 
+        if (searchVar.pnameInput.isEmpty() && searchVar.pcodeInput.isEmpty() && searchVar.supplierInput.isEmpty()) {
+            df.callAlert(SearchPageAC.this, "Search input empty!\nPlease check your input and try again.");
+        } else {
+
+            if (searchVar.pnameInput.length() > 2) {
+                df.callAlert(SearchPageAC.this, "Search failed!\nPlease enter more than 2 characters for product name!" );
+            } else if(searchVar.supplierInput.length() > 1) {
+                df.callAlert(SearchPageAC.this, "Search failed!\nPlease enter more than 1 characters for supplier!");
+            } else {
+                //call the Search WCF
+                csiWCF_VM wcf =new csiWCF_VM();
+                if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
+                    Intent intent = new Intent(this, SearchTablePageAC.class);
+                    startActivity(intent);
+                } else {
+                    Log.i("error", "Search failed!.");
+                    df.callAlert(SearchPageAC.this, "Search Failed!\nPlease check the connection and try again.");
+                }
+            }
+
+
+        }
 
     }
 }

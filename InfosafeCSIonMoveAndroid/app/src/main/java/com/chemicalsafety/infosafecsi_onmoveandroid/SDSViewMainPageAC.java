@@ -64,6 +64,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     TextView fainhv, faingv, faskinv, faeyev, fafafv, faatdv;
 
+    TextView toolbarTitle;
+
     int sdsBtnwidth;
 
 //    private long mLastClickTime = 0;
@@ -168,6 +170,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         fafafv = findViewById(R.id.fafv);
         faatdv = findViewById(R.id.atdv);
 
+        //connect toolbar textview
+        toolbarTitle = findViewById(R.id.sdsmaintoolbartitle);
+
         setValues();
         setBtnsValues();
 
@@ -194,6 +199,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         //hide other layout
         tiSC.setVisibility(View.INVISIBLE);
         faSC.setVisibility(View.INVISIBLE);
+
+        //set toolbar title value
+        toolbarTitle.setText("PREVIEW");
 
         //default the imgs
         ghscImg1.setImageDrawable(null);
@@ -596,9 +604,11 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         if (wcf.ViewSDS(loginVar.clientid, loginVar.infosafeid, searchItemList.sdsno, apptp, rtype)) {
             sdsprogressBar.setProgress(100);
 
-
             return true;
         } else {
+            DialogFragment df = new DialogFragment();
+            df.callAlert(SDSViewMainPageAC.this, "Call SDS Failed!\nPlease check your connection and try again.");
+
             return false;
         }
     }
@@ -620,6 +630,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
+
+                //set toolbar title value
+                toolbarTitle.setText("PREVIEW");
 
                 ghsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
@@ -659,6 +672,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
+
+                //set toolbar title value
+                toolbarTitle.setText("GHS");
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
@@ -700,6 +716,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 preghsSC.setVisibility(View.INVISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
                 setTIPageBtns();
+
+                //set toolbar title value
+                toolbarTitle.setText("DG CLASS");
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
@@ -1057,6 +1076,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.INVISIBLE);
                 faSC.setVisibility(View.VISIBLE);
+
+                //set toolbar title value
+                toolbarTitle.setText("FIRST AID");
 
                 previewBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));

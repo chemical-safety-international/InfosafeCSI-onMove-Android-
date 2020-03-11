@@ -74,13 +74,26 @@ public class LoginPageAC extends AppCompatActivity {
 
 //        Log.d("email", emailText);
 //        Log.d("password", passwordlText);
+        DialogFragment df = new DialogFragment();
 
-        csiWCF_VM wcf = new csiWCF_VM();
-        if (wcf.Login(emailText,passwordlText ) == true) {
-            toSeachAC();
+        if(emailText.isEmpty() && passwordlText.isEmpty()) {
+            df.callAlert(LoginPageAC.this, "Login input empty!\nPlease check your email address or password and try again.");
+        } else if (emailText.isEmpty()) {
+            df.callAlert(LoginPageAC.this, "Email address empty!\nPlease enter email address and try again.");
+        } else if (passwordlText.isEmpty()) {
+            df.callAlert(LoginPageAC.this, "Password empty!\nPlease enter password and try again.");
         } else {
-            Log.d("error", "login failed");
+
+            csiWCF_VM wcf = new csiWCF_VM();
+            if (wcf.Login(emailText,passwordlText ) == true) {
+                toSeachAC();
+            } else {
+                Log.d("error", "login failed");
+                df.callAlert(LoginPageAC.this, "Login Failed!\nPlease check your email address or password and try again.");
+
+            }
         }
+
     }
 
     public void toSeachAC() {
@@ -119,5 +132,6 @@ public class LoginPageAC extends AppCompatActivity {
             wcf.LoginByEMail("a","a" );
         }
     }
+
 
 }

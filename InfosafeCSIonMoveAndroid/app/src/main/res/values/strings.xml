@@ -112,4 +112,13 @@
     <string name="fa_faftitle">FIRST AID FACILITIES</string>
     <string name="fa_atd">ADVICE TO DOCTOR</string>
 
+    //View SDS tests
+    <string name="sds_toolbartitle">VIEW SDS</string>
+
+    //SDS main page toolbar title
+    <string name="preview_title">PREVIEW</string>
+    <string name="ghs_title">GHS</string>
+    <string name="dg_title">DG</string>
+    <string name="faid_title">FIRST AID</string>
+
 </resources>
