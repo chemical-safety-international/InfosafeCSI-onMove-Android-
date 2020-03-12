@@ -39,6 +39,24 @@
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="18dp" />
 
+        <Button
+            android:id="@+id/shareBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:background="@android:drawable/ic_menu_share"
+            android:onClick="shareBtnTapped"
+            tools:layout_editor_absoluteX="323dp"
+            tools:layout_editor_absoluteY="4dp" />
+
+        <Button
+            android:id="@+id/printBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:onClick="printBtnTapped" />
+
+
     </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

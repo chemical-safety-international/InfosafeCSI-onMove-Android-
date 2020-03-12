@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--access to storage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 <!--    <uses-permission android:name="android.permission.BLUETOOTH"/>-->
 <!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>-->
@@ -15,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
         <activity android:name=".ViewSDSPageAC"/>
         <activity android:name=".SDSViewMainPageAC" />
         <activity android:name=".SearchTablePageAC" />
@@ -28,10 +32,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--Build for pdf file related function -->
+        <provider
+            android:authorities="${applicationId}.provider"
+            android:name="com.chemicalsafety.infosafecsi_onmoveandroid.Entities.GenericFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
 
+        </provider>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
 
+    <uses-sdk android:minSdkVersion="23"
+        android:targetSdkVersion="23"/>
 </manifest>

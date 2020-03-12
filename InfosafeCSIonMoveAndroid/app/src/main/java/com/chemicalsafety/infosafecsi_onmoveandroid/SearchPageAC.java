@@ -72,9 +72,9 @@ public class SearchPageAC extends AppCompatActivity {
             df.callAlert(SearchPageAC.this, "Search input empty!\nPlease check your input and try again.");
         } else {
 
-            if (searchVar.pnameInput.length() > 2) {
+            if (!searchVar.pnameInput.isEmpty() && searchVar.pnameInput.length() < 3) {
                 df.callAlert(SearchPageAC.this, "Search failed!\nPlease enter more than 2 characters for product name!" );
-            } else if(searchVar.supplierInput.length() > 1) {
+            } else if(searchVar.supplierInput.length() == 1) {
                 df.callAlert(SearchPageAC.this, "Search failed!\nPlease enter more than 1 characters for supplier!");
             } else {
                 //call the Search WCF
