@@ -2,15 +2,23 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.UserInfoStoredFunction;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
@@ -20,7 +28,10 @@ public class LoginPageAC extends AppCompatActivity {
     private EditText email;
     private EditText password;
 
-    Button loginButton;
+    Button loginButton, remBtn;
+
+    ImageView loginLogo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +41,23 @@ public class LoginPageAC extends AppCompatActivity {
         email = findViewById(R.id.loginID);
         password = findViewById(R.id.loginPW);
         loginButton = findViewById(R.id.loginButton);
+        remBtn = findViewById(R.id.remBtn);
+
+        loginLogo = findViewById(R.id.loginLogo);
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
+//        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
+
+        if (UserInfoStoredFunction.getStatus(this)) {
+            Log.i("logo", UserInfoStoredFunction.getLogo(this));
+            setRememberValues();
+        } else {
+            loginLogo.setImageResource(R.drawable.csi_logo);
+        }
     }
 
 
@@ -85,10 +107,21 @@ public class LoginPageAC extends AppCompatActivity {
         } else {
 
             csiWCF_VM wcf = new csiWCF_VM();
-            if (wcf.Login(emailText,passwordlText ) == true) {
+            if (wcf.Login(emailText,passwordlText )) {
+
+                if (!loginVar.clientlogo.isEmpty()) {
+                    UserInfoStoredFunction.setLogo(this, loginVar.clientlogo);
+                }
+
                 toSeachAC();
             } else {
                 Log.d("error", "login failed");
+
+                remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
+                UserInfoStoredFunction.setFalseStatus(this);
+
+                password.setText("");
+
                 df.callAlert(LoginPageAC.this, "Login Failed!\nPlease check your email address or password and try again.");
 
             }
@@ -100,6 +133,49 @@ public class LoginPageAC extends AppCompatActivity {
 
         Intent intent = new Intent(this, SearchPageAC.class);
         startActivity(intent);
+    }
+
+    public void remBtnTapped(View v) {
+
+        if(!UserInfoStoredFunction.getStatus(this)) {
+
+            remBtn.setBackgroundResource(R.drawable.login_tickedcheckbox);
+            UserInfoStoredFunction.setTrueStatus(this);
+
+            String emailText = email.getText().toString();
+            String passwordText = password.getText().toString();
+
+            UserInfoStoredFunction.setEmail(this, emailText);
+            UserInfoStoredFunction.setPassword(this, passwordText);
+
+
+
+        } else {
+            remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
+            UserInfoStoredFunction.setFalseStatus(this);
+
+            UserInfoStoredFunction.setEmail(this, "");
+            UserInfoStoredFunction.setPassword(this, "");
+        }
+
+
+//        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
+//        Log.i("password:", UserInfoStoredFunction.getPassword(this));
+
+    }
+
+    public void setRememberValues() {
+        remBtn.setBackgroundResource(R.drawable.login_tickedcheckbox);
+        email.setText(UserInfoStoredFunction.getEmail(this));
+        password.setText(UserInfoStoredFunction.getPassword(this));
+
+        if(!UserInfoStoredFunction.getLogo(this).isEmpty()) {
+            byte[] decodedString = Base64.decode(UserInfoStoredFunction.getLogo(this).getBytes(), Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            loginLogo.setImageBitmap(decodeByte);
+        }
+
+
     }
 
     public class ThreadA {

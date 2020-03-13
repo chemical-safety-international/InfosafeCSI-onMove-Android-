@@ -73,7 +73,7 @@ public class csiWCFMethods {
 
 
             //responseText;
-//            Log.i("Output", responseText);
+            Log.i("Output", responseText);
 
             return responseText;
 

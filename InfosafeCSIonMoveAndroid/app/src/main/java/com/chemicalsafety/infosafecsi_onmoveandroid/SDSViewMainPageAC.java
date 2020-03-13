@@ -219,6 +219,11 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         ConstraintLayout layout;
 
         //set GHS textviews' value
+        if(previewGHSVar.formatcode.equals("OF") || previewGHSVar.formatcode.equals("0A")) {
+            ghstitle.setText("GHS CLASSIFICATION");
+        } else {
+            ghstitle.setText("CLASSIFICATION");
+        }
 
         //build GHS classfication
         if(!previewGHSVar.classification.isEmpty()) {

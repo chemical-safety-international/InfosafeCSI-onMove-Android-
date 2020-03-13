@@ -6,7 +6,6 @@ import androidx.core.content.FileProvider;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -14,24 +13,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintManager;
-import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.PdfDocumentAdapter;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.sdspdfVar;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class ViewSDSPageAC extends AppCompatActivity {
@@ -87,8 +79,7 @@ public class ViewSDSPageAC extends AppCompatActivity {
 
 
             //get the pdf file
-            File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SDS.pdf");
-            Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", outputFile);
+            Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", filePath);
 
             //build and call share button
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -128,20 +119,5 @@ public class ViewSDSPageAC extends AppCompatActivity {
 
     }
 
-    public void printBtnTapped(View v) {
-
-        //get the pdf file
-//        File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "SDS.pdf");
-//        Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", outputFile);
-//
-//        PrintManager printManager= SurefoxBrowserScreen.getActivityContext().getSystemService(Context.PRINT_SERVICE);
-//        try {
-//            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(Settings..sharedPref.context,uri );
-//
-//            printManager.print("Document", printAdapter,new PrintAttributes.Builder().build());
-//        } catch (Exception e) {
-////        Logger.logError(e);
-//        }
-    }
 
 }

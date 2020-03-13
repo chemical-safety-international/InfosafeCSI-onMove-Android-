@@ -36,8 +36,8 @@
         android:background="@drawable/button_states"
         android:onClick="loginBtnTapped"
         android:text="@string/login_button"
-        android:textColor="@android:color/white"
 
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -54,11 +54,11 @@
         android:background="@android:drawable/editbox_background"
         android:ems="10"
         android:hint="@string/login_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginID"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/loginID" />
 
     <EditText
         android:id="@+id/loginID"
@@ -81,17 +81,30 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="107dp"
-        android:layout_marginLeft="107dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginRight="75dp"
+        android:layout_width="271dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
         android:text="@string/login_remember"
         android:textColor="@android:color/white"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/loginPW"
         app:layout_constraintTop_toBottomOf="@+id/loginPW" />
+
+    <Button
+        android:id="@+id/remBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/login_untickcheckbox"
+        android:onClick="remBtnTapped"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/loginPW"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

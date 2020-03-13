@@ -1,7 +1,5 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
-import android.util.Log;
-
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
@@ -32,9 +30,15 @@ public class csiWCF_VM {
                     loginVar.clientcode = respJSON.getString("clientcode");
                     loginVar.passed = respJSON.getString("passed");
                     loginVar.infosafeid = respJSON.getString("infosafeid");
+                    loginVar.clientlogo = respJSON.getString("clientlogo");
 
                     if(loginVar.clientid != "null" && !loginVar.clientid.isEmpty() && loginVar.apptype == 1) {
-                        return true;
+                        if(loginVar.passed.equals("true")) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+
                     } else {
                         return false;
                     }
@@ -45,7 +49,7 @@ public class csiWCF_VM {
                 }
 
             } else {
-                Log.d("error", "login failed");
+//                Log.d("error", "login failed");
                 return false;
             }
         } catch (Exception e) {
