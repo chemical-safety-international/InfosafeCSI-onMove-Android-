@@ -589,6 +589,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                         @Override
                         public void run() {
                             sdsBtn.setEnabled(true);
+                            sdsBtn.setTextColor(Color.WHITE);
+                            sdsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                         }
                     });
 

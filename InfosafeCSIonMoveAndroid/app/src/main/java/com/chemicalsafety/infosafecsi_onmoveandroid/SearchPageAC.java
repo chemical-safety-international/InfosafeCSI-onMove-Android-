@@ -66,7 +66,7 @@ public class SearchPageAC extends AppCompatActivity {
         searchVar.pcodeInput = pcodeET.getText().toString();
         searchVar.supplierInput = supplierET.getText().toString();
 
-        DialogFragment df = new DialogFragment();
+        final DialogFragment df = new DialogFragment();
 
         if (searchVar.pnameInput.isEmpty() && searchVar.pcodeInput.isEmpty() && searchVar.supplierInput.isEmpty()) {
             df.callAlert(SearchPageAC.this, "Search input empty!\nPlease check your input and try again.");
@@ -78,14 +78,30 @@ public class SearchPageAC extends AppCompatActivity {
                 df.callAlert(SearchPageAC.this, "Search failed!\nPlease enter more than 1 characters for supplier!");
             } else {
                 //call the Search WCF
-                csiWCF_VM wcf =new csiWCF_VM();
-                if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
-                    Intent intent = new Intent(this, SearchTablePageAC.class);
-                    startActivity(intent);
-                } else {
-                    Log.i("error", "Search failed!.");
-                    df.callAlert(SearchPageAC.this, "Search Failed!\nPlease check the connection and try again.");
-                }
+                final csiWCF_VM wcf =new csiWCF_VM();
+                df.callloadingScreen(SearchPageAC.this);
+                Thread t= new Thread(new Runnable() {
+
+                    public void run() {
+                        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    df.cancelLoadingScreen();
+                                    Intent intent = new Intent(SearchPageAC.this, SearchTablePageAC.class);
+                                    startActivity(intent);
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    df.cancelLoadingScreen();
+                                    Log.i("error", "Search failed!.");
+                                    df.callAlert(SearchPageAC.this, "Search Failed!\nPlease check the connection and try again.");
+                                }
+                            });
+                        }
+                    }});
+                t.start();
             }
 
 

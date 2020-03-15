@@ -2,8 +2,6 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -91,12 +89,14 @@ public class LoginPageAC extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String emailText = email.getText().toString();
-        String passwordlText = password.getText().toString();
+
+        final String emailText = email.getText().toString();
+        final String passwordlText = password.getText().toString();
 
 //        Log.d("email", emailText);
 //        Log.d("password", passwordlText);
-        DialogFragment df = new DialogFragment();
+        final DialogFragment df = new DialogFragment();
+
 
         if(emailText.isEmpty() && passwordlText.isEmpty()) {
             df.callAlert(LoginPageAC.this, "Login input empty!\nPlease check your email address or password and try again.");
@@ -106,25 +106,48 @@ public class LoginPageAC extends AppCompatActivity {
             df.callAlert(LoginPageAC.this, "Password empty!\nPlease enter password and try again.");
         } else {
 
-            csiWCF_VM wcf = new csiWCF_VM();
-            if (wcf.Login(emailText,passwordlText )) {
+            final csiWCF_VM wcf = new csiWCF_VM();
+//            DialogFragment df = new DialogFragment();
+            df.callloadingScreen(LoginPageAC.this);
 
-                if (!loginVar.clientlogo.isEmpty()) {
-                    UserInfoStoredFunction.setLogo(this, loginVar.clientlogo);
+            Thread t= new Thread(new Runnable() {
+
+                public void run() {
+                    if (wcf.Login(emailText,passwordlText )) {
+
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                df.cancelLoadingScreen();
+                                if (!loginVar.clientlogo.isEmpty()) {
+                                    UserInfoStoredFunction.setLogo(LoginPageAC.this, loginVar.clientlogo);
+                                }
+
+                                toSeachAC();
+                            }
+                        });
+
+                    } else {
+                        Log.d("error", "login failed");
+
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
+                                UserInfoStoredFunction.setFalseStatus(LoginPageAC.this);
+
+                                password.setText("");
+
+                                df.cancelLoadingScreen();
+                                df.callAlert(LoginPageAC.this, "Login Failed!\nPlease check your email address or password and try again.");
+                            }
+                        });
+
+
+                    }
                 }
-
-                toSeachAC();
-            } else {
-                Log.d("error", "login failed");
-
-                remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
-                UserInfoStoredFunction.setFalseStatus(this);
-
-                password.setText("");
-
-                df.callAlert(LoginPageAC.this, "Login Failed!\nPlease check your email address or password and try again.");
-
-            }
+            });
+            t.start();
         }
 
     }

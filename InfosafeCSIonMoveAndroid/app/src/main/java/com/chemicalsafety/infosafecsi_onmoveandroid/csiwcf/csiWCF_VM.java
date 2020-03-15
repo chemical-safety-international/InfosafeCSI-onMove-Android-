@@ -1,5 +1,7 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
+import android.util.Log;
+
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
@@ -14,6 +16,7 @@ import java.util.Arrays;
 
 
 public class csiWCF_VM {
+
 
     public Boolean Login(String email, String pw) {
 
@@ -34,8 +37,10 @@ public class csiWCF_VM {
 
                     if(loginVar.clientid != "null" && !loginVar.clientid.isEmpty() && loginVar.apptype == 1) {
                         if(loginVar.passed.equals("true")) {
+
                             return true;
                         } else {
+
                             return false;
                         }
 

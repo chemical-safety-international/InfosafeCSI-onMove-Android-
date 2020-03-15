@@ -172,12 +172,13 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         //set button action
         holder.sdsviewBtn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 try {
-                    String sdsno = searchItemList.sdsnoArray[position];
+
+                    final String sdsno = searchItemList.sdsnoArray[position];
 //                    System.out.println("passV sdsNO:" + sdsno);
-                    String clientid, uid, rtype;
-                    int apptp;
+                    final String clientid, uid, rtype;
+                    final int apptp;
 
                     searchItemList.sdsno = sdsno;
                     clientid = loginVar.clientid;
@@ -185,23 +186,37 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                     apptp = loginVar.apptype;
                     rtype = "1";
 
-                    csiWCF_VM callpreview = new csiWCF_VM();
-
+                    final csiWCF_VM callpreview = new csiWCF_VM();
+                    final DialogFragment df = new DialogFragment();
+                    df.callloadingScreen(v.getContext());
                     // get the GHS value and go to the activity
-                    if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype)) {
-                        if (callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype)){
-                            if (callpreview.PreviewFAID(clientid, uid, sdsno, apptp, rtype)) {
-                                v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
-                            } else {
-                                Log.i("Error", "call first aid failed");
-                            }
-                        } else {
-                            Log.i("Error", "call TI information failed");
-                        }
+                    Thread t= new Thread(new Runnable() {
 
-                    } else {
-                        Log.i("Error", "call GHS failed");
-                    }
+                        public void run() {
+                            if (callpreview.PreviewGHS(clientid, uid, sdsno, apptp, rtype)) {
+                                if (callpreview.PreviewTI(clientid, uid, sdsno, apptp, rtype)){
+                                    if (callpreview.PreviewFAID(clientid, uid, sdsno, apptp, rtype)) {
+//                                        runOnUiThread(new Runnable() {
+//                                            public void run() {
+                                                df.cancelLoadingScreen();
+                                                v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+//                                            }
+//                                        });
+                                    } else {
+                                        df.cancelLoadingScreen();
+                                        Log.i("Error", "call first aid failed");
+                                    }
+                                } else {
+                                    df.cancelLoadingScreen();
+                                    Log.i("Error", "call TI information failed");
+                                }
+
+                            } else {
+                                df.cancelLoadingScreen();
+                                Log.i("Error", "call GHS failed");
+                            }
+                        }});
+                    t.start();
 
                 } catch (Exception e) {
                     e.printStackTrace();

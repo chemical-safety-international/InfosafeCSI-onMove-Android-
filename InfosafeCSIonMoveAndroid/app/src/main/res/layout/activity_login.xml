@@ -81,8 +81,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="271dp"
-        android:layout_height="19dp"
+        android:layout_width="269dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
@@ -91,20 +93,21 @@
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/loginPW"
+        app:layout_constraintStart_toEndOf="@+id/remBtn"
         app:layout_constraintTop_toBottomOf="@+id/loginPW" />
 
     <Button
         android:id="@+id/remBtn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/login_untickcheckbox"
         android:onClick="remBtnTapped"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/loginPW"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
