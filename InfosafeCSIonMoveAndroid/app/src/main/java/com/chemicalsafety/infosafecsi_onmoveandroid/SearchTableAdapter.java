@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
 
 
-
-
     public static class SearchTableViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView img1;
@@ -44,7 +42,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
         public Button sdsviewBtn;
 
-        public TextView cardText;
+        public TextView cardViewT;
 
 
         public SearchTableViewHolder(@NonNull View itemView) {
@@ -65,7 +63,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
             sdsviewBtn = itemView.findViewById(R.id.sdsviewBtn);
 
-//            cardText = itemView.findViewById(R.id.cardViewText);
+            cardViewT = itemView.findViewById(R.id.cardText);
+
         }
 
     }
@@ -204,6 +203,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 //                                            public void run() {
                                                 df.cancelLoadingScreen();
                                                 v.getContext().startActivity(new Intent(v.getContext(), SDSViewMainPageAC.class));
+
 //                                            }
 //                                        });
                                     } else {
@@ -231,10 +231,18 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
 //        System.out.println(position);
 //        System.out.println(searchItemList.tableList.size());
-//        if(position == (searchItemList.tableList.size() - 1)) {
-//            holder.cardText.setText("All data has been loaded.");
-//        }
 
+//        SearchTablePageAC stpac = new SearchTablePageAC();
+//
+        if(position == (searchItemList.tableList.size() - 1)) {
+//            stpac..getContext().changeText();
+//            SearchTablePageAC.class.getResource(R.id.cardViewText);
+            holder.cardViewT.setText("All data has been loaded.");
+        }
+
+//                if(position == (searchItemList.tableList.size() - 1)) {
+//                    myCallback.updateMyText("All Data");
+//                }
     }
 
 
@@ -256,4 +264,6 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             startActivity(intent);
         }
     }
+
+
 }
