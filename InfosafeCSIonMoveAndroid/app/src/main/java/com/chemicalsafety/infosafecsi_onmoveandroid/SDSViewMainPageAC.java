@@ -4,19 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.icu.text.SymbolTable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.SpannedString;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -65,6 +63,15 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     TextView fainhv, faingv, faskinv, faeyev, fafafv, faatdv;
 
     TextView toolbarTitle;
+
+    //scroll to view more content
+    TextView scrollText;
+    ImageView scrollImage;
+    LinearLayout scrollContent1, scrollContent2, scrollContent3;
+    volatile Boolean status1 = false;
+    Boolean status2 = false, status3 = false;
+    Boolean sta1 = true, sta2 = true, sta3 = true;
+    int once = 0;
 
     int sdsBtnwidth;
 
@@ -173,11 +180,20 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         //connect toolbar textview
         toolbarTitle = findViewById(R.id.sdsmaintoolbartitle);
 
+        //connect scroll to view more content
+        scrollText = findViewById(R.id.viewMoreText);
+        scrollImage = findViewById(R.id.viewMoreImg);
+        scrollContent1 = findViewById(R.id.viewMoreContent1);
+        scrollContent2 = findViewById(R.id.viewMoreContent2);
+        scrollContent3 = findViewById(R.id.viewMoreContent3);
+
+
+
         setValues();
         setBtnsValues();
 
 //        setSDSProgress();
-
+//        previewBtn.performClick();
         setProgressValue(0);
 
 //        sdsget = callViewSDS();
@@ -507,6 +523,34 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 //
 //            });
 
+
+
+//            Thread t= new Thread(new Runnable() {
+//
+//                public void run() {
+//                    previewBtn.performClick();
+                    scrollableCheck2(tiSC);
+                    scrollableCheck3(faSC);
+                    scrollableCheck1(preghsSC);
+
+                    scrollContent2.setVisibility(View.INVISIBLE);
+                    scrollContent3.setVisibility(View.INVISIBLE);
+//                    System.out.println("reach 0");
+//
+//                    System.out.println("status1:" + status1.booleanValue());
+                    if (status1) {
+//                        System.out.println("reach 1");
+                        if (sta1) {
+//                            System.out.println("reach 2");
+                            scrollContent1.setVisibility(View.VISIBLE);
+                        }
+//                    } else {
+//                        scrollContent1.setVisibility(View.INVISIBLE);
+                    }
+
+//                }
+//            }); t.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -519,6 +563,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             public void run() {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
+                faSC.setVisibility(View.INVISIBLE);
 
                 sdsBtn.setEnabled(false);
                 sdsprogressBar.setScaleY(12f);
@@ -631,6 +676,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     }
 
     public void previewBtnTapped(View v) {
+
+//        System.out.println("preview tapped");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -668,6 +715,20 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
                 pstitle.setVisibility(View.VISIBLE);
                 psvalue.setVisibility(View.VISIBLE);
+
+
+                scrollContent2.setVisibility(View.INVISIBLE);
+                scrollContent3.setVisibility(View.INVISIBLE);
+
+                scrolltobuttomCheck1(preghsSC);
+                System.out.println("status1:" + status1.booleanValue());
+                if(status1) {
+                    if (sta1) {
+                        scrollContent1.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    scrollContent1.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -711,6 +772,20 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 pstitle.setVisibility(View.GONE);
                 psvalue.setVisibility(View.GONE);
 
+                scrollContent2.setVisibility(View.INVISIBLE);
+                scrollContent3.setVisibility(View.INVISIBLE);
+
+                scrolltobuttomCheck1(preghsSC);
+
+                if(status1) {
+                    if (sta1) {
+                        scrollContent1.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    scrollContent1.setVisibility(View.INVISIBLE);
+                }
+
             }
         });
     }
@@ -731,6 +806,19 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 dgBtn.setBackgroundColor(getResources().getColor(R.color.colorOrange));
                 faBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
                 ghsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
+
+                scrollContent1.setVisibility(View.INVISIBLE);
+                scrollContent3.setVisibility(View.INVISIBLE);
+
+                scrolltobuttomCheck2(tiSC);
+                if(status2) {
+                    if(sta2) {
+                        scrollContent2.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    scrollContent2.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -1093,6 +1181,21 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 ghsBtn.setBackgroundColor(getResources().getColor(R.color.colorLightBlack));
 
                 setFAIDValues();
+
+                scrollContent1.setVisibility(View.INVISIBLE);
+                scrollContent2.setVisibility(View.INVISIBLE);
+
+                scrolltobuttomCheck3(faSC);
+
+//                scrollAtButtomCheck3(faSC);
+                if(status3) {
+                    if(sta3){
+                        scrollContent3.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    scrollContent3.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -1155,4 +1258,168 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         }
 
     }
+
+//    @TargetApi(16)
+    //check the scroll bar
+    public void scrollableCheck1(final ScrollView scrollView) {
+        ViewTreeObserver observer = scrollView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int viewHeight = scrollView.getMeasuredHeight();
+                int contentHeight = scrollView.getChildAt(0).getHeight();
+                if (viewHeight - contentHeight < 0) {
+//                    Log.i("scroll bar1", "scrollable!!");
+                    status1 = true;
+                    if(once == 0) {
+                        previewBtn.performClick();
+                        once = once + 1;
+                    }
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+//                    Log.i("scroll bar1", "not scrollable!!");
+                    status1 = false;
+                }
+            }
+        });
+
+    }
+
+//    @TargetApi(16)
+    public void scrollableCheck2(final ScrollView scrollView) {
+        ViewTreeObserver observer = scrollView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int viewHeight = scrollView.getMeasuredHeight();
+                int contentHeight = scrollView.getChildAt(0).getHeight();
+                if (viewHeight - contentHeight < 0) {
+//                    Log.i("scroll bar2", "scrollable!!");
+
+                    status2 = true;
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+//                    Log.i("scroll bar2", "not scrollable!!");
+                    status2 = false;
+                }
+            }
+        });
+    }
+
+//    @TargetApi(16)
+    public void scrollableCheck3(final ScrollView scrollView) {
+        ViewTreeObserver observer = scrollView.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int viewHeight = scrollView.getMeasuredHeight();
+                int contentHeight = scrollView.getChildAt(0).getHeight();
+                if (viewHeight - contentHeight < 0) {
+//                    Log.i("scroll bar3", "scrollable!!");
+
+                    status3 = true;
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+//                    Log.i("scroll bar3", "not scrollable!!");
+
+                    status3 = false;
+                }
+            }
+        });
+    }
+
+    public void scrolltobuttomCheck1(final ScrollView scrollView) {
+        scrollView.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY())+ 10) {
+//                            Log.i("scroll bar1", "reach to buttom");
+                            scrollContent1.setVisibility(View.INVISIBLE);
+                            scrollContent3.setVisibility(View.INVISIBLE);
+                            scrollContent2.setVisibility(View.INVISIBLE);
+                            sta1 = false;
+                        } else {
+//                            Log.i("scroll bar1", "not reach to buttom");
+                            scrollContent1.setVisibility(View.VISIBLE);
+                            scrollContent3.setVisibility(View.INVISIBLE);
+                            scrollContent2.setVisibility(View.INVISIBLE);
+                            sta1 = true;
+                        }
+
+                    }
+                });
+    }
+
+    public void scrolltobuttomCheck2(final ScrollView scrollView) {
+        scrollView.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY()) + 10) {
+//                            Log.i("scroll bar2", "reach to buttom");
+                            scrollContent2.setVisibility(View.INVISIBLE);
+                            scrollContent1.setVisibility(View.INVISIBLE);
+                            scrollContent3.setVisibility(View.INVISIBLE);
+                            sta2 = false;
+                        } else {
+//                            Log.i("scroll bar2", "not reach to buttom");
+                            scrollContent2.setVisibility(View.VISIBLE);
+                            scrollContent1.setVisibility(View.INVISIBLE);
+                            scrollContent3.setVisibility(View.INVISIBLE);
+                            sta2 = true;
+                        }
+
+                    }
+                });
+    }
+
+    public void scrolltobuttomCheck3(final ScrollView scrollView) {
+        scrollView.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if(scrollView.getChildAt(0).getBottom()  <= (scrollView.getHeight() + scrollView.getScrollY()) + 10) {
+//                            Log.i("scroll bar3", "reach to buttom");
+                            scrollContent3.setVisibility(View.INVISIBLE);
+                            scrollContent1.setVisibility(View.INVISIBLE);
+                            scrollContent2.setVisibility(View.INVISIBLE);
+                            sta3 = false;
+                        } else {
+//                            Log.i("scroll bar3", "not reach to buttom");
+                            scrollContent3.setVisibility(View.VISIBLE);
+                            scrollContent1.setVisibility(View.INVISIBLE);
+                            scrollContent2.setVisibility(View.INVISIBLE);
+                            sta3 = true;
+                        }
+
+                    }
+                });
+    }
+
+//    public void scrollAtButtomCheck3(final ScrollView scrollView) {
+//        scrollView.getViewTreeObserver()
+//                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+//                    @Override
+//                    public void onScrollChanged() {
+//                        if(scrollView.getChildAt(0).getBottom()  >= (scrollView.getHeight() + scrollView.getScrollY()) + 10) {
+//                            Log.i("scroll bar3", "reach to buttom");
+//                            scrollContent3.setVisibility(View.INVISIBLE);
+//                            scrollContent1.setVisibility(View.INVISIBLE);
+//                            scrollContent2.setVisibility(View.INVISIBLE);
+//                            sta3 = false;
+//                        } else {
+//                            Log.i("scroll bar3", "not reach to buttom");
+//                            scrollContent3.setVisibility(View.VISIBLE);
+//                            scrollContent1.setVisibility(View.INVISIBLE);
+//                            scrollContent2.setVisibility(View.INVISIBLE);
+//                            sta3 = true;
+//                        }
+//
+//                    }
+//                });
+//    }
+
 }
+
+

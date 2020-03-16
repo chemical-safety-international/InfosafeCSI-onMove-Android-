@@ -44,6 +44,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
         public Button sdsviewBtn;
 
+        public TextView cardText;
+
 
         public SearchTableViewHolder(@NonNull View itemView) {
 
@@ -62,6 +64,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             img5 = itemView.findViewById(R.id.img5);
 
             sdsviewBtn = itemView.findViewById(R.id.sdsviewBtn);
+
+//            cardText = itemView.findViewById(R.id.cardViewText);
         }
 
     }
@@ -225,6 +229,11 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             }
         });
 
+//        System.out.println(position);
+//        System.out.println(searchItemList.tableList.size());
+//        if(position == (searchItemList.tableList.size() - 1)) {
+//            holder.cardText.setText("All data has been loaded.");
+//        }
 
     }
 

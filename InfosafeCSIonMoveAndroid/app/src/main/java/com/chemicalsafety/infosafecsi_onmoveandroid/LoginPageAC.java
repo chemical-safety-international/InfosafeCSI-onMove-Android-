@@ -51,7 +51,7 @@ public class LoginPageAC extends AppCompatActivity {
 //        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
 
         if (UserInfoStoredFunction.getStatus(this)) {
-            Log.i("logo", UserInfoStoredFunction.getLogo(this));
+//            Log.i("logo", UserInfoStoredFunction.getLogo(this));
             setRememberValues();
         } else {
             loginLogo.setImageResource(R.drawable.csi_logo);
@@ -81,7 +81,7 @@ public class LoginPageAC extends AppCompatActivity {
 
     public void callLoginWCF() {
 
-        //hid the soft keyboard
+        //hid the soft keyboard when leaving this page
         try {
             InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);

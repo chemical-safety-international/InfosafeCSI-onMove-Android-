@@ -122,4 +122,8 @@
     <string name="dg_title">DG</string>
     <string name="faid_title">FIRST AID</string>
 
+    //Scroll to view more
+    <string name="scroll_text">Scroll down to view more</string>
+    <string name="scroll_image">Scroll down image</string>
+
 </resources>

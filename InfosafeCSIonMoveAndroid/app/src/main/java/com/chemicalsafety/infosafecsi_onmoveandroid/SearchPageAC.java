@@ -53,7 +53,7 @@ public class SearchPageAC extends AppCompatActivity {
 
     public void searchBtnTapped(View view) {
 
-        //hid the soft keyboard
+        //hid the soft keyboard when leaving this page
         try {
             InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
