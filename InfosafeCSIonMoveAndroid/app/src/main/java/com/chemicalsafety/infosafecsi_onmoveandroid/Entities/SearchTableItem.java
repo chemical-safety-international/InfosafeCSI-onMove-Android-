@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class SearchTableItem {
 
+    public static int pcount;
+    public static int lcount;
+    public static int ocount;
+    public static int totalcount;
 
     private String pname;
     private String country;
@@ -11,6 +15,7 @@ public class SearchTableItem {
     private String unno;
     private String pcode;
     private String date;
+
 
     public SearchTableItem(String pnamev, String countryv, String supplierv, String unnov, String pcodev, String datev) {
         pname = pnamev;

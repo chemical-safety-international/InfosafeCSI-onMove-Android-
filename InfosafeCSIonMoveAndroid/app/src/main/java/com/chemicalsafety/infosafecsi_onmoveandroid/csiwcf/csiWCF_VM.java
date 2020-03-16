@@ -2,6 +2,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
 import android.util.Log;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
@@ -54,7 +55,7 @@ public class csiWCF_VM {
                 }
 
             } else {
-//                Log.d("error", "login failed");
+                Log.d("error", "login failed");
                 return false;
             }
         } catch (Exception e) {
@@ -177,6 +178,9 @@ public class csiWCF_VM {
 
             searchItemList.tableList.clear();
             searchItemList.tableList.removeAll(searchItemList.tableList);
+            SearchTableItem.pcount = 0;
+            SearchTableItem.lcount = 0;
+            SearchTableItem.ocount = 0;
 
             //store each item
             for (int i = 0; i < dataArray.length(); i++) {
@@ -207,6 +211,16 @@ public class csiWCF_VM {
                 String coun1 = item.getString("scountry");
                 String pitgs = item.getString("sdsghspic");
 
+                JSONObject ptype1 = item.getJSONObject("nametype");
+                String ptype2 = ptype1.getString("value");
+
+                if (ptype2.equals("P")) {
+                    SearchTableItem.pcount += 1;
+                } else if (ptype2.equals("L")) {
+                    SearchTableItem.lcount += 1;
+                } else if (ptype2.equals("O")) {
+                    SearchTableItem.ocount += 1;
+                }
 
                 //get sdsno and stored
                 sdsnoArray1[i] = key2;
@@ -312,7 +326,10 @@ public class csiWCF_VM {
 
             }
 
-            if (searchItemList.tableList.size() == 0 || searchItemList.tableList.isEmpty()) {
+            SearchTableItem.totalcount = SearchTableItem.pcount + SearchTableItem.lcount + SearchTableItem.ocount;
+//            System.out.println("Search total count is:" + SearchTableItem.totalcount);
+
+            if (searchItemList.tableList.size() == 0 ) {
 
                 return false;
             } else {

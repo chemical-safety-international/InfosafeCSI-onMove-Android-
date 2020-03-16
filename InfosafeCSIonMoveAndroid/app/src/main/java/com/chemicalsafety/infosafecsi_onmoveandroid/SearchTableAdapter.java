@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
@@ -237,7 +238,12 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         if(position == (searchItemList.tableList.size() - 1)) {
 //            stpac..getContext().changeText();
 //            SearchTablePageAC.class.getResource(R.id.cardViewText);
-            holder.cardViewT.setText("All data has been loaded.");
+            if(SearchTableItem.totalcount > 249) {
+                holder.cardViewT.setText("Only 250 results have been displayed.\n Please refine your search criteria for more accurate results.");
+            } else {
+                holder.cardViewT.setText("All data has been loaded.");
+            }
+
         }
 
 //                if(position == (searchItemList.tableList.size() - 1)) {

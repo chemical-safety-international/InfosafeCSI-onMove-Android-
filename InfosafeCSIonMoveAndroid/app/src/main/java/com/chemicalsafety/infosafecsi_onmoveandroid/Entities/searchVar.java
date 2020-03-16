@@ -5,4 +5,7 @@ public class searchVar {
     public static String pnameInput;
     public static String supplierInput;
     public static String pcodeInput;
+
+
+
 }
