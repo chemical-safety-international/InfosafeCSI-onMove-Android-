@@ -82,12 +82,12 @@ public class LoginPageAC extends AppCompatActivity {
     public void callLoginWCF() {
 
         //hid the soft keyboard when leaving this page
-        try {
-            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
         final String emailText = email.getText().toString();
