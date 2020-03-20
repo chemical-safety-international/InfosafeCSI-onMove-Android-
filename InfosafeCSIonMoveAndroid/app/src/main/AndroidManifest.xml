@@ -25,8 +25,10 @@
         <activity android:name=".ViewSDSPageAC"/>
         <activity android:name=".SDSViewMainPageAC" />
         <activity android:name=".SearchTablePageAC" />
-        <activity android:name=".SearchPageAC" />
-        <activity android:name=".LoginPageAC" />
+        <activity android:name=".SearchPageAC"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".LoginPageAC"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".StartupPageAC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

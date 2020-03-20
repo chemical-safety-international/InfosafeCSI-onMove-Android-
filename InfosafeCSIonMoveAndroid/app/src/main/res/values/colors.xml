@@ -6,4 +6,5 @@
     <color name="colorLightBlack">#454242</color>
     <color name="colorOrange">#FF8716</color>
     <color name="toobarBlack">#99000000</color>
+    <color name="trans_white">#99FFFFFF</color>
 </resources>

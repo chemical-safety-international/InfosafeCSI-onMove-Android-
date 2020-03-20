@@ -2,9 +2,11 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -34,7 +36,7 @@ public class SearchPageAC extends AppCompatActivity {
         pcodeET = findViewById(R.id.pcodeSearchBar);
 
 //        callCriteriaList();
-
+        setupUI(findViewById(R.id.SearchCL));
     }
 
 
@@ -43,6 +45,17 @@ public class SearchPageAC extends AppCompatActivity {
         csiWCFMethods wcf = new csiWCFMethods();
         wcf.SearchCriteriaList();
 
+    }
+
+    public void setupUI(View view) {
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(SearchPageAC.this);
+                    return false;
+                }
+            });
+        }
     }
 
     public void logOffBtnTapped(View view) {
@@ -54,12 +67,12 @@ public class SearchPageAC extends AppCompatActivity {
     public void searchBtnTapped(View view) {
 
         //hid the soft keyboard when leaving this page
-        try {
-            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         //get the search bars input
         searchVar.pnameInput = pnameET.getText().toString();
@@ -107,5 +120,10 @@ public class SearchPageAC extends AppCompatActivity {
 
         }
 
+    }
+
+    public void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 }

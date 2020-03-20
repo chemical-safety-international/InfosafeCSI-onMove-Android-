@@ -2,12 +2,14 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
 import android.view.inputmethod.InputMethodManager;
@@ -56,11 +58,25 @@ public class LoginPageAC extends AppCompatActivity {
         } else {
             loginLogo.setImageResource(R.drawable.csi_logo);
         }
+
+        //build listener for keyboard
+        setupUI(findViewById(R.id.LoginCL));
+    }
+
+    //setup listener for the view except EditText
+    public void setupUI(View view) {
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(LoginPageAC.this);
+                    return false;
+                }
+            });
+        }
     }
 
 
     public void loginBtnTapped(View view) {
-
 
 
 //        ThreadA threadA = new ThreadA();
@@ -199,6 +215,12 @@ public class LoginPageAC extends AppCompatActivity {
         }
 
 
+    }
+
+    //hide keyboard when called
+    public void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
     public class ThreadA {

@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.text.SymbolTable;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -192,6 +190,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setValues();
         setBtnsValues();
 
+        progressBarSetup();
 //        setSDSProgress();
 //        previewBtn.performClick();
         setProgressValue(0);
@@ -204,6 +203,24 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 //        PrimeThread p = new PrimeThread(143);
 //        p.start();
 
+
+//        scrollableCheck1(preghsSC);
+//        scrollableCheck2(tiSC);
+//        scrollableCheck3(faSC);
+
+//        Log.i("scrollablecheck1;    ", status1.toString());
+//        Log.i("scrollablecheck2;    ", status2.toString());
+//        Log.i("scrollablecheck3;    ", status3.toString());
+
+
+//        scrollContent2.setVisibility(View.GONE);
+//        scrollContent3.setVisibility(View.GONE);
+
+
+    }
+
+    public void progressBarSetup() {
+        sdsprogressBar.getIndeterminateDrawable().setColorFilter(0b11111111111111110000000000000000, PorterDuff.Mode.MULTIPLY);
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -528,25 +545,20 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 //            Thread t= new Thread(new Runnable() {
 //
 //                public void run() {
-//                    previewBtn.performClick();
-                    scrollableCheck2(tiSC);
-                    scrollableCheck3(faSC);
-                    scrollableCheck1(preghsSC);
-
-                    scrollContent2.setVisibility(View.INVISIBLE);
-                    scrollContent3.setVisibility(View.INVISIBLE);
 //                    System.out.println("reach 0");
 //
 //                    System.out.println("status1:" + status1.booleanValue());
-                    if (status1) {
-//                        System.out.println("reach 1");
-                        if (sta1) {
-//                            System.out.println("reach 2");
-                            scrollContent1.setVisibility(View.VISIBLE);
-                        }
+
+//                    if (status1) {
+////                        System.out.println("reach 1");
+//                        if (sta1) {
+////                            System.out.println("reach 2");
+//                            scrollContent1.setVisibility(View.VISIBLE);
+//                        }
 //                    } else {
 //                        scrollContent1.setVisibility(View.INVISIBLE);
-                    }
+
+//                    }
 
 //                }
 //            }); t.start();
@@ -677,6 +689,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     public void previewBtnTapped(View v) {
 
+
 //        System.out.println("preview tapped");
         runOnUiThread(new Runnable() {
             @Override
@@ -684,6 +697,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
+
 
                 //set toolbar title value
                 toolbarTitle.setText("PREVIEW");
@@ -720,17 +734,35 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 scrollContent2.setVisibility(View.INVISIBLE);
                 scrollContent3.setVisibility(View.INVISIBLE);
 
-                scrolltobuttomCheck1(preghsSC);
-                System.out.println("status1:" + status1.booleanValue());
-                if(status1) {
-                    if (sta1) {
-                        scrollContent1.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    scrollContent1.setVisibility(View.INVISIBLE);
-                }
+//                scrolltobuttomCheck1(preghsSC);
+
+//                scrolltobuttomCheck2(tiSC);
+//                scrolltobuttomCheck3(faSC);
+
+                //preghsSC.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+//                scrollableCheck1(preghsSC);
+//                scrolltobuttomCheck1(preghsSC);
+//                System.out.println("status1:" + status1.booleanValue());
+
+//                preghsSC.invalidate();
+//                preghsSC.setVisibility(View.GONE);
+//                preghsSC.setVisibility(View.VISIBLE);
+//                System.out.println(status1);
+
+//                if(status1) {
+//                    if (sta1) {
+//                        scrollContent1.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    scrollContent1.setVisibility(View.INVISIBLE);
+//                }
+
+
             }
         });
+
     }
 
     public void ghsBtnTapped(View v) {
@@ -740,6 +772,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.VISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
+
 
                 //set toolbar title value
                 toolbarTitle.setText("GHS");
@@ -775,16 +808,23 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 scrollContent2.setVisibility(View.INVISIBLE);
                 scrollContent3.setVisibility(View.INVISIBLE);
 
-                scrolltobuttomCheck1(preghsSC);
+//                scrollableCheck1(preghsSC);
+//                scrolltobuttomCheck1(preghsSC);
 
-                if(status1) {
-                    if (sta1) {
-                        scrollContent1.setVisibility(View.VISIBLE);
-                    }
+//                preghsSC.invalidate();
+//                preghsSC.setVisibility(View.GONE);
+//                preghsSC.setVisibility(View.VISIBLE);
+//                System.out.println(status1);
 
-                } else {
-                    scrollContent1.setVisibility(View.INVISIBLE);
-                }
+//                if(status1) {
+//                    if (sta1) {
+//                        scrollContent1.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    scrollContent1.setVisibility(View.INVISIBLE);
+//                }
+
 
             }
         });
@@ -794,10 +834,14 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+//                scrollableCheck2(tiSC);
+
+
                 tiSC.setVisibility(View.VISIBLE);
                 preghsSC.setVisibility(View.INVISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
                 setTIPageBtns();
+
 
                 //set toolbar title value
                 toolbarTitle.setText("DG CLASS");
@@ -810,15 +854,23 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 scrollContent1.setVisibility(View.INVISIBLE);
                 scrollContent3.setVisibility(View.INVISIBLE);
 
-                scrolltobuttomCheck2(tiSC);
-                if(status2) {
-                    if(sta2) {
-                        scrollContent2.setVisibility(View.VISIBLE);
-                    }
 
-                } else {
-                    scrollContent2.setVisibility(View.INVISIBLE);
-                }
+
+//                scrolltobuttomCheck2(tiSC);
+
+//                tiSC.invalidate();
+//                tiSC.setVisibility(View.GONE);
+//                tiSC.setVisibility(View.VISIBLE);
+
+//                if(status2) {
+//                    if(sta2) {
+//                        scrollContent2.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    scrollContent2.setVisibility(View.INVISIBLE);
+//                }
+
             }
         });
     }
@@ -1133,7 +1185,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 //rebuild the constraint of ti image and ti value
                 layout = findViewById(R.id.TICL);
                 set.clone(layout);
-                set.connect(R.id.tisunno, ConstraintSet.TOP, R.id.linearLayout2, ConstraintSet.BOTTOM, 20);
+                set.connect(R.id.tisunno, ConstraintSet.TOP, R.id.tiinnerBtns, ConstraintSet.BOTTOM, 20);
                 set.applyTo(layout);
             }
 
@@ -1168,9 +1220,12 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+//                scrollableCheck3(faSC);
+
                 tiSC.setVisibility(View.INVISIBLE);
                 preghsSC.setVisibility(View.INVISIBLE);
                 faSC.setVisibility(View.VISIBLE);
+
 
                 //set toolbar title value
                 toolbarTitle.setText("FIRST AID");
@@ -1185,17 +1240,26 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 scrollContent1.setVisibility(View.INVISIBLE);
                 scrollContent2.setVisibility(View.INVISIBLE);
 
-                scrolltobuttomCheck3(faSC);
+//                scrolltobuttomCheck3(faSC);
 
-//                scrollAtButtomCheck3(faSC);
-                if(status3) {
-                    if(sta3){
-                        scrollContent3.setVisibility(View.VISIBLE);
-                    }
+//                faSC.invalidate();
+//                faSC.setVisibility(View.GONE);
+//                faSC.setVisibility(View.VISIBLE);
+//                faSC.removeAllViews();
 
-                } else {
-                    scrollContent3.setVisibility(View.INVISIBLE);
-                }
+//                Log.i("value", "Ti scroll bar Y:" +tiSC.getScrollY() + "\nTi scroll bar child At:" +tiSC.getChildAt(0).getBottom() + "\nTi scroll bar Height:" +tiSC.getHeight());
+
+
+//                if(status3) {
+//                    if(sta3){
+//                        scrollContent3.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    scrollContent3.setVisibility(View.INVISIBLE);
+//                }
+
+
             }
         });
     }
@@ -1269,14 +1333,16 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 int viewHeight = scrollView.getMeasuredHeight();
                 int contentHeight = scrollView.getChildAt(0).getHeight();
                 if (viewHeight - contentHeight < 0) {
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                    Log.i("scroll bar1", "scrollable!!");
                     status1 = true;
                     if(once == 0) {
-                        previewBtn.performClick();
                         once = once + 1;
+                        previewBtn.performClick();
                     }
-//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
                 } else {
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                    Log.i("scroll bar1", "not scrollable!!");
                     status1 = false;
                 }
@@ -1295,10 +1361,11 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 int contentHeight = scrollView.getChildAt(0).getHeight();
                 if (viewHeight - contentHeight < 0) {
 //                    Log.i("scroll bar2", "scrollable!!");
-
-                    status2 = true;
 //                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    status2 = true;
+
                 } else {
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                    Log.i("scroll bar2", "not scrollable!!");
                     status2 = false;
                 }
@@ -1314,33 +1381,38 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             public void onGlobalLayout() {
                 int viewHeight = scrollView.getMeasuredHeight();
                 int contentHeight = scrollView.getChildAt(0).getHeight();
+//                Log.i("value", "Ti scroll bar Y:" +scrollView.getScrollY() + "\nTi scroll bar child At:" +scrollView.getChildAt(0).getBottom() + "\nTi scroll bar Height:" +scrollView.getHeight());
                 if (viewHeight - contentHeight < 0) {
 //                    Log.i("scroll bar3", "scrollable!!");
-
                     status3 = true;
 //                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
                 } else {
 //                    Log.i("scroll bar3", "not scrollable!!");
 
                     status3 = false;
+//                    scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
         });
     }
 
+//    @TargetApi(16)
     public void scrolltobuttomCheck1(final ScrollView scrollView) {
         scrollView.getViewTreeObserver()
                 .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                     @Override
                     public void onScrollChanged() {
-                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY())+ 10) {
+                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY()) + 1) {
 //                            Log.i("scroll bar1", "reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent1.setVisibility(View.INVISIBLE);
                             scrollContent3.setVisibility(View.INVISIBLE);
                             scrollContent2.setVisibility(View.INVISIBLE);
                             sta1 = false;
                         } else {
 //                            Log.i("scroll bar1", "not reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent1.setVisibility(View.VISIBLE);
                             scrollContent3.setVisibility(View.INVISIBLE);
                             scrollContent2.setVisibility(View.INVISIBLE);
@@ -1351,19 +1423,22 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 });
     }
 
+//    @TargetApi(16)
     public void scrolltobuttomCheck2(final ScrollView scrollView) {
         scrollView.getViewTreeObserver()
                 .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                     @Override
                     public void onScrollChanged() {
-                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY()) + 10) {
+                        if(scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY())  + 1) {
 //                            Log.i("scroll bar2", "reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent2.setVisibility(View.INVISIBLE);
                             scrollContent1.setVisibility(View.INVISIBLE);
                             scrollContent3.setVisibility(View.INVISIBLE);
                             sta2 = false;
                         } else {
 //                            Log.i("scroll bar2", "not reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent2.setVisibility(View.VISIBLE);
                             scrollContent1.setVisibility(View.INVISIBLE);
                             scrollContent3.setVisibility(View.INVISIBLE);
@@ -1374,19 +1449,22 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 });
     }
 
+//    @TargetApi(16)
     public void scrolltobuttomCheck3(final ScrollView scrollView) {
         scrollView.getViewTreeObserver()
                 .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                     @Override
                     public void onScrollChanged() {
-                        if(scrollView.getChildAt(0).getBottom()  <= (scrollView.getHeight() + scrollView.getScrollY()) + 10) {
+                        if(scrollView.getChildAt(0).getBottom()  <= (scrollView.getHeight() + scrollView.getScrollY())  + 1) {
 //                            Log.i("scroll bar3", "reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent3.setVisibility(View.INVISIBLE);
                             scrollContent1.setVisibility(View.INVISIBLE);
                             scrollContent2.setVisibility(View.INVISIBLE);
                             sta3 = false;
                         } else {
 //                            Log.i("scroll bar3", "not reach to buttom");
+//                            scrollView.getViewTreeObserver().removeOnScrollChangedListener(this);
                             scrollContent3.setVisibility(View.VISIBLE);
                             scrollContent1.setVisibility(View.INVISIBLE);
                             scrollContent2.setVisibility(View.INVISIBLE);
@@ -1395,6 +1473,14 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    public void scrollbarCheck(ScrollView scrollView, boolean status) {
+        int yValue = scrollView.getScrollY();
+        if (status) {
+//            if (scrollView.g)
+        }
+
     }
 
 //    public void scrollAtButtomCheck3(final ScrollView scrollView) {
