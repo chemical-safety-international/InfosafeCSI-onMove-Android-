@@ -63,12 +63,13 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="0"
-                android:progressBackgroundTint="@android:color/transparent"
-                android:progressTint="@android:color/darker_gray"
+                android:progressDrawable="@drawable/progress_states"
                 app:layout_constraintBottom_toBottomOf="@+id/sdsBtn"
                 app:layout_constraintEnd_toEndOf="@+id/sdsBtn"
                 app:layout_constraintStart_toStartOf="@+id/sdsBtn"
                 app:layout_constraintTop_toTopOf="@+id/sdsBtn" />
+<!--            android:progressBackgroundTint="@android:color/transparent"-->
+<!--            android:progressTint="@android:color/darker_gray"-->
 
             <Button
                 android:id="@+id/sdsBtn"

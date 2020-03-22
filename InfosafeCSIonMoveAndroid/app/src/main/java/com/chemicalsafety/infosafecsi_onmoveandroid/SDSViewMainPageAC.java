@@ -190,7 +190,7 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         setValues();
         setBtnsValues();
 
-        progressBarSetup();
+//        progressBarSetup();
 //        setSDSProgress();
 //        previewBtn.performClick();
         setProgressValue(0);
@@ -219,9 +219,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
 
     }
 
-    public void progressBarSetup() {
-        sdsprogressBar.getIndeterminateDrawable().setColorFilter(0b11111111111111110000000000000000, PorterDuff.Mode.MULTIPLY);
-    }
+//    public void progressBarSetup() {
+//        sdsprogressBar.getIndeterminateDrawable().setColorFilter(0b11111111111111110000000000000000, PorterDuff.Mode.MULTIPLY);
+//    }
 
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
