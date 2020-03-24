@@ -47,6 +47,8 @@ public class SDSViewMainPageAC extends AppCompatActivity {
     ScrollView preghsSC, tiSC, faSC;
 
     //TI layout images, buttons and textviews
+    LinearLayout tiBtnsLayout;
+
     Button tisroadBtn, tisseaBtn, tisairBtn;
 
     ImageView tisdgImg, tissubImg1, tissubImg2;
@@ -121,6 +123,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
         preghsSC = findViewById(R.id.PRE_GHSScrollView);
         tiSC = findViewById(R.id.TIScrollView);
         faSC = findViewById(R.id.FAIDScrollView);
+
+        //connect ti linear layout for buttons
+        tiBtnsLayout = findViewById(R.id.tiinnerBtns);
 
         //connect ti buttons
         tisroadBtn = findViewById(R.id.roadBtn);
@@ -840,6 +845,9 @@ public class SDSViewMainPageAC extends AppCompatActivity {
                 tiSC.setVisibility(View.VISIBLE);
                 preghsSC.setVisibility(View.INVISIBLE);
                 faSC.setVisibility(View.INVISIBLE);
+
+                tiBtnsLayout.setVisibility(View.VISIBLE);
+
                 setTIPageBtns();
 
 
