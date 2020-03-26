@@ -12,16 +12,19 @@
 <!--    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
 <!--    <uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
 <!--    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />-->
-
+<!--         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round" -->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_csi_icon"
+        android:roundIcon="@mipmap/ic_launcher_csi_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true" >
         <activity android:name=".ViewSDSPageAC"/>
         <activity android:name=".SDSViewMainPageAC" />
         <activity android:name=".SearchTablePageAC" />

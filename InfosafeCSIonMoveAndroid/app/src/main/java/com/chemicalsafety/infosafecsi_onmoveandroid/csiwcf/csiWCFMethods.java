@@ -73,7 +73,7 @@ public class csiWCFMethods {
 
 
             //responseText;
-//            Log.i("Output", responseText);
+//            Log.i("Login Output", responseText);
 
             return responseText;
 
@@ -111,7 +111,7 @@ public class csiWCFMethods {
             HttpEntity entity1 = response.getEntity();
             final String responseText = EntityUtils.toString(entity1);
 
-//            Log.i("Output", responseText);
+//            Log.i("Search Output", responseText);
 
             return responseText;
         } catch (Exception e) {

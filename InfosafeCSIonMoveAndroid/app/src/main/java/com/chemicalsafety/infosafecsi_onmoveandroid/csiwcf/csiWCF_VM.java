@@ -166,6 +166,7 @@ public class csiWCF_VM {
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.SearchReturnList(passV);
 
+//            Log.i("Search Input", passV.toString());
 //            Log.i("output", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
