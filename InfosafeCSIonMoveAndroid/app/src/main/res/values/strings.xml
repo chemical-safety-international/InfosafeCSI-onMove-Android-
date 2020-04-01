@@ -12,6 +12,7 @@
     <string name="login_button">Login</string>
     <string name="login_remember">Remember username and password</string>
     <string name="login_logo">Login page logo</string>
+    <string name="login_remBtn">Button for remember action or undo action</string>
 
 
     // Search page texts
@@ -70,6 +71,8 @@
     <string name="sdsm_tisubImg2">tisubImg2</string>
 
     //Preview GHS information texts
+    <string name="ghs_ctitle">CLASSIFICATION</string>
+    <string name="ghs_ghstitle">GHS CLASSIFICATION</string>
     <string name="ps_general">&lt;b>General:&lt;/b></string>
     <string name="ps_prevention">&lt;b>Prevention:&lt;/b></string>
     <string name="ps_response">&lt;b>Response:&lt;/b></string>

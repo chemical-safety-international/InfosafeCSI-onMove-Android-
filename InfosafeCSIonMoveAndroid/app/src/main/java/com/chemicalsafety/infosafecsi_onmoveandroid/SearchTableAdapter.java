@@ -1,5 +1,6 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -117,7 +118,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         try {
 
             //match images and set into imageviews
-            if (!img1v.isEmpty() && img1v != null) {
+            if (!img1v.isEmpty() ) {
                 Class res1 = R.drawable.class;
                 Field field1 = res1.getField(img1v);
                 int id1 = field1.getInt(null);
@@ -128,7 +129,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             }
 
 
-            if (!img2v.isEmpty() && img2v != null) {
+            if (!img2v.isEmpty()) {
                 Class res2 = R.drawable.class;
                 Field field2 = res2.getField(img2v);
                 int id2 = field2.getInt(null);
@@ -138,7 +139,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 holder.img2.setVisibility(View.GONE);
             }
 
-            if (!img3v.isEmpty() && img3v != null) {
+            if (!img3v.isEmpty() ) {
                 Class res3 = R.drawable.class;
                 Field field3 = res3.getField(img3v);
                 int id3 = field3.getInt(null);
@@ -148,7 +149,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 holder.img3.setVisibility(View.GONE);
             }
 
-            if (!img4v.isEmpty() && img4v != null) {
+            if (!img4v.isEmpty()) {
                 Class res4 = R.drawable.class;
                 Field field4 = res4.getField(img4v);
                 int id4 = field4.getInt(null);
@@ -158,7 +159,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 holder.img4.setVisibility(View.GONE);
             }
 
-            if (!img5v.isEmpty() && img5v != null) {
+            if (!img5v.isEmpty()) {
                 Class res5 = R.drawable.class;
                 Field field5 = res5.getField(img5v);
                 int id5 = field5.getInt(null);
@@ -235,12 +236,15 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
 //        SearchTablePageAC stpac = new SearchTablePageAC();
 //
+        holder.cardViewT.setVisibility(View.INVISIBLE);
         if(position == (searchItemList.tableList.size() - 1)) {
 //            stpac..getContext().changeText();
 //            SearchTablePageAC.class.getResource(R.id.cardViewText);
+            holder.cardViewT.setVisibility(View.VISIBLE);
             if(SearchTableItem.totalcount > 249) {
                 holder.cardViewT.setText("Only 250 results have been displayed.\n Please refine your search criteria for more accurate results.");
             } else {
+
                 holder.cardViewT.setText("All data has been loaded.");
             }
 
@@ -260,9 +264,10 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     }
 
     public interface ItemClickListener{
-        public void startBtnActivity(int index);
+        void startBtnActivity(int index);
     }
 
+    @SuppressLint("Registered")
     public class MainActivity extends AppCompatActivity implements ItemClickListener {
         public void startBtnActivity(int index){
 //            Log.i("reach","here2"+index);

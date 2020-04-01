@@ -66,7 +66,10 @@ public class ViewSDSPageAC extends AppCompatActivity {
 
     public void shareBtnTapped(View v) {
 
-        System.out.println("called share");
+//        System.out.println("called share");
+//        if(PackageManager.PERMISSION_GRANTED) {
+//
+//        }
         try {
             //convert base64 string to pdf file
             final File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "SDS.pdf");
@@ -109,12 +112,15 @@ public class ViewSDSPageAC extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 Log.v("TRUE", "Permission is granted");
+                shareBtn.setVisibility(View.VISIBLE);
             } else {
                 Log.v("FALSE", "Permission is revoked");
+                shareBtn.setVisibility(View.INVISIBLE);
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         } else {
             Log.v("TRUE", "PERMISSION IS GRANTED");
+            shareBtn.setVisibility(View.VISIBLE);
         }
 
     }

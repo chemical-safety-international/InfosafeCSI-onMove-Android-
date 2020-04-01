@@ -2,6 +2,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.widget.EditText;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
-import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 public class SearchPageAC extends AppCompatActivity {
@@ -40,16 +40,17 @@ public class SearchPageAC extends AppCompatActivity {
     }
 
 
-    public void callCriteriaList() {
-
-        csiWCFMethods wcf = new csiWCFMethods();
-        wcf.SearchCriteriaList();
-
-    }
+//    public void callCriteriaList() {
+//
+//        csiWCFMethods wcf = new csiWCFMethods();
+//        wcf.SearchCriteriaList();
+//
+//    }
 
     public void setupUI(View view) {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
                 public boolean onTouch(View v, MotionEvent event) {
                     hideSoftKeyboard(SearchPageAC.this);
                     return false;

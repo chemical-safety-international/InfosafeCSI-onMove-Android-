@@ -2,6 +2,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.UserInfoStoredFunction;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
-import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCFMethods;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 
@@ -45,10 +45,11 @@ public class LoginPageAC extends AppCompatActivity {
 
         loginLogo = findViewById(R.id.loginLogo);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
+        //check the thread policy
+//        if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-        }
+//        }
 
 //        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
 
@@ -67,6 +68,7 @@ public class LoginPageAC extends AppCompatActivity {
     public void setupUI(View view) {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
                 public boolean onTouch(View v, MotionEvent event) {
                     hideSoftKeyboard(LoginPageAC.this);
                     return false;
@@ -223,36 +225,36 @@ public class LoginPageAC extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
-    public class ThreadA {
-        public void go() {
-//            Log.d("reach", "1");
-            PrimeThread p = new PrimeThread(143);
-            p.start();
-            synchronized (p) {
-                try {
-                    p.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                Log.d("reach", "3");
-                toSeachAC();
-            }
-        }
-
-    }
-
-    class PrimeThread extends Thread {
-        long minPrime;
-        PrimeThread(long minPrime) {
-            this.minPrime = minPrime;
-        }
-
-        public void run() {
-//            Log.d("reach", "2");
-            csiWCFMethods wcf = new csiWCFMethods();
-            wcf.LoginByEMail("a","a" );
-        }
-    }
+//    public class ThreadA {
+//        public void go() {
+////            Log.d("reach", "1");
+//            PrimeThread p = new PrimeThread(143);
+//            p.start();
+//            synchronized (p) {
+//                try {
+//                    p.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+////                Log.d("reach", "3");
+//                toSeachAC();
+//            }
+//        }
+//
+//    }
+//
+//    class PrimeThread extends Thread {
+//        long minPrime;
+//        PrimeThread(long minPrime) {
+//            this.minPrime = minPrime;
+//        }
+//
+//        public void run() {
+////            Log.d("reach", "2");
+//            csiWCFMethods wcf = new csiWCFMethods();
+//            wcf.LoginByEMail("a","a" );
+//        }
+//    }
 
 
 }
