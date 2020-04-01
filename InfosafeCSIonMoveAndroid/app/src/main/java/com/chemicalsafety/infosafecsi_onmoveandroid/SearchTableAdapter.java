@@ -1,6 +1,5 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
@@ -27,27 +23,27 @@ import java.util.ArrayList;
 public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.SearchTableViewHolder> {
 
 
-    public static class SearchTableViewHolder extends RecyclerView.ViewHolder {
+    static class SearchTableViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView img1;
-        public ImageView img2;
-        public ImageView img3;
-        public ImageView img4;
-        public ImageView img5;
+        ImageView img1;
+        ImageView img2;
+        ImageView img3;
+        ImageView img4;
+        ImageView img5;
 
-        public TextView pnameA;
-        public TextView countryA;
-        public TextView supplierA;
-        public TextView unnoA;
-        public TextView pcodeA;
-        public TextView dateA;
+        TextView pnameA;
+        TextView countryA;
+        TextView supplierA;
+        TextView unnoA;
+        TextView pcodeA;
+        TextView dateA;
 
-        public Button sdsviewBtn;
+        Button sdsviewBtn;
 
-        public TextView cardViewT;
+        TextView cardViewT;
 
 
-        public SearchTableViewHolder(@NonNull View itemView) {
+        SearchTableViewHolder(@NonNull View itemView) {
 
             super(itemView);
             pnameA = itemView.findViewById(R.id.pname);
@@ -72,7 +68,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     }
 
 
-    public SearchTableAdapter(ArrayList<searchItemList> itemList) {
+    SearchTableAdapter(ArrayList<searchItemList> itemList) {
         searchItemList.tableList = itemList;
     }
 
@@ -80,8 +76,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     @Override
     public SearchTableViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.searchtable_item, parent, false);
-        SearchTableViewHolder svh = new SearchTableViewHolder(v);
-        return svh;
+//        SearchTableViewHolder svh = new SearchTableViewHolder(v);
+        return new SearchTableViewHolder(v);
     }
 
     @Override
@@ -111,8 +107,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         holder.img5.setImageDrawable(null);
 
         //init the constrainst set
-        ConstraintSet set = new ConstraintSet();
-        ConstraintLayout layout;
+//        ConstraintSet set = new ConstraintSet();
+//        ConstraintLayout layout;
 
 //        Log.i("single ghs img:", img1v);
         try {
@@ -245,7 +241,10 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
                 holder.cardViewT.setText("Only 250 results have been displayed.\n Please refine your search criteria for more accurate results.");
             } else {
 
-                holder.cardViewT.setText("All data has been loaded.");
+                String value = holder.itemView.getContext().getString(R.string.table_notifiy);
+                holder.cardViewT.setText(value);
+
+
             }
 
         }
@@ -263,18 +262,18 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         return searchItemList.tableList.size();
     }
 
-    public interface ItemClickListener{
-        void startBtnActivity(int index);
-    }
-
-    @SuppressLint("Registered")
-    public class MainActivity extends AppCompatActivity implements ItemClickListener {
-        public void startBtnActivity(int index){
-//            Log.i("reach","here2"+index);
-            Intent intent = new Intent(MainActivity.this, SDSViewMainPageAC.class);
-            startActivity(intent);
-        }
-    }
+//    public interface ItemClickListener{
+//        void startBtnActivity(int index);
+//    }
+//
+//    @SuppressLint("Registered")
+//    public class MainActivity extends AppCompatActivity implements ItemClickListener {
+//        public void startBtnActivity(int index){
+////            Log.i("reach","here2"+index);
+//            Intent intent = new Intent(MainActivity.this, SDSViewMainPageAC.class);
+//            startActivity(intent);
+//        }
+//    }
 
 
 }

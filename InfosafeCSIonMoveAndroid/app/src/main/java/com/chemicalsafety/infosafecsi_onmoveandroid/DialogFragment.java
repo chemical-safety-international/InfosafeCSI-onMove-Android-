@@ -4,13 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.widget.ProgressBar;
 
 
-public class DialogFragment {
+ class DialogFragment {
     private static ProgressDialog dialog;
 
-    public void callAlert(Context context, String title) {
+    void callAlert(Context context, String title) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
 
         builder1.setMessage(title);
@@ -26,7 +25,7 @@ public class DialogFragment {
         alert1.show();
     }
 
-    public void callloadingScreen(Context context) {
+    void callloadingScreen(Context context) {
 //        ProgressDialog.Builder builder = new ProgressDialog.Builder(context);
 //
 //        builder.setMessage("Loading...");
@@ -45,7 +44,7 @@ public class DialogFragment {
 
     }
 
-    public void cancelLoadingScreen() {
+    void cancelLoadingScreen() {
         dialog.dismiss();
     }
 }

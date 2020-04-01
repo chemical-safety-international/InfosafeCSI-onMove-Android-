@@ -5,19 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
 
-import java.util.ArrayList;
-
 public class SearchTablePageAC extends AppCompatActivity {
-    private RecyclerView sRecyclerView;
-    private RecyclerView.Adapter sAdapter;
-    private RecyclerView.LayoutManager sLayoutManager;
 
-    public TextView cardText;
+//    public TextView cardText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +24,11 @@ public class SearchTablePageAC extends AppCompatActivity {
 //        tableList.add(new SearchTableItem("Acetone sdfs sdf dsf sd fsd fsd fsd fsd fs dsd ", "Netherlands", "dsajo djsdosa  dasndoa asd", "SDNA", "sadas", "02/02/2020"));
 
 
-        sRecyclerView = findViewById(R.id.recyclerView);
+        RecyclerView sRecyclerView = findViewById(R.id.recyclerView);
         sRecyclerView.setHasFixedSize(true);
-        sLayoutManager =  new LinearLayoutManager(this);
+        RecyclerView.LayoutManager sLayoutManager =  new LinearLayoutManager(this);
 
-        sAdapter = new SearchTableAdapter(searchItemList.tableList);
+        RecyclerView.Adapter sAdapter = new SearchTableAdapter(searchItemList.tableList);
 
         sRecyclerView.setLayoutManager(sLayoutManager);
         sRecyclerView.setAdapter(sAdapter);

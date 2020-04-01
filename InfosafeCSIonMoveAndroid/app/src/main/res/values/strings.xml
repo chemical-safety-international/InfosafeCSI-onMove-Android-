@@ -39,6 +39,7 @@
     <string name="table_Img4">ghsImg4</string>
     <string name="table_Img5">ghsImg5</string>
 
+    <string name="table_notifiy">All data has been loaded.</string>
     <string name="table_viewdetailsbtn">View Details</string>
 
     //SDSView main page texts

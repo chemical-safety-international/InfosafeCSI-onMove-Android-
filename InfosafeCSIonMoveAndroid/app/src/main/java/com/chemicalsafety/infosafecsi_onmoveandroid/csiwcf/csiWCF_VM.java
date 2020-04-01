@@ -215,12 +215,16 @@ public class csiWCF_VM {
                 JSONObject ptype1 = item.getJSONObject("nametype");
                 String ptype2 = ptype1.getString("value");
 
-                if (ptype2.equals("P")) {
-                    SearchTableItem.pcount += 1;
-                } else if (ptype2.equals("L")) {
-                    SearchTableItem.lcount += 1;
-                } else if (ptype2.equals("O")) {
-                    SearchTableItem.ocount += 1;
+                switch (ptype2) {
+                    case "P":
+                        SearchTableItem.pcount += 1;
+                        break;
+                    case "L":
+                        SearchTableItem.lcount += 1;
+                        break;
+                    case "O":
+                        SearchTableItem.ocount += 1;
+                        break;
                 }
 
                 //get sdsno and stored
