@@ -1,5 +1,6 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
@@ -23,7 +24,7 @@ public class csiWCF_VM {
 
         try{
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.LoginByEMail(email,pw);
+            String responseText = wcf.LoginByEMail_https(email,pw);
 //            Log.i("Output", responseText);
             JSONObject respJSON = new JSONObject(responseText);
 //            System.out.println(respJSON);
@@ -36,14 +37,8 @@ public class csiWCF_VM {
                     loginVar.infosafeid = respJSON.getString("infosafeid");
                     loginVar.clientlogo = respJSON.getString("clientlogo");
 
-                    if(loginVar.clientid != "null" && !loginVar.clientid.isEmpty() && loginVar.apptype == 1) {
-                        if(loginVar.passed.equals("true")) {
-
-                            return true;
-                        } else {
-
-                            return false;
-                        }
+                    if(!loginVar.clientid.equals("null") && !loginVar.clientid.isEmpty() && loginVar.apptype == 1) {
+                        return loginVar.passed.equals("true");
 
                     } else {
                         return false;
@@ -164,7 +159,7 @@ public class csiWCF_VM {
             passV.put("advanceditems", advArray);
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.SearchReturnList(passV);
+            String responseText = wcf.SearchReturnList_https(passV);
 
 //            Log.i("Search Input", passV.toString());
 //            Log.i("output", responseText);
@@ -178,7 +173,7 @@ public class csiWCF_VM {
             String[] sdsnoArray1 = new String[dataArray.length()];
 
             searchItemList.tableList.clear();
-            searchItemList.tableList.removeAll(searchItemList.tableList);
+//            searchItemList.tableList.removeAll(searchItemList.tableList);
             SearchTableItem.pcount = 0;
             SearchTableItem.lcount = 0;
             SearchTableItem.ocount = 0;
@@ -369,7 +364,7 @@ public class csiWCF_VM {
         previewGHSVar.ps_disposal = "";
 
         previewGHSVar.ghscImgList.clear();
-        previewGHSVar.ghscImgList.removeAll(previewGHSVar.ghscImgList);
+//        previewGHSVar.ghscImgList.removeAll(previewGHSVar.ghscImgList);
 
 
         try {
@@ -384,99 +379,74 @@ public class csiWCF_VM {
             passV.put("uid", uid);
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_Classification(passV);
+            String responseText = wcf.ViewSDS_Classification_https(passV);
 //            Log.i("Output classification:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
 
-            String formatcode = respJSON.getString("formatcode");
-            previewGHSVar.formatcode = formatcode;
+            previewGHSVar.formatcode = respJSON.getString("formatcode");
 
 
-            if (previewGHSVar.formatcode == "0F" || previewGHSVar.formatcode == "0A") {
-                String classification = respJSON.getString("classification");
-                previewGHSVar.classification = classification;
+            if (previewGHSVar.formatcode.equals("0F") || previewGHSVar.formatcode.equals("0A")) {
+                previewGHSVar.classification = respJSON.getString("classification");
 
-                String dg = respJSON.getString("dg");
-                previewGHSVar.dg = dg;
+                previewGHSVar.dg = respJSON.getString("dg");
 
-                String hstate = respJSON.getString("hstate");
-                previewGHSVar.hstate = hstate;
+                previewGHSVar.hstate = respJSON.getString("hstate");
 
-                String ps = respJSON.getString("ps");
-                previewGHSVar.ps = ps;
+                previewGHSVar.ps = respJSON.getString("ps");
 
 //            String pstate = respJSON.getString("psatate");
 //            previewGHSVar.pstate = pstate;
 
-                String pic = respJSON.getString("pic");
-                previewGHSVar.pic = pic;
+                previewGHSVar.pic = respJSON.getString("pic");
 
-                String rphase = respJSON.getString("rphrase");
-                previewGHSVar.rphrase = rphase;
+                previewGHSVar.rphrase = respJSON.getString("rphrase");
 
-                String sds = respJSON.getString("sds");
-                previewGHSVar.sds = sds;
+                previewGHSVar.sds = respJSON.getString("sds");
 
-                String sphrase = respJSON.getString("sphrase");
-                previewGHSVar.sphrase = sphrase;
+                previewGHSVar.sphrase = respJSON.getString("sphrase");
 
-                String ps_general = respJSON.getString("ps_general");
-                previewGHSVar.ps_general = ps_general;
+                previewGHSVar.ps_general = respJSON.getString("ps_general");
 
-                String ps_response = respJSON.getString("ps_response");
-                previewGHSVar.ps_response = ps_response;
+                previewGHSVar.ps_response = respJSON.getString("ps_response");
 
-                String ps_prevention = respJSON.getString("ps_prevention");
-                previewGHSVar.ps_prevention = ps_prevention;
+                previewGHSVar.ps_prevention = respJSON.getString("ps_prevention");
 
-                String ps_disposal = respJSON.getString("ps_disposal");
-                previewGHSVar.ps_disposal = ps_disposal;
+                previewGHSVar.ps_disposal = respJSON.getString("ps_disposal");
 
-                String ps_storage = respJSON.getString("ps_storage");
-                previewGHSVar.ps_storage = ps_storage;
+                previewGHSVar.ps_storage = respJSON.getString("ps_storage");
+
             } else {
-                String classification = respJSON.getString("classification");
-                previewGHSVar.classification = classification;
 
-                String dg = respJSON.getString("dg");
-                previewGHSVar.dg = dg;
+                previewGHSVar.classification = respJSON.getString("classification");
 
-                String hstate = respJSON.getString("hstate");
-                previewGHSVar.hstate = hstate;
+                previewGHSVar.dg = respJSON.getString("dg");
 
-                String pic = respJSON.getString("pic");
-                previewGHSVar.pic = pic;
+                previewGHSVar.hstate = respJSON.getString("hstate");
+
+                previewGHSVar.pic = respJSON.getString("pic");
 
 //                String pstate = respJSON.getString("psatate");
 //                previewGHSVar.pstate = pstate;
 
-                String ps = respJSON.getString("ps");
-                previewGHSVar.ps = ps;
+                previewGHSVar.ps = respJSON.getString("ps");
 
-                String sds = respJSON.getString("sds");
-                previewGHSVar.sds = sds;
+                previewGHSVar.sds = respJSON.getString("sds");
 
-                String sphrase = respJSON.getString("sphrase");
-                previewGHSVar.sphrase = sphrase;
+                previewGHSVar.sphrase = respJSON.getString("sphrase");
 
-                String rphase = respJSON.getString("rphrase");
-                previewGHSVar.rphrase = rphase;
+                previewGHSVar.rphrase = respJSON.getString("rphrase");
 
-                String ps_general = respJSON.getString("ps_general");
-                previewGHSVar.ps_general = ps_general;
+                previewGHSVar.ps_general = respJSON.getString("ps_general");
 
-                String ps_response = respJSON.getString("ps_response");
-                previewGHSVar.ps_response = ps_response;
+                previewGHSVar.ps_response = respJSON.getString("ps_response");
 
-                String ps_prevention = respJSON.getString("ps_prevention");
-                previewGHSVar.ps_prevention = ps_prevention;
+                previewGHSVar.ps_prevention = respJSON.getString("ps_prevention");
 
-                String ps_disposal = respJSON.getString("ps_disposal");
-                previewGHSVar.ps_disposal = ps_disposal;
+                previewGHSVar.ps_disposal = respJSON.getString("ps_disposal");
 
-                String ps_storage = respJSON.getString("ps_storage");
-                previewGHSVar.ps_storage = ps_storage;
+                previewGHSVar.ps_storage = respJSON.getString("ps_storage");
             }
 
 //            System.out.println("Reach here");
@@ -579,11 +549,7 @@ public class csiWCF_VM {
 
             }
 
-            if (previewGHSVar.sds != null && !previewGHSVar.sds.isEmpty() && previewGHSVar.sds != "null") {
-                return true;
-            } else {
-                return false;
-            }
+            return (previewGHSVar.sds != null && !previewGHSVar.sds.isEmpty() && !previewGHSVar.sds.equals("null"));
 
 
         } catch (Exception e) {
@@ -637,7 +603,7 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_Transport(passV);
+            String responseText = wcf.ViewSDS_Transport_https(passV);
 //            Log.i("Output TI information:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
@@ -731,11 +697,7 @@ public class csiWCF_VM {
 //            System.out.println("Subs value2:");
 //            System.out.println(previewTIVar.subImg2);
 
-            if(previewTIVar.road_unno != null && !previewTIVar.road_unno.isEmpty() && previewTIVar.road_unno != "null") {
-                return true;
-            } else {
-                return false;
-            }
+            return previewTIVar.road_unno != null && !previewTIVar.road_unno.isEmpty() && !previewTIVar.road_unno.equals("null");
 
 
         } catch (Exception e) {
@@ -763,7 +725,7 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS(passV);
+            String responseText = wcf.ViewSDS_https(passV);
 
 //            Log.i("Output ViewSDS PDF:", responseText);
 
@@ -803,7 +765,7 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_FirstAid(passV);
+            String responseText = wcf.ViewSDS_FirstAid_https(passV);
 
 //            Log.i("Output F.AID:", responseText);
 

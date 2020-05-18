@@ -1,9 +1,6 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
-
 import android.util.Log;
-
-import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,15 +12,28 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
-public class csiWCFMethods {
+import java.net.URL;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+
+class csiWCFMethods {
 
     //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
-    String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+//    private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
 
-    public String LoginByEMail(String email, String pw) {
+    String LoginByEMail(String email, String pw) {
 
         //crate json object
         JSONObject user = new JSONObject();
@@ -67,15 +77,16 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
 
-            JSONObject respJSON = new JSONObject(responseText);
+//            final String responseText = EntityUtils.toString(entity1);
+
+//            JSONObject respJSON = new JSONObject(responseText);
 
 
             //responseText;
 //            Log.i("Login Output", responseText);
 
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,43 +95,131 @@ public class csiWCFMethods {
 
     }
 
-    public String SearchCriteriaList() {
-        JSONObject id = new JSONObject();
+    //LoginBtEMail for https WCF service
+    String LoginByEMail_https(String email, String pw) {
+
+        //crate json object
+        JSONObject user = new JSONObject();
 
         try {
-            id.put("ClientCode", loginVar.clientid);
-            id.put("AppType", loginVar.apptype);
-            id.put("UserID", loginVar.infosafeid);
+            // put value in json object
+            // user.put("email", "shawn.samuel@chemicalsafety.com.au");
+            user.put("email", email);
+            //user.put("password", "#PEPSimax");
+            user.put("password", pw);
+            user.put("deviceid", "");
+            user.put("devicemac", "");
+            user.put("phoneno", "");
+            user.put("devicename", "");
+            user.put("devicemodel", "");
+            user.put("deviceserialno", "");
+            user.put("deviceSEID", "");
+            user.put("deviceIMEI", "");
+            user.put("deviceMEID", "");
+            user.put("sourceip", "");
 
-            System.out.println(id);
 
-            String urlFinal = url + "GetSearchCriteriaList";
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
 
-            HttpPost postMethod = new HttpPost(urlFinal.trim());
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 
-            postMethod.setHeader("Accept", "application/json");
-            postMethod.setHeader("Content-type", "application/json");
 
-            StringEntity entity = new StringEntity(id.toString(), HTTP.UTF_8);
-            postMethod.setEntity(entity);
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
-            HttpClient hc = new DefaultHttpClient();
+            url1 = new URL(url + "LoginByEMail");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            HttpResponse response = hc.execute(postMethod);
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
 
-            HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
 
-//            Log.i("Search Output", responseText);
 
-            return responseText;
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(user.toString());
+
+//            Log.i("Output", output.toString());
+
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+//            Log.i("input", input.toString());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
-    public String SearchReturnList(JSONObject passV) {
+//    String SearchCriteriaList() {
+//        JSONObject id = new JSONObject();
+//
+//        try {
+//            id.put("ClientCode", loginVar.clientid);
+//            id.put("AppType", loginVar.apptype);
+//            id.put("UserID", loginVar.infosafeid);
+//
+//            System.out.println(id);
+//
+//            String urlFinal = url + "GetSearchCriteriaList";
+//
+//            HttpPost postMethod = new HttpPost(urlFinal.trim());
+//
+//            postMethod.setHeader("Accept", "application/json");
+//            postMethod.setHeader("Content-type", "application/json");
+//
+//            StringEntity entity = new StringEntity(id.toString(), HTTP.UTF_8);
+//            postMethod.setEntity(entity);
+//
+//            HttpClient hc = new DefaultHttpClient();
+//
+//            HttpResponse response = hc.execute(postMethod);
+//
+//            HttpEntity entity1 = response.getEntity();
+//            final String responseText = EntityUtils.toString(entity1);
+//
+////            Log.i("Search Output", responseText);
+//
+//            return responseText;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
+    String SearchReturnList(JSONObject passV) {
 
         try {
 
@@ -140,10 +239,10 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
+//            final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output", responseText);
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,7 +250,72 @@ public class csiWCFMethods {
         }
     }
 
-    public String ViewSDS_Classification(JSONObject passV) {
+    //SearchReturnList for https WCF service
+    String SearchReturnList_https(JSONObject passV) {
+
+        try {
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
+
+            url1 = new URL(url + "GetSDSSearchResultsPage");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
+
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(passV.toString());
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    String ViewSDS_Classification(JSONObject passV) {
 
         try {
             String urlFinal = url + "ViewSDS_Classification";
@@ -169,11 +333,11 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
+//            final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output classification:", responseText);
 
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,7 +345,71 @@ public class csiWCFMethods {
         }
     }
 
-    public String ViewSDS_Transport(JSONObject passV) {
+    //ViewSDS_Classification for https WCF service
+    String ViewSDS_Classification_https(JSONObject passV) {
+
+        try {
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
+
+            url1 = new URL(url + "ViewSDS_Classification");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
+
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(passV.toString());
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    String ViewSDS_Transport(JSONObject passV) {
         try {
             String urlFinal = url + "ViewSDS_Transport";
 
@@ -198,11 +426,11 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
+//            final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output TI Information:", responseText);
 
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,7 +438,70 @@ public class csiWCFMethods {
         }
     }
 
-    public String ViewSDS(JSONObject passV) {
+    //ViewSDS_Transport for https WCF service
+    String ViewSDS_Transport_https(JSONObject passV) {
+        try {
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
+
+            url1 = new URL(url + "ViewSDS_Transport");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
+
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(passV.toString());
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    String ViewSDS(JSONObject passV) {
         try {
             String urlFinal = url + "ViewSDS";
 
@@ -227,11 +518,11 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
+//            final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output ViewSDS:", responseText);
 
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -239,7 +530,70 @@ public class csiWCFMethods {
         }
     }
 
-    public String ViewSDS_FirstAid(JSONObject passV) {
+    //ViewSDS for https WCF service
+    String ViewSDS_https(JSONObject passV) {
+        try {
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
+
+            url1 = new URL(url + "ViewSDS");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
+
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(passV.toString());
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    String ViewSDS_FirstAid(JSONObject passV) {
         try {
             String urlFinal = url + "ViewSDS_FirstAid";
 
@@ -256,15 +610,121 @@ public class csiWCFMethods {
             HttpResponse response = hc.execute(postMethod);
 
             HttpEntity entity1 = response.getEntity();
-            final String responseText = EntityUtils.toString(entity1);
+//            final String responseText = EntityUtils.toString(entity1);
 
 //            Log.i("Output ViewSDS_FirstAid:", responseText);
 
-            return responseText;
+            return EntityUtils.toString(entity1);
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //ViewSDS_FirstAid for https WCF service
+    String ViewSDS_FirstAid_https(JSONObject passV) {
+        try {
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+            trustAllHosts();
+//             Create all-trusting host name verifier
+            HostnameVerifier allHostsValid = new HostnameVerifier() {
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
+//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
+
+            url1 = new URL(url + "ViewSDS_FirstAid");
+//            url1 = new URL(url2);
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
+
+            connection.setHostnameVerifier(DO_NOT_VERIFY);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(passV.toString());
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     * For self-signed Https only
+     * Trust every server - dont check for any certificate
+     */
+
+    // always verify the host - dont check for certificate
+    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
+
+    private static void trustAllHosts() {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+
+            }
+
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+
+            }
+
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[] {};
+            }
+
+        } };
+
+        // Install the all-trusting trust manager
+        try {
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection
+                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
