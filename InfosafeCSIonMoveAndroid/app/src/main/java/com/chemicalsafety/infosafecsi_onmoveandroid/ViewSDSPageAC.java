@@ -70,41 +70,91 @@ public class ViewSDSPageAC extends AppCompatActivity {
 //        if(PackageManager.PERMISSION_GRANTED) {
 //
 //        }
-        try {
-            //convert base64 string to pdf file
-            final File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "SDS.pdf");
-            byte[] pdfAsBytes = Base64.decode(sdspdfVar.sdspdf, Base64.DEFAULT);
-            FileOutputStream os;
-            os = new FileOutputStream(filePath, false);
-            os.write(pdfAsBytes);
-            os.flush();
-            os.close();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("TRUE", "Permission is granted");
+//                shareBtn.setVisibility(View.VISIBLE);
+                try {
+                    //convert base64 string to pdf file
+                    final File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "SDS.pdf");
+                    byte[] pdfAsBytes = Base64.decode(sdspdfVar.sdspdf, Base64.DEFAULT);
+                    FileOutputStream os;
+                    os = new FileOutputStream(filePath, false);
+                    os.write(pdfAsBytes);
+                    os.flush();
+                    os.close();
 
 
-            //get the pdf file
-            Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", filePath);
+                    //get the pdf file
+                    Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", filePath);
 
-            //build and call share button
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setType("application/pdf");
-            sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    //build and call share button
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("application/pdf");
+                    sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
-            // create chooser
-            Intent chooser = Intent.createChooser(sharingIntent, "Share file");
+                    // create chooser
+                    Intent chooser = Intent.createChooser(sharingIntent, "Share file");
 
-            //check the permission
-            List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
-            for (ResolveInfo resolveInfo: resInfoList) {
-                String packageName = resolveInfo.activityInfo.packageName;
-                this.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    //check the permission
+                    List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo: resInfoList) {
+                        String packageName = resolveInfo.activityInfo.packageName;
+                        this.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+
+                    //call the share
+                    startActivity(chooser);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.v("FALSE", "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                shareBtn.setVisibility(View.INVISIBLE);
+//                checkShareButtonDisplay();
             }
+        } else {
+            Log.v("TRUE", "PERMISSION IS GRANTED");
+//            shareBtn.setVisibility(View.VISIBLE);
+            try {
+                //convert base64 string to pdf file
+                final File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "SDS.pdf");
+                byte[] pdfAsBytes = Base64.decode(sdspdfVar.sdspdf, Base64.DEFAULT);
+                FileOutputStream os;
+                os = new FileOutputStream(filePath, false);
+                os.write(pdfAsBytes);
+                os.flush();
+                os.close();
 
-            //call the share
-            startActivity(chooser);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                //get the pdf file
+                Uri uri = FileProvider.getUriForFile(getBaseContext(), getApplicationContext().getPackageName() + ".provider", filePath);
+
+                //build and call share button
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("application/pdf");
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+                // create chooser
+                Intent chooser = Intent.createChooser(sharingIntent, "Share file");
+
+                //check the permission
+                List<ResolveInfo> resInfoList = this.getPackageManager().queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo: resInfoList) {
+                    String packageName = resolveInfo.activityInfo.packageName;
+                    this.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+
+                //call the share
+                startActivity(chooser);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     //check the storage permission
@@ -112,18 +162,31 @@ public class ViewSDSPageAC extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 Log.v("TRUE", "Permission is granted");
-                shareBtn.setVisibility(View.VISIBLE);
+//                shareBtn.setVisibility(View.VISIBLE);
             } else {
                 Log.v("FALSE", "Permission is revoked");
-                shareBtn.setVisibility(View.INVISIBLE);
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                shareBtn.setVisibility(View.INVISIBLE);
+//                checkShareButtonDisplay();
             }
         } else {
             Log.v("TRUE", "PERMISSION IS GRANTED");
-            shareBtn.setVisibility(View.VISIBLE);
+//            shareBtn.setVisibility(View.VISIBLE);
         }
 
     }
+
+//    private void checkShareButtonDisplay() {
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                shareBtn.setVisibility(View.VISIBLE);
+//            } else {
+//                shareBtn.setVisibility(View.INVISIBLE);
+//            }
+//        } else {
+//            shareBtn.setVisibility(View.VISIBLE);
+//        }
+//    }
 
 
 }

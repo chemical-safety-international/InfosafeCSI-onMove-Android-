@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/InfosafeCSI-onMove (Android).iml" filepath="$PROJECT_DIR$/InfosafeCSI-onMove (Android).iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InfosafeCSI-onMove (Android).iml" filepath="$PROJECT_DIR$/InfosafeCSI-onMove (Android).iml" group="InfosafeCSI-onMove (Android)" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="InfosafeCSI-onMove (Android)/app" />
     </modules>
   </component>
 </project>
