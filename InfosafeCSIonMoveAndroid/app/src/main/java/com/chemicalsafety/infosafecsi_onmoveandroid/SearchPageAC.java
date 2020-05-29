@@ -19,7 +19,7 @@ import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 public class SearchPageAC extends AppCompatActivity {
 
-    Button searchBtn, logOffBtn;
+    Button searchBtn, logOffBtn, scanButton;
     EditText pnameET, supplierET, pcodeET;
 
 
@@ -30,6 +30,7 @@ public class SearchPageAC extends AppCompatActivity {
 
         searchBtn = findViewById(R.id.searchBtn);
         logOffBtn = findViewById(R.id.searchLogoff);
+        scanButton = findViewById(R.id.scanButton);
 
         pnameET = findViewById(R.id.pnameSearchBar);
         supplierET = findViewById(R.id.supplierSearchBar);
@@ -79,6 +80,7 @@ public class SearchPageAC extends AppCompatActivity {
         searchVar.pnameInput = pnameET.getText().toString();
         searchVar.pcodeInput = pcodeET.getText().toString();
         searchVar.supplierInput = supplierET.getText().toString();
+        searchVar.barcodeInput = "";
 
         final DialogFragment df = new DialogFragment();
 
@@ -97,7 +99,7 @@ public class SearchPageAC extends AppCompatActivity {
                 Thread t= new Thread(new Runnable() {
 
                     public void run() {
-                        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
+                        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, searchVar.barcodeInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     df.cancelLoadingScreen();
@@ -120,6 +122,12 @@ public class SearchPageAC extends AppCompatActivity {
 
 
         }
+
+    }
+
+    public void scanButtonTapped(View view) {
+        Intent intent = new Intent(this, ScanBarcodePageAC.class);
+        startActivity(intent);
 
     }
 

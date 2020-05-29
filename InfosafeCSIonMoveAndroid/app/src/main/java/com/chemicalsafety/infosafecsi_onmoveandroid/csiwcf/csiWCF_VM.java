@@ -60,7 +60,7 @@ public class csiWCF_VM {
 
     }
 
-    public Boolean Search(String pnameInput, String pcodeInput, String supplierInput, String clientid, String uid, int apptp) {
+    public Boolean Search(String pnameInput, String pcodeInput, String supplierInput, String barcode, String clientid, String uid, int apptp) {
 
         //create variables
         JSONObject passV = new JSONObject();
@@ -140,6 +140,23 @@ public class csiWCF_VM {
                 pcJSON.put("values", pcArray);
 
                 advArray.put(pcJSON);
+            }
+
+            if (barcode != null && !barcode.isEmpty()) {
+                String barcodeStr = barcode.trim();
+                singleValue = "0" + barcodeStr;
+                type = "28";
+
+                JSONObject pcJSON = new JSONObject();
+                JSONArray pcArray = new JSONArray();
+
+                pcArray.put(singleValue);
+
+                pcJSON.put("type", type);
+                pcJSON.put("isgroup", "0");
+                pcJSON.put("groups", emptyArray);
+                pcJSON.put("values", pcArray);
+
             }
 
             //check the if it is multi or single search

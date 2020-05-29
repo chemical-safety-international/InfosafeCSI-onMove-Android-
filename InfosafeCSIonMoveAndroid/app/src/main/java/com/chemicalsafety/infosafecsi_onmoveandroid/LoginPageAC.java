@@ -60,6 +60,11 @@ public class LoginPageAC extends AppCompatActivity {
             loginLogo.setImageResource(R.drawable.csi_logo);
         }
 
+//        email.requestFocus();
+//        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
+//        inputMethodManager.restartInput(email);
+
+
         //build listener for keyboard
         setupUI(findViewById(R.id.LoginCL));
     }
@@ -108,13 +113,13 @@ public class LoginPageAC extends AppCompatActivity {
 //        }
 
 
-        final String emailText = email.getText().toString();
-        final String passwordlText = password.getText().toString();
-
+//        final String emailText = email.getText().toString();
+//        final String passwordlText = password.getText().toString();
+        final String emailText = "itsupport@chemicalsafety.com.au";
+        final String passwordlText = "itsupport";
 //        Log.d("email", emailText);
 //        Log.d("password", passwordlText);
         final DialogFragment df = new DialogFragment();
-
 
         if(emailText.isEmpty() && passwordlText.isEmpty()) {
             df.callAlert(LoginPageAC.this, "Login input empty!\nPlease check your email address or password and try again.");
@@ -127,6 +132,7 @@ public class LoginPageAC extends AppCompatActivity {
             final csiWCF_VM wcf = new csiWCF_VM();
 //            DialogFragment df = new DialogFragment();
             df.callloadingScreen(LoginPageAC.this);
+
 
             Thread t= new Thread(new Runnable() {
 

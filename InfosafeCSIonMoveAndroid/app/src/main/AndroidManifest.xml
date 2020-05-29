@@ -3,57 +3,60 @@
     package="com.chemicalsafety.infosafecsi_onmoveandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--access to storage -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- access to storage -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-<!--    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />-->
-<!--    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
-<!--    <uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
-<!--    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />-->
-<!--         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round" -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera2" />
+
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher_csi_icon"
-        android:roundIcon="@mipmap/ic_launcher_csi_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_csi_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true" >
-        <activity android:name=".ViewSDSPageAC"/>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ScanBarcodePageAC" />
+        <activity android:name=".ScanPageAC" />
+        <activity android:name=".ViewSDSPageAC" />
         <activity android:name=".SDSViewMainPageAC" />
         <activity android:name=".SearchTablePageAC" />
-        <activity android:name=".SearchPageAC"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".LoginPageAC"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".SearchPageAC"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".LoginPageAC"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".StartupPageAC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--Build for pdf file related function -->
+        </activity> <!-- Build for pdf file related function -->
         <provider
+            android:name=".Entities.GenericFileProvider"
             android:authorities="${applicationId}.provider"
-            android:name="com.chemicalsafety.infosafecsi_onmoveandroid.Entities.GenericFileProvider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-
+            <meta-data
+                android:name="com.google.android.gms.vision.DEPENDENCIES"
+                android:value="barcode" />
         </provider>
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
 
 </manifest>
