@@ -23,4 +23,5 @@ public class StartupPageAC extends AppCompatActivity {
         startActivity(intent);
     }
 
+
 }

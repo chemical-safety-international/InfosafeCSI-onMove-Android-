@@ -21,6 +21,7 @@
     <string name="search_supplier">Supplier</string>
     <string name="search_productcode">Product code</string>
     <string name="search_button">Search</string>
+    <string name="search_barcodeTitle">Scan barcode to search</string>
 
     // Search Table page texts
     <string name="table_pname">Product Name</string>
@@ -41,6 +42,7 @@
 
     <string name="table_notifiy">All data has been loaded.</string>
     <string name="table_viewdetailsbtn">View Details</string>
+    <string name="table_toolbartitle">Search Result</string>
 
     //SDSView main page texts
     <string name="sdsm_sdsbtn">SDS</string>

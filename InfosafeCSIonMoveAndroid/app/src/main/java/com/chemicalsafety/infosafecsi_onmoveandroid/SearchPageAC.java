@@ -95,7 +95,7 @@ public class SearchPageAC extends AppCompatActivity {
             } else {
                 //call the Search WCF
                 final csiWCF_VM wcf =new csiWCF_VM();
-                df.callloadingScreen(SearchPageAC.this);
+                df.callloadingScreen(SearchPageAC.this, "Searching...");
                 Thread t= new Thread(new Runnable() {
 
                     public void run() {
@@ -134,5 +134,10 @@ public class SearchPageAC extends AppCompatActivity {
     public void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 }

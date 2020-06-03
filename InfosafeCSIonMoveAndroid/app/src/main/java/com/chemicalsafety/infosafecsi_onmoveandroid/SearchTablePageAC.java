@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchItemList;
@@ -34,5 +35,16 @@ public class SearchTablePageAC extends AppCompatActivity {
         sRecyclerView.setAdapter(sAdapter);
         sAdapter.notifyDataSetChanged();
     }
+
+    //override back button to directly back to search page(for scan function)
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(SearchTablePageAC.this, SearchPageAC.class));
+        finish();
+
+    }
+
 
 }

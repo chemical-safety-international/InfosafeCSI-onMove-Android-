@@ -189,7 +189,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
                     final csiWCF_VM callpreview = new csiWCF_VM();
                     final DialogFragment df = new DialogFragment();
-                    df.callloadingScreen(v.getContext());
+                    df.callloadingScreen(v.getContext(), "Loading...");
                     // get the GHS value and go to the activity
                     Thread t= new Thread(new Runnable() {
 
@@ -232,7 +232,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
 //        SearchTablePageAC stpac = new SearchTablePageAC();
 //
-        holder.cardViewT.setVisibility(View.INVISIBLE);
+        holder.cardViewT.setVisibility(View.GONE);
         if(position == (searchItemList.tableList.size() - 1)) {
 //            stpac..getContext().changeText();
 //            SearchTablePageAC.class.getResource(R.id.cardViewText);

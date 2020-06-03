@@ -25,7 +25,7 @@ import android.content.DialogInterface;
         alert1.show();
     }
 
-    void callloadingScreen(Context context) {
+    void callloadingScreen(Context context, String message) {
 //        ProgressDialog.Builder builder = new ProgressDialog.Builder(context);
 //
 //        builder.setMessage("Loading...");
@@ -36,7 +36,7 @@ import android.content.DialogInterface;
 
         dialog = new ProgressDialog(context);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading...");
+        dialog.setMessage(message);
         dialog.setCancelable(false);
         dialog.setIndeterminate(true);
 

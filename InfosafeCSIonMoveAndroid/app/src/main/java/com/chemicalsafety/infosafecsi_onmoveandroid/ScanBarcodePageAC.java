@@ -117,56 +117,93 @@ public class ScanBarcodePageAC extends AppCompatActivity implements ZXingScanner
     @Override
     public void handleResult(Result result) {
         final String barcodeValue = result.getText();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to use\n" + "\"" + barcodeValue + "\"" + " to search?");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Search the value:\n" + "\"" + barcodeValue + "\"?");
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+////                Log.i("Scanning", "Starting scan");
+//                searchVar.barcodeInput = barcodeValue;
+//                searchVar.pcodeInput = "";
+//                searchVar.pnameInput = "";
+//                searchVar.supplierInput = "";
+//
+//                final DialogFragment df = new DialogFragment();
+//                //call the Search WCF
+//                final csiWCF_VM wcf =new csiWCF_VM();
+//                df.callloadingScreen(ScanBarcodePageAC.this);
+//                Thread t= new Thread(new Runnable() {
+//
+//                    public void run() {
+//                        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, searchVar.barcodeInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
+//                            runOnUiThread(new Runnable() {
+//                                public void run() {
+////                                    Log.i("Scanning", "scan successfully");
+//                                    df.cancelLoadingScreen();
+//                                    Intent intent = new Intent(ScanBarcodePageAC.this, SearchTablePageAC.class);
+//                                    startActivity(intent);
+//                                }
+//                            });
+//                        } else {
+//                            runOnUiThread(new Runnable() {
+//                                public void run() {
+//                                    df.cancelLoadingScreen();
+////                                    Log.i("Scanning", "scan failed");
+////                                    Log.i("error", "Search failed!.");
+//                                    df.callAlert(ScanBarcodePageAC.this, "No result found.");
+//                                    scannerView.resumeCameraPreview(ScanBarcodePageAC.this);
+//                                }
+//                            });
+//                        }
+//                    }});
+//                t.start();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                scannerView.resumeCameraPreview(ScanBarcodePageAC.this);
+//            }
+//        });
+//        AlertDialog alert = builder.create();
+//        alert.setCanceledOnTouchOutside(false);
+//        alert.show();
 
-                Log.i("Scanning", "Starting scan");
-                searchVar.barcodeInput = barcodeValue;
-                searchVar.pcodeInput = "";
-                searchVar.pnameInput = "";
-                searchVar.supplierInput = "";
+//        Log.i("Scanning", "Starting scan");
+        searchVar.barcodeInput = barcodeValue;
+        searchVar.pcodeInput = "";
+        searchVar.pnameInput = "";
+        searchVar.supplierInput = "";
 
-                final DialogFragment df = new DialogFragment();
-                //call the Search WCF
-                final csiWCF_VM wcf =new csiWCF_VM();
-                df.callloadingScreen(ScanBarcodePageAC.this);
-                Thread t= new Thread(new Runnable() {
+        final DialogFragment df = new DialogFragment();
+        //call the Search WCF
+        final csiWCF_VM wcf =new csiWCF_VM();
+        df.callloadingScreen(ScanBarcodePageAC.this, "Searching...");
+        Thread t= new Thread(new Runnable() {
 
-                    public void run() {
-                        if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, searchVar.barcodeInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    Log.i("Scanning", "scan successfully");
-                                    df.cancelLoadingScreen();
-                                    Intent intent = new Intent(ScanBarcodePageAC.this, SearchTablePageAC.class);
-                                    startActivity(intent);
-                                }
-                            });
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    df.cancelLoadingScreen();
-                                    Log.i("Scanning", "scan failed");
-                                    Log.i("error", "Search failed!.");
-                                    df.callAlert(ScanBarcodePageAC.this, "Search Failed!\nPlease check the connection and try again.");
-                                }
-                            });
+            public void run() {
+                if (wcf.Search(searchVar.pnameInput, searchVar.pcodeInput, searchVar.supplierInput, searchVar.barcodeInput, loginVar.clientid, loginVar.infosafeid, loginVar.apptype)) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+//                                    Log.i("Scanning", "scan successfully");
+                            df.cancelLoadingScreen();
+                            Intent intent = new Intent(ScanBarcodePageAC.this, SearchTablePageAC.class);
+                            startActivity(intent);
                         }
-                    }});
-                t.start();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(ScanBarcodePageAC.this);
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setCanceledOnTouchOutside(false);
-        alert.show();
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            df.cancelLoadingScreen();
+//                                    Log.i("Scanning", "scan failed");
+//                                    Log.i("error", "Search failed!.");
+                            df.callAlert(ScanBarcodePageAC.this, "No result found.");
+                            scannerView.resumeCameraPreview(ScanBarcodePageAC.this);
+                        }
+                    });
+                }
+            }});
+        t.start();
     }
 }

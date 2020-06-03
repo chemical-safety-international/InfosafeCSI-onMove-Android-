@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +34,6 @@ public class LoginPageAC extends AppCompatActivity {
 
     ImageView loginLogo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,6 @@ public class LoginPageAC extends AppCompatActivity {
         remBtn = findViewById(R.id.remBtn);
 
         loginLogo = findViewById(R.id.loginLogo);
-
         //check the thread policy
 //        if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -53,6 +53,7 @@ public class LoginPageAC extends AppCompatActivity {
 
 //        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
 
+
         if (UserInfoStoredFunction.getStatus(this)) {
 //            Log.i("logo", UserInfoStoredFunction.getLogo(this));
             setRememberValues();
@@ -60,10 +61,14 @@ public class LoginPageAC extends AppCompatActivity {
             loginLogo.setImageResource(R.drawable.csi_logo);
         }
 
+//        email.setOnFocusChangeListener(focusListener);
+//        password.setOnFocusChangeListener(focusListener);
+        email.clearFocus();
+
+
 //        email.requestFocus();
 //        InputMethodManager inputMethodManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
 //        inputMethodManager.restartInput(email);
-
 
         //build listener for keyboard
         setupUI(findViewById(R.id.LoginCL));
@@ -82,6 +87,13 @@ public class LoginPageAC extends AppCompatActivity {
         }
     }
 
+    private View.OnFocusChangeListener focusListener = new View.OnFocusChangeListener() {
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus){
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
+        }
+    };
 
     public void loginBtnTapped(View view) {
 
@@ -131,7 +143,7 @@ public class LoginPageAC extends AppCompatActivity {
 
             final csiWCF_VM wcf = new csiWCF_VM();
 //            DialogFragment df = new DialogFragment();
-            df.callloadingScreen(LoginPageAC.this);
+            df.callloadingScreen(LoginPageAC.this, "Loading...");
 
 
             Thread t= new Thread(new Runnable() {
@@ -231,6 +243,11 @@ public class LoginPageAC extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
+    //enable keyboard when called
+    public void enableSoftKeyboard(Activity activity) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
+
 //    public class ThreadA {
 //        public void go() {
 ////            Log.d("reach", "1");
@@ -262,5 +279,8 @@ public class LoginPageAC extends AppCompatActivity {
 //        }
 //    }
 
-
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
+    }
 }
