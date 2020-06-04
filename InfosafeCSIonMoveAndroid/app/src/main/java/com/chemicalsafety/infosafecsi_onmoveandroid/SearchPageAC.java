@@ -20,7 +20,7 @@ import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 public class SearchPageAC extends AppCompatActivity {
 
     Button searchBtn, logOffBtn, scanButton;
-    EditText pnameET, supplierET, pcodeET;
+    EditText pnameET, supplierET, pcodeET, barcodeET;
 
 
     @Override
@@ -35,6 +35,7 @@ public class SearchPageAC extends AppCompatActivity {
         pnameET = findViewById(R.id.pnameSearchBar);
         supplierET = findViewById(R.id.supplierSearchBar);
         pcodeET = findViewById(R.id.pcodeSearchBar);
+        barcodeET = findViewById(R.id.barcodeSearchBar);
 
 //        callCriteriaList();
         setupUI(findViewById(R.id.SearchCL));
@@ -80,11 +81,11 @@ public class SearchPageAC extends AppCompatActivity {
         searchVar.pnameInput = pnameET.getText().toString();
         searchVar.pcodeInput = pcodeET.getText().toString();
         searchVar.supplierInput = supplierET.getText().toString();
-        searchVar.barcodeInput = "";
+        searchVar.barcodeInput = barcodeET.getText().toString();
 
         final DialogFragment df = new DialogFragment();
 
-        if (searchVar.pnameInput.isEmpty() && searchVar.pcodeInput.isEmpty() && searchVar.supplierInput.isEmpty()) {
+        if (searchVar.pnameInput.isEmpty() && searchVar.pcodeInput.isEmpty() && searchVar.supplierInput.isEmpty() && searchVar.barcodeInput.isEmpty()) {
             df.callAlert(SearchPageAC.this, "Search input empty!\nPlease check your input and try again.");
         } else {
 

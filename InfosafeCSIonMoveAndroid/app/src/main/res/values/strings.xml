@@ -20,6 +20,7 @@
     <string name="search_productname">Product name</string>
     <string name="search_supplier">Supplier</string>
     <string name="search_productcode">Product code</string>
+    <string name="search_barcode">Barcode</string>
     <string name="search_button">Search</string>
     <string name="search_barcodeTitle">Scan barcode to search</string>
 

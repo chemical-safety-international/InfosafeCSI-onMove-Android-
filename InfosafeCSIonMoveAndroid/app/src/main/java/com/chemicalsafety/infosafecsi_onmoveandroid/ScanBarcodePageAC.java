@@ -34,6 +34,8 @@ public class ScanBarcodePageAC extends AppCompatActivity implements ZXingScanner
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_scan_barcode_page_ac);
 
+        searchVar.barcodeInput = "";
+
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
 

@@ -125,10 +125,10 @@ public class LoginPageAC extends AppCompatActivity {
 //        }
 
 
-//        final String emailText = email.getText().toString();
-//        final String passwordlText = password.getText().toString();
-        final String emailText = "itsupport@chemicalsafety.com.au";
-        final String passwordlText = "itsupport";
+        final String emailText = email.getText().toString();
+        final String passwordlText = password.getText().toString();
+//        final String emailText = "itsupport@chemicalsafety.com.au";
+//        final String passwordlText = "itsupport";
 //        Log.d("email", emailText);
 //        Log.d("password", passwordlText);
         final DialogFragment df = new DialogFragment();
