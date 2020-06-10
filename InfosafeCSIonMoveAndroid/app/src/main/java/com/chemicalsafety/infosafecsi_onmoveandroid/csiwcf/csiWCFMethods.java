@@ -27,9 +27,9 @@ import javax.net.ssl.X509TrustManager;
 
 class csiWCFMethods {
 
-    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
 //    private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
+    //private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
 
