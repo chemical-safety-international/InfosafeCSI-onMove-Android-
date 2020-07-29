@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Camera;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
@@ -40,13 +39,13 @@ public class ScanBarcodePageAC extends AppCompatActivity implements ZXingScanner
         setContentView(scannerView);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(checkPermission()) {
-                Toast.makeText(ScanBarcodePageAC.this, "Permission is granted!", Toast.LENGTH_LONG).show();
-            } else {
-                requestPermission();
-            }
+        if(checkPermission()) {
+            Toast.makeText(ScanBarcodePageAC.this, "Permission is granted!", Toast.LENGTH_LONG).show();
+        } else {
+            requestPermission();
         }
     }
+}
 
     private boolean checkPermission() {
         return (ContextCompat.checkSelfPermission(ScanBarcodePageAC.this, CAMERA) == PackageManager.PERMISSION_GRANTED);

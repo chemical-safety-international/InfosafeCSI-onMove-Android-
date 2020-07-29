@@ -288,8 +288,12 @@ public class SDSViewMainPageAC extends AppCompatActivity {
             hazvalue.setText("");
         }
 
+        if(!previewGHSVar.ps.isEmpty()) {
+            psvalue.setText(previewGHSVar.ps);
+        } else {
+            psvalue.setText("");
+        }
 
-        psvalue.setText(previewGHSVar.ps);
 
 
         // build precautionary statement

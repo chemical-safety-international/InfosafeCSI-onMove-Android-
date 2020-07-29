@@ -120,7 +120,7 @@
     <string name="fa_faftitle">FIRST AID FACILITIES</string>
     <string name="fa_atd">ADVICE TO DOCTOR</string>
 
-    //View SDS tests
+    //View SDS texts
     <string name="sds_toolbartitle">VIEW SDS</string>
 
     //SDS main page toolbar title
@@ -132,5 +132,14 @@
     //Scroll to view more
     <string name="scroll_text">Scroll down to view more</string>
     <string name="scroll_image">Scroll down image</string>
+
+    //OCR texts
+    <string name="scan_image">Scan image</string>
+    <string name="ocr_tips">Tips: Please ensure the image is in highest quality and only leave relevant text on the image for best text recognizing.</string>
+    <string name="ocr_scan_text">Scan text</string>
+    <string name="ocr_scan_text_hint">No Text Recognised.</string>
+    <string name="ocr_rescan_button">Rescanning</string>
+    <string name="ocr_search_button">Search</string>
+
 
 </resources>

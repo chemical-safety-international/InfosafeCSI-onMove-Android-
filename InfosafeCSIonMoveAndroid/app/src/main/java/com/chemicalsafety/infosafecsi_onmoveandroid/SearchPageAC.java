@@ -19,7 +19,7 @@ import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
 
 public class SearchPageAC extends AppCompatActivity {
 
-    Button searchBtn, logOffBtn, scanButton;
+    Button searchBtn, logOffBtn, scanButton, scanOCRButton;
     EditText pnameET, supplierET, pcodeET, barcodeET;
 
 
@@ -31,6 +31,7 @@ public class SearchPageAC extends AppCompatActivity {
         searchBtn = findViewById(R.id.searchBtn);
         logOffBtn = findViewById(R.id.searchLogoff);
         scanButton = findViewById(R.id.scanButton);
+        scanOCRButton = findViewById(R.id.scanOCRButton);
 
         pnameET = findViewById(R.id.pnameSearchBar);
         supplierET = findViewById(R.id.supplierSearchBar);
@@ -113,7 +114,7 @@ public class SearchPageAC extends AppCompatActivity {
                                 public void run() {
                                     df.cancelLoadingScreen();
                                     Log.i("error", "Search failed!.");
-                                    df.callAlert(SearchPageAC.this, "Search Failed!\nPlease check the connection and try again.");
+                                    df.callAlert(SearchPageAC.this, "Search Failed!\nPlease check the input and connection.");
                                 }
                             });
                         }
@@ -130,6 +131,11 @@ public class SearchPageAC extends AppCompatActivity {
         Intent intent = new Intent(this, ScanBarcodePageAC.class);
         startActivity(intent);
 
+    }
+
+    public void setScanOCRButton(View view) {
+        Intent intent = new Intent(this, OCRPageAC.class);
+        startActivity(intent);
     }
 
     public void hideSoftKeyboard(Activity activity) {

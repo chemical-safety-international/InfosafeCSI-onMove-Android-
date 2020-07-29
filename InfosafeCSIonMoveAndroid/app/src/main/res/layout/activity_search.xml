@@ -23,25 +23,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/pnameSearchBar"
-        style="@android:style/Widget.DeviceDefault.Light.TextView"
+    <RelativeLayout
+        android:id="@+id/pnameRelativeLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
         android:layout_marginStart="35dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
-        android:background="@android:drawable/editbox_background"
-        android:hint="@string/search_productname"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textIsSelectable="true"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchLogoff" />
+        app:layout_constraintTop_toBottomOf="@+id/searchLogoff">
+
+        <EditText
+            android:id="@+id/pnameSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:drawable/editbox_background"
+            android:hint="@string/search_productname"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/scanOCRButton"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@android:drawable/ic_menu_camera"
+            android:onClick="setScanOCRButton"/>
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/supplierSearchBar"
@@ -56,10 +78,9 @@
         android:hint="@string/search_supplier"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pnameSearchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/pnameRelativeLayout" />
 
     <EditText
         android:id="@+id/pcodeSearchBar"
@@ -74,7 +95,6 @@
         android:hint="@string/search_productcode"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplierSearchBar" />
@@ -103,7 +123,6 @@
             android:hint="@string/search_barcode"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:textIsSelectable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
