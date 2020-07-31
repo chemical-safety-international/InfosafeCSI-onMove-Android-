@@ -142,4 +142,8 @@
     <string name="ocr_search_button">Search</string>
 
 
+    //Empty text
+    <string name="empty_hint"></string>
+
+
 </resources>

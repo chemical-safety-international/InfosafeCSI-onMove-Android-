@@ -79,10 +79,10 @@ public class SearchPageAC extends AppCompatActivity {
 //        }
 
         //get the search bars input
-        searchVar.pnameInput = pnameET.getText().toString();
-        searchVar.pcodeInput = pcodeET.getText().toString();
-        searchVar.supplierInput = supplierET.getText().toString();
-        searchVar.barcodeInput = barcodeET.getText().toString();
+        searchVar.pnameInput = pnameET.getText().toString().trim();
+        searchVar.pcodeInput = pcodeET.getText().toString().trim();
+        searchVar.supplierInput = supplierET.getText().toString().trim();
+        searchVar.barcodeInput = barcodeET.getText().toString().trim();
 
         final DialogFragment df = new DialogFragment();
 

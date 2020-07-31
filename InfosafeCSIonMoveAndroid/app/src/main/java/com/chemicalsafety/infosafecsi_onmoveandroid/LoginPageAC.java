@@ -124,8 +124,8 @@ public class LoginPageAC extends AppCompatActivity {
 //        }
 
 
-        final String emailText = email.getText().toString();
-        final String passwordlText = password.getText().toString();
+        final String emailText = email.getText().toString().trim();
+        final String passwordlText = password.getText().toString().trim();
 //        final String emailText = "itsupport@chemicalsafety.com.au";
 //        final String passwordlText = "itsupport";
 //        Log.d("email", emailText);
@@ -200,8 +200,8 @@ public class LoginPageAC extends AppCompatActivity {
             remBtn.setBackgroundResource(R.drawable.login_tickedcheckbox);
             UserInfoStoredFunction.setTrueStatus(this);
 
-            String emailText = email.getText().toString();
-            String passwordText = password.getText().toString();
+            String emailText = email.getText().toString().trim();
+            String passwordText = password.getText().toString().trim();
 
             UserInfoStoredFunction.setEmail(this, emailText);
             UserInfoStoredFunction.setPassword(this, passwordText);

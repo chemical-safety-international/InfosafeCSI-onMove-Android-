@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -64,6 +66,7 @@ public class OCRPageAC extends AppCompatActivity {
 
         scanText = findViewById(R.id.scanText);
 
+        setupUI(findViewById(R.id.OCRCL));
 
         //check the permission of camera and storage
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -81,6 +84,19 @@ public class OCRPageAC extends AppCompatActivity {
         }
 
         dispatchTakePictureIntent();
+    }
+
+    //hide keyboard
+    public void setupUI(View view) {
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(OCRPageAC.this);
+                    return false;
+                }
+            });
+        }
     }
 
     //create camera activity
@@ -182,7 +198,8 @@ public class OCRPageAC extends AppCompatActivity {
     }
 
     public void setOcrSearchButton(View v) {
-        searchVar.pnameInput = scanText.getText().toString();
+
+        searchVar.pnameInput = scanText.getText().toString().trim();
 
         final DialogFragment df = new DialogFragment();
 
