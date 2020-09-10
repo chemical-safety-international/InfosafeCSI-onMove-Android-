@@ -11,6 +11,7 @@ public class loginVar {
     public static String infosafeid;
     public static String passed;
     public static String surname;
+    public static String deviceserialno;
 
 }
 

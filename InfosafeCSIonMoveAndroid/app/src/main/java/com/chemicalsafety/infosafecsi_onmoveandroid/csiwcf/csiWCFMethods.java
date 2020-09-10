@@ -2,6 +2,8 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
 import android.util.Log;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,9 +29,9 @@ import javax.net.ssl.X509TrustManager;
 
 class csiWCFMethods {
 
-//    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
 //    private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
+//    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
 
@@ -49,7 +51,7 @@ class csiWCFMethods {
             user.put("phoneno", "");
             user.put("devicename", "");
             user.put("devicemodel", "");
-            user.put("deviceserialno", "");
+            user.put("deviceserialno", loginVar.deviceserialno);
             user.put("deviceSEID", "");
             user.put("deviceIMEI", "");
             user.put("deviceMEID", "");

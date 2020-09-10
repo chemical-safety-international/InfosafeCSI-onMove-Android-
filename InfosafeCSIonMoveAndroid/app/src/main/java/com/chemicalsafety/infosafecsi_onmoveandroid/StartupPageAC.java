@@ -1,18 +1,25 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 
 import org.jsoup.Jsoup;
 
@@ -22,7 +29,7 @@ import java.text.DecimalFormat;
 
 public class StartupPageAC extends AppCompatActivity {
 
-//    private Button welcomeBtn;
+    //    private Button welcomeBtn;
     Button welcomeButton;
 
     @Override
@@ -55,7 +62,8 @@ public class StartupPageAC extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        getDeviceId(this);
+//        getDeviceInfo();
     }
 
 
@@ -79,6 +87,45 @@ public class StartupPageAC extends AppCompatActivity {
 
         return currentVersion;
     }
+
+    public void getDeviceInfo() {
+        StringBuffer infoBuffer = new StringBuffer();
+
+        infoBuffer.append("-------------------------------------\n");
+        infoBuffer.append("Model :" + Build.MODEL + "\n");//The end-user-visible name for the end product.
+        infoBuffer.append("Device: " + Build.DEVICE + "\n");//The name of the industrial design.
+        infoBuffer.append("Manufacturer: " + Build.MANUFACTURER + "\n");//The manufacturer of the product/hardware.
+        infoBuffer.append("Board: " + Build.BOARD + "\n");//The name of the underlying board, like "goldfish".
+        infoBuffer.append("Brand: " + Build.BRAND + "\n");//The consumer-visible brand with which the product/hardware will be associated, if any.
+        infoBuffer.append("Serial: " + Build.SERIAL + "\n");
+        infoBuffer.append("-------------------------------------\n");
+    /* Android doc:
+        This 'Serial' field was deprecated in API level O.
+        Use getSerial() instead.
+        A hardware serial number, if available.
+        Alphanumeric only, case-insensitive. For apps targeting SDK higher than N_MR1 this field is set to UNKNOWN.
+    */
+
+//I just used AlertDialog to show device information
+        AlertDialog.Builder dialog = new AlertDialog.Builder(StartupPageAC.this);
+        dialog.setCancelable(true);
+        dialog.setTitle("Device information:");
+        dialog.setMessage(infoBuffer);//StringBuffer which we appended the device informations.
+        dialog.show();
+    }
+
+    public static String getDeviceId(Context context) {
+        Log.i("Android ID:", "reached getDevice ID");
+
+        String androidId = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);;
+        Log.i("Android ID:", androidId);
+        loginVar.deviceserialno = androidId;
+//        Toast.makeText(context, "android_id= " + androidId, Toast.LENGTH_LONG).show();
+        return androidId;
+    }
+
+
 
     //get Google play store app version
     private class GetLatestVersion extends AsyncTask<String, String, String> {
@@ -136,4 +183,5 @@ public class StartupPageAC extends AppCompatActivity {
         alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
+
 }
