@@ -22,6 +22,7 @@ import java.net.URL;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -29,8 +30,9 @@ import javax.net.ssl.X509TrustManager;
 
 class csiWCFMethods {
 
-    private String url = "https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "https://203.55.180.101/CSIMD_WCF/CSI_MD_Service.svc/";
 //    private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    //http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/
 //    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
