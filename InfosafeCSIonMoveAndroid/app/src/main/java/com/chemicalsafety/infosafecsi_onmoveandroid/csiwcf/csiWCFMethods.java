@@ -30,16 +30,9 @@ import javax.net.ssl.X509TrustManager;
 
 class csiWCFMethods {
 
-//    private String url = "https://203.55.180.101/CSIMD_WCF/CSI_MD_Service.svc/";
- //   private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-    //https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/
-    //https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc
-//    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
-    //private String url = "https://192.168.10.15/CSIMD_WCF/CSI_MD_Service.svc/";
-
-    //private String url = "https://www.csinfosafe.com/CSIMD_WCF_Test/CSI_MD_Service.svc/";
-    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "https://www.csinfosafe.com/CSIMD_WCF_Test/CSI_MD_Service.svc/";
+    //private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
     String LoginByEMail(String email, String pw) {
@@ -53,8 +46,9 @@ class csiWCFMethods {
             // put value in json object
            // user.put("email", "shawn.samuel@chemicalsafety.com.au");
             user.put("email", email);
-            //user.put("password", "#PEPSimax");
+
             user.put("password", pw);
+//            user.put("password", "#PEPSimax");
             user.put("deviceid", "");
             user.put("devicemac", "");
             user.put("phoneno", "");
@@ -66,7 +60,9 @@ class csiWCFMethods {
             user.put("deviceMEID", "");
             user.put("sourceip", "");
 
-//            System.out.println(user);
+
+
+            System.out.println(user);
 
             String urlFinal = url + "LoginByEMail";
 
@@ -116,8 +112,8 @@ class csiWCFMethods {
             // put value in json object
             // user.put("email", "shawn.samuel@chemicalsafety.com.au");
             user.put("email", email);
-            //user.put("password", "#PEPSimax");
-            user.put("password", "");
+            user.put("password", "#PEPSimax");
+//            user.put("password", "");
             user.put("deviceid", "");
             user.put("devicemac", "");
             user.put("phoneno", "");
@@ -128,7 +124,8 @@ class csiWCFMethods {
             user.put("deviceIMEI", "");
             user.put("deviceMEID", "");
             user.put("sourceip", "");
-
+            user.put("otacode", "");
+            user.put("appointedclient", "7986122d-255a-45ca-92d2-961d12603873");
 
             URL url1;
             DataOutputStream output;

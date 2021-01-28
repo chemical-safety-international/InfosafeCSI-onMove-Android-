@@ -24,8 +24,9 @@ public class csiWCF_VM {
 
         try{
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.LoginByEMail(email,pw);
-//            Log.i("Output", responseText);
+//            String responseText = wcf.LoginByEMail(email,pw);
+            String responseText = wcf.LoginByEMail_https(email,pw);
+            Log.i("Output", responseText);
             JSONObject respJSON = new JSONObject(responseText);
 //            System.out.println(respJSON);
             if (!responseText.isEmpty()) {
@@ -176,8 +177,8 @@ public class csiWCF_VM {
             passV.put("advanceditems", advArray);
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.SearchReturnList(passV);
-
+//            String responseText = wcf.SearchReturnList(passV);
+            String responseText = wcf.SearchReturnList_https(passV);
 //            Log.i("Search Input", passV.toString());
 //            Log.i("output", responseText);
 
@@ -396,7 +397,8 @@ public class csiWCF_VM {
             passV.put("uid", uid);
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_Classification(passV);
+//            String responseText = wcf.ViewSDS_Classification(passV);
+            String responseText = wcf.ViewSDS_Classification_https(passV);
 //            Log.i("Output classification:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
@@ -620,7 +622,8 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_Transport(passV);
+//            String responseText = wcf.ViewSDS_Transport(passV);
+            String responseText = wcf.ViewSDS_Transport_https(passV);
 //            Log.i("Output TI information:", responseText);
 
             JSONObject respJSON = new JSONObject(responseText);
@@ -742,7 +745,8 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS(passV);
+//            String responseText = wcf.ViewSDS(passV);
+            String responseText = wcf.ViewSDS_https(passV);
 
 //            Log.i("Output ViewSDS PDF:", responseText);
 
@@ -782,7 +786,8 @@ public class csiWCF_VM {
 
 
             csiWCFMethods wcf = new csiWCFMethods();
-            String responseText = wcf.ViewSDS_FirstAid(passV);
+//            String responseText = wcf.ViewSDS_FirstAid(passV);
+            String responseText = wcf.ViewSDS_FirstAid_https(passV);
 
 //            Log.i("Output F.AID:", responseText);
 
