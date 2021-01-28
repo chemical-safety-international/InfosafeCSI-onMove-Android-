@@ -25,9 +25,9 @@ public class csiWCF_VM {
         try{
             csiWCFMethods wcf = new csiWCFMethods();
             String responseText = wcf.LoginByEMail_https(email,pw);
-//            Log.i("Output", responseText);
+            Log.i("Output", responseText);
             JSONObject respJSON = new JSONObject(responseText);
-//            System.out.println(respJSON);
+            System.out.println(respJSON);
             if (!responseText.isEmpty()) {
                 try {
                     loginVar.clientid = respJSON.getString("clientid");

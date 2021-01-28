@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-vision-common:16.2.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a825ca6f0856329791cc935218f9f6b7/jetified-play-services-vision-common-16.2.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a825ca6f0856329791cc935218f9f6b7/jetified-play-services-vision-common-16.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a825ca6f0856329791cc935218f9f6b7/jetified-play-services-vision-common-16.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c4d73fd4a000ac9765f59b1f2ed1d7ef/jetified-play-services-vision-common-16.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c4d73fd4a000ac9765f59b1f2ed1d7ef/jetified-play-services-vision-common-16.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c4d73fd4a000ac9765f59b1f2ed1d7ef/jetified-play-services-vision-common-16.2.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

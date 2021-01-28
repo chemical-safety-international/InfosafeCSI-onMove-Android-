@@ -30,11 +30,14 @@ import javax.net.ssl.X509TrustManager;
 
 class csiWCFMethods {
 
-    private String url = "https://203.55.180.101/CSIMD_WCF/CSI_MD_Service.svc/";
-//    private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
-    //http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/
+//    private String url = "https://203.55.180.101/CSIMD_WCF/CSI_MD_Service.svc/";
+ //   private String url = "http://192.168.1.22/CSIMD_WCF/CSI_MD_Service.svc/";
+    //https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/
+    //https://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc
 //    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
+    //private String url = "https://192.168.10.15/CSIMD_WCF/CSI_MD_Service.svc/";
+    private String url = "https://www.csinfosafe.com/CSIMD_WCF_Test/CSI_MD_Service.svc/";
 
 
     String LoginByEMail(String email, String pw) {
@@ -110,7 +113,7 @@ class csiWCFMethods {
             // user.put("email", "shawn.samuel@chemicalsafety.com.au");
             user.put("email", email);
             //user.put("password", "#PEPSimax");
-            user.put("password", pw);
+            user.put("password", "");
             user.put("deviceid", "");
             user.put("devicemac", "");
             user.put("phoneno", "");
@@ -127,24 +130,10 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
-//             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-
-
-//            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
             url1 = new URL(url + "LoginByEMail");
-//            url1 = new URL(url2);
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
-//            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -263,15 +252,16 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
+//            trustAllHosts();
 //             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            HostnameVerifier allHostsValid = new HostnameVerifier() {
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
 
+//            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            setHostnameVerifier();
 
 //            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
@@ -280,7 +270,7 @@ class csiWCFMethods {
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 //            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
+//            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -358,15 +348,16 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
-//             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            trustAllHosts();
+////             Create all-trusting host name verifier
+//            HostnameVerifier allHostsValid = new HostnameVerifier() {
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
 
+            //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            setHostnameVerifier();
 
 //            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
@@ -375,7 +366,7 @@ class csiWCFMethods {
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 //            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
+//            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -450,15 +441,16 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
-//             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            trustAllHosts();
+////             Create all-trusting host name verifier
+//            HostnameVerifier allHostsValid = new HostnameVerifier() {
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
 
+            //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            setHostnameVerifier();
 
 //            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
@@ -467,7 +459,7 @@ class csiWCFMethods {
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 //            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
+//            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -542,14 +534,16 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
-//             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            trustAllHosts();
+////             Create all-trusting host name verifier
+//            HostnameVerifier allHostsValid = new HostnameVerifier() {
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
+
+            //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            setHostnameVerifier();
 
 
 //            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
@@ -559,7 +553,7 @@ class csiWCFMethods {
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 //            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
+//            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -634,15 +628,16 @@ class csiWCFMethods {
             DataOutputStream output;
             DataInputStream input;
 
-            trustAllHosts();
-//             Create all-trusting host name verifier
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            };
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            trustAllHosts();
+////             Create all-trusting host name verifier
+//            HostnameVerifier allHostsValid = new HostnameVerifier() {
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
 
+            //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//            setHostnameVerifier();
 
 //            String url2 = URLEncoder.encode(url + "LoginByEMail", "UTF-8");
 
@@ -651,7 +646,7 @@ class csiWCFMethods {
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 //            connection.setSSLSocketFactory(trustCert().getSocketFactory());
 
-            connection.setHostnameVerifier(DO_NOT_VERIFY);
+//            connection.setHostnameVerifier(DO_NOT_VERIFY);
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
@@ -689,46 +684,72 @@ class csiWCFMethods {
     }
 
 
-    /**
-     * For self-signed Https only
-     * Trust every server - dont check for any certificate
-     */
-
-    // always verify the host - dont check for certificate
-    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    };
-
-    private static void trustAllHosts() {
-        // Create a trust manager that does not validate certificate chains
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-            @Override
-            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
-
-            }
-
-            @Override
-            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
-
-            }
-
-            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                return new java.security.cert.X509Certificate[] {};
-            }
-
-        } };
-
-        // Install the all-trusting trust manager
-        try {
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection
-                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * For self-signed Https only
+//     * Trust every server - dont check for any certificate
+//     */
+//
+//    // always verify the host - dont check for certificate
+//    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+//        public boolean verify(String hostname, SSLSession session) {
+//
+//            return true;
+//        }
+//    };
+//
+//    HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+//        @Override
+//        public boolean verify(String hostname, SSLSession session) {
+//            HostnameVerifier hv =
+//                    HttpsURLConnection.getDefaultHostnameVerifier();
+//
+//            return hv.verify("192.168.10.15", session);
+//        }
+//    };
+//
+//    private static void trustAllHosts() {
+//        // Create a trust manager that does not validate certificate chains
+//        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+//            @Override
+//            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+//
+//            }
+//
+//            @Override
+//            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+//
+//            }
+//
+//            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+//                return new java.security.cert.X509Certificate[] {};
+//            }
+//
+//        } };
+//
+//        // Install the all-trusting trust manager
+//        try {
+//            SSLContext sc = SSLContext.getInstance("SSL");
+//            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+//            HttpsURLConnection
+//                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private static void setHostnameVerifier() {
+//        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+//            @Override
+//            public boolean verify(String hostname, SSLSession session) {
+//                //if (hostname.equalsIgnoreCase("203.55.180.101")) {
+//                if (hostname.equalsIgnoreCase("https://192.168.10.15")) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//
+//            }
+//        });
+//    }
 }

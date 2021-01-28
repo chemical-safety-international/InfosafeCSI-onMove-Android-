@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera2" />
 
@@ -25,7 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OCRPageAC"></activity>
+        <activity android:name=".Entities.clientSelectItem"></activity>
+        <activity android:name=".ClientSelectPageAC" />
+        <activity android:name=".OCRPageAC" />
         <activity android:name=".ScanBarcodePageAC" />
         <activity android:name=".ScanPageAC" />
         <activity android:name=".ViewSDSPageAC" />
@@ -44,11 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Build for pdf file related function -->
-
-<!--        crop activity-->
+        <!-- crop activity -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:theme="@style/Base.Theme.AppCompat" />
+
         <provider
             android:name=".Entities.GenericFileProvider"
             android:authorities="${applicationId}.provider"
