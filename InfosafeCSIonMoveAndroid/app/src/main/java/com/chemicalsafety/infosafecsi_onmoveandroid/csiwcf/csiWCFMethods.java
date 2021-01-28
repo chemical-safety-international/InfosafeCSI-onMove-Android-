@@ -37,15 +37,19 @@ class csiWCFMethods {
 //    private String url = "https://192.168.1.22:4438/CSIMD_WCF/CSI_MD_Service.svc/";
 
     //private String url = "https://192.168.10.15/CSIMD_WCF/CSI_MD_Service.svc/";
-    private String url = "https://www.csinfosafe.com/CSIMD_WCF_Test/CSI_MD_Service.svc/";
+
+    //private String url = "https://www.csinfosafe.com/CSIMD_WCF_Test/CSI_MD_Service.svc/";
+    private String url = "http://www.csinfosafe.com/CSIMD_WCF/CSI_MD_Service.svc/";
 
 
     String LoginByEMail(String email, String pw) {
 
-        //crate json object
-        JSONObject user = new JSONObject();
+
 
         try {
+
+            //crate json object
+            JSONObject user = new JSONObject();
             // put value in json object
            // user.put("email", "shawn.samuel@chemicalsafety.com.au");
             user.put("email", email);
