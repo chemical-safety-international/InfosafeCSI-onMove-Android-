@@ -26,7 +26,7 @@ public class csiWCF_VM {
             csiWCFMethods wcf = new csiWCFMethods();
 //            String responseText = wcf.LoginByEMail(email,pw);
             String responseText = wcf.LoginByEMail_https(email,pw);
-            Log.i("Output", responseText);
+//            Log.i("Output", responseText);
             JSONObject respJSON = new JSONObject(responseText);
 //            System.out.println(respJSON);
             if (!responseText.isEmpty()) {

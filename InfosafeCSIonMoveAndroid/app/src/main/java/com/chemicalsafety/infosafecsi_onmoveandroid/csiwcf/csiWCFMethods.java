@@ -112,8 +112,8 @@ class csiWCFMethods {
             // put value in json object
             // user.put("email", "shawn.samuel@chemicalsafety.com.au");
             user.put("email", email);
-            user.put("password", "#PEPSimax");
-//            user.put("password", "");
+//            user.put("password", "#PEPSimax");
+            user.put("password", pw);
             user.put("deviceid", "");
             user.put("devicemac", "");
             user.put("phoneno", "");
@@ -125,7 +125,8 @@ class csiWCFMethods {
             user.put("deviceMEID", "");
             user.put("sourceip", "");
             user.put("otacode", "");
-            user.put("appointedclient", "7986122d-255a-45ca-92d2-961d12603873");
+//            user.put("appointedclient", "7986122d-255a-45ca-92d2-961d12603873");
+            user.put("appointedclient", "");
 
             URL url1;
             DataOutputStream output;
