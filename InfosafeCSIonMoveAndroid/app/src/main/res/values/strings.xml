@@ -6,11 +6,26 @@
     <string name="welcome_button">Connect</string>
     <string name="welcome_image">Welcome background image</string>
 
+    //Email check page texts
+    <string name="login_askemail">Please enter your registered email:</string>
+    <string name="login_continue">Continue</string>
+    <string name="login_emailchecklogo">Email Check Logo</string>
+
+    //OTA code page texts
+    <string name="login_otanotice">Your One-Time Access Code for InfosafeCSI has been sent to your registered email account. This code will expiry in 8 minutes.</string>
+    <string name="login_otahint">OTA CODE</string>
+    <string name="login_otalogo">OTA Logo</string>
+
+    //Multiple client page texts
+    <string name="login_mcnotice">Your email has been registered to multiple companies, please select:</string>
+    <string name="login_mclogo">Multiple client Logo</string>
+
     // Login page texts
     <string name="login_email">Email Address</string>
     <string name="login_password">Password</string>
     <string name="login_button">Login</string>
-    <string name="login_remember">Remember username and password</string>
+
+    <string name="login_remember">Remember your password</string>
     <string name="login_logo">Login page logo</string>
     <string name="login_remBtn">Button for remember action or undo action</string>
 

@@ -53,8 +53,8 @@ public class LoginPageAC extends AppCompatActivity {
 //        Log.i("email id:", UserInfoStoredFunction.getEmail(this));
 
 
-        if (UserInfoStoredFunction.getStatus(this)) {
-//            Log.i("logo", UserInfoStoredFunction.getLogo(this));
+        if (UserInfoStoredFunction.getStatus(this, loginVar.clientid)) {
+
             setRememberValues();
         } else {
             loginLogo.setImageResource(R.drawable.csi_logo);
@@ -71,6 +71,23 @@ public class LoginPageAC extends AppCompatActivity {
 
         //build listener for keyboard
         setupUI(findViewById(R.id.LoginCL));
+
+        preloadEmail();
+        preloadLogo();
+    }
+
+    public void preloadEmail() {
+        if (!loginVar.email.isEmpty()) {
+            email.setText(loginVar.email);
+        }
+    }
+
+    public void preloadLogo() {
+        if (!loginVar.clientlogo.isEmpty()) {
+            byte[] decodedString = Base64.decode(loginVar.clientlogo.getBytes(), Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            loginLogo.setImageBitmap(decodeByte);
+        }
     }
 
     //setup listener for the view except EditText
@@ -148,18 +165,38 @@ public class LoginPageAC extends AppCompatActivity {
             Thread t= new Thread(new Runnable() {
 
                 public void run() {
-                    if (wcf.Login(emailText,passwordlText )) {
+                    if (wcf.MulitpleClientLogin(emailText,passwordlText,"" , loginVar.appointclient)) {
 
-//                        runOnUiThread(new Runnable() {
-//                            @Override
+
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 df.cancelLoadingScreen();
-                                if (!loginVar.clientlogo.isEmpty()) {
-                                    UserInfoStoredFunction.setLogo(LoginPageAC.this, loginVar.clientlogo);
-                                }
 
-                                toSeachAC();
+
+                                if (loginVar.passed.equals(true)) {
+                                    df.cancelLoadingScreen();
+                                    toSeachAC();
+
+
+                                } else if (loginVar.passed.equals(false)) {
+
+                                    if (loginVar.isgeneric.equals(true) && (loginVar.needchooseclient.equals(true))) {
+                                        df.cancelLoadingScreen();
+                                        toLoginMultipleClientAC();
+                                    } else if (loginVar.isgeneric.equals(false) && (loginVar.needchooseclient.equals(true))) {
+                                        df.cancelLoadingScreen();
+                                        toLoginMultipleClientAC();
+                                    } else if (loginVar.needpsw.equals(true)) {
+                                        df.cancelLoadingScreen();
+                                        toLoginpasswordAC();
+
+                                    } else if (loginVar.isgeneric.equals(true) && loginVar.retIndexText.contains("OTA Code Sent")) {
+                                        df.cancelLoadingScreen();
+                                        toLoginOTAAC();
+                                    } else {
+                                    df.callAlert(LoginPageAC.this, "Login Failed!\n" + loginVar.retIndexText);
+                                    }
+                                }
                             }
                         });
 
@@ -169,7 +206,7 @@ public class LoginPageAC extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
-                                UserInfoStoredFunction.setFalseStatus(LoginPageAC.this);
+                                UserInfoStoredFunction.setFalseStatus(LoginPageAC.this, loginVar.clientid);
 
                                 password.setText("");
 
@@ -187,33 +224,28 @@ public class LoginPageAC extends AppCompatActivity {
 
     }
 
-    public void toSeachAC() {
-
-        Intent intent = new Intent(this, SearchPageAC.class);
-        startActivity(intent);
-    }
 
     public void remBtnTapped(View v) {
 
-        if(!UserInfoStoredFunction.getStatus(this)) {
+        if(!UserInfoStoredFunction.getStatus(this, loginVar.clientid)) {
 
             remBtn.setBackgroundResource(R.drawable.login_tickedcheckbox);
-            UserInfoStoredFunction.setTrueStatus(this);
+            UserInfoStoredFunction.setTrueStatus(this, loginVar.clientid);
 
-            String emailText = email.getText().toString().trim();
+//            String emailText = email.getText().toString().trim();
             String passwordText = password.getText().toString().trim();
 
-            UserInfoStoredFunction.setEmail(this, emailText);
-            UserInfoStoredFunction.setPassword(this, passwordText);
+//            UserInfoStoredFunction.setEmail(this, emailText);
+            UserInfoStoredFunction.setMultiPassword(this, passwordText);
 
 
 
         } else {
             remBtn.setBackgroundResource(R.drawable.login_untickcheckbox);
-            UserInfoStoredFunction.setFalseStatus(this);
+            UserInfoStoredFunction.setFalseStatus(this, loginVar.clientid);
 
-            UserInfoStoredFunction.setEmail(this, "");
-            UserInfoStoredFunction.setPassword(this, "");
+//            UserInfoStoredFunction.setEmail(this, "");
+            UserInfoStoredFunction.setMultiPassword(this, "");
         }
 
 
@@ -224,14 +256,14 @@ public class LoginPageAC extends AppCompatActivity {
 
     public void setRememberValues() {
         remBtn.setBackgroundResource(R.drawable.login_tickedcheckbox);
-        email.setText(UserInfoStoredFunction.getEmail(this));
-        password.setText(UserInfoStoredFunction.getPassword(this));
+//        email.setText(UserInfoStoredFunction.getEmail(this));
+        password.setText(UserInfoStoredFunction.getMultiPassword(this));
 
-        if(!UserInfoStoredFunction.getLogo(this).isEmpty()) {
-            byte[] decodedString = Base64.decode(UserInfoStoredFunction.getLogo(this).getBytes(), Base64.DEFAULT);
-            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            loginLogo.setImageBitmap(decodeByte);
-        }
+//        if(!UserInfoStoredFunction.getLogo(this).isEmpty()) {
+//            byte[] decodedString = Base64.decode(UserInfoStoredFunction.getLogo(this).getBytes(), Base64.DEFAULT);
+//            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            loginLogo.setImageBitmap(decodeByte);
+//        }
 
 
     }
@@ -247,39 +279,37 @@ public class LoginPageAC extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
-//    public class ThreadA {
-//        public void go() {
-////            Log.d("reach", "1");
-//            PrimeThread p = new PrimeThread(143);
-//            p.start();
-//            synchronized (p) {
-//                try {
-//                    p.wait();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-////                Log.d("reach", "3");
-//                toSeachAC();
-//            }
-//        }
-//
-//    }
-//
-//    class PrimeThread extends Thread {
-//        long minPrime;
-//        PrimeThread(long minPrime) {
-//            this.minPrime = minPrime;
-//        }
-//
-//        public void run() {
-////            Log.d("reach", "2");
-//            csiWCFMethods wcf = new csiWCFMethods();
-//            wcf.LoginByEMail("a","a" );
-//        }
+
+//    @Override
+//    public void onBackPressed() {
+//        // Do Here what ever you want do on back press;
 //    }
 
-    @Override
-    public void onBackPressed() {
-        // Do Here what ever you want do on back press;
+    //jump to search page
+    public void toSeachAC() {
+
+        Intent intent = new Intent(this, SearchPageAC.class);
+        startActivity(intent);
+    }
+
+    //jump to password page
+    public void toLoginpasswordAC() {
+
+        Intent intent = new Intent(this, LoginPageAC.class);
+        startActivity(intent);
+    }
+
+    //jump to ota code page
+    public void toLoginOTAAC() {
+
+        Intent intent = new Intent(this, OTACodeAC.class);
+        startActivity(intent);
+    }
+
+    //jump to ota code page
+    public void toLoginMultipleClientAC() {
+
+        Intent intent = new Intent(this, MultipleClientAC.class);
+        startActivity(intent);
     }
 }

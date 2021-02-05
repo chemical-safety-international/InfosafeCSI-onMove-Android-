@@ -1,10 +1,10 @@
 package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVarMulti;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewGHSVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewTIVar;
@@ -20,12 +20,12 @@ import java.util.Arrays;
 public class csiWCF_VM {
 
 
-    public Boolean Login(String email, String pw) {
+    public Boolean Login(String email, String pw, String otacode, String appointclient) {
 
         try{
             csiWCFMethods wcf = new csiWCFMethods();
 //            String responseText = wcf.LoginByEMail(email,pw);
-            String responseText = wcf.LoginByEMail_https(email,pw);
+            String responseText = wcf.LoginByEMail_https(email,pw,otacode,appointclient);
 //            Log.i("Output", responseText);
             JSONObject respJSON = new JSONObject(responseText);
 //            System.out.println(respJSON);
@@ -34,16 +34,125 @@ public class csiWCF_VM {
                     loginVar.clientid = respJSON.getString("clientid");
                     loginVar.apptype = respJSON.getInt("apptype");
                     loginVar.clientcode = respJSON.getString("clientcode");
-                    loginVar.passed = respJSON.getString("passed");
+                    loginVar.passed = respJSON.getBoolean("passed");
                     loginVar.infosafeid = respJSON.getString("infosafeid");
                     loginVar.clientlogo = respJSON.getString("clientlogo");
+                    loginVar.retIndexNo = respJSON.getString("retIndexNo");
+                    loginVar.retIndexText = respJSON.getString("retIndexText");
+                    loginVar.needchooseclient = respJSON.getBoolean("needchooseclient");
+                    loginVar.needpsw = respJSON.getBoolean("needpsw");
+                    loginVar.isgeneric = respJSON.getBoolean("isgeneric");
 
-                    if(!loginVar.clientid.equals("null") && !loginVar.clientid.isEmpty() && loginVar.apptype == 1) {
-                        return loginVar.passed.equals("true");
+                    JSONArray dataArray;
+                    loginVarMulti.clientList.clear();
+                    //get the values from data
+                    dataArray = respJSON.getJSONArray("relatedclients");
+                    if (dataArray.length() != 0) {
+
+                        for (int i = 0; i < dataArray.length(); i++) {
+                            JSONObject json_obj = dataArray.getJSONObject(i);
+                            String clientname = json_obj.getString("clientname");
+                            String clientid = json_obj.getString("clientid");
+                            loginVarMulti.clientList.add(new loginVarMulti(clientname, clientid));
+                        }
+                    }
+//                    Log.i("clientid2", loginVarMulti.clientList.get(0).mclientid);
+//                    Log.i("client no", String.valueOf(loginVarMulti.clientList.size()));
+//                    Log.i("client pass", String.valueOf(loginVar.passed));
+
+
+                    if (loginVarMulti.clientList.size() == 1) {
+                        loginVar.clientid = loginVarMulti.clientList.get(0).mclientid;
+                    }
+
+                    if(loginVarMulti.clientList.size() != 0) {
+
+                        return true;
 
                     } else {
                         return false;
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            } else {
+                Log.d("error", "login failed");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public Boolean MulitpleClientLogin(String email, String pw, String otacode, String appointclient) {
+
+        try{
+            csiWCFMethods wcf = new csiWCFMethods();
+//            String responseText = wcf.LoginByEMail(email,pw);
+            String responseText = wcf.LoginByEMail_https(email,pw,otacode,appointclient);
+//            Log.i("Output", responseText);
+            JSONObject respJSON = new JSONObject(responseText);
+//            System.out.println(respJSON);
+            if (!responseText.isEmpty()) {
+                try {
+
+                    loginVar.apptype = respJSON.getInt("apptype");
+                    loginVar.clientcode = respJSON.getString("clientcode");
+                    loginVar.passed = respJSON.getBoolean("passed");
+                    loginVar.infosafeid = respJSON.getString("infosafeid");
+                    loginVar.clientlogo = respJSON.getString("clientlogo");
+                    loginVar.retIndexNo = respJSON.getString("retIndexNo");
+                    loginVar.retIndexText = respJSON.getString("retIndexText");
+                    loginVar.needchooseclient = respJSON.getBoolean("needchooseclient");
+                    loginVar.needpsw = respJSON.getBoolean("needpsw");
+                    loginVar.isgeneric = respJSON.getBoolean("isgeneric");
+
+
+                    if(loginVar.passed.equals(true) || loginVar.needpsw.equals(true) || loginVar.needchooseclient.equals(true) || !loginVar.clientlogo.isEmpty()) {
+
+                        return true;
+
+                    } else {
+                        return false;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+
+            } else {
+                Log.d("error", "login failed");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public Boolean clientLogo(String clientid) {
+
+        try{
+            csiWCFMethods wcf = new csiWCFMethods();
+//            String responseText = wcf.LoginByEMail(email,pw);
+            String responseText = wcf.LoginLogo_https(clientid);
+//            Log.i("Output", responseText);
+            JSONObject respJSON = new JSONObject(responseText);
+//            System.out.println(respJSON);
+            if (!responseText.isEmpty()) {
+                try {
+                    loginVar.clientlogo = respJSON.getString("clientlogo");
+
+                    return true;
+
+
 
                 } catch (Exception e) {
                     e.printStackTrace();

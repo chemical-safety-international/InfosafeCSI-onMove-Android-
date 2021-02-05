@@ -39,28 +39,28 @@ public class StartupPageAC extends AppCompatActivity {
 
         welcomeButton = findViewById(R.id.welcomeBtn);
 
-//        Log.i("Local version:", getCurrentVersion());
-//        Log.i("BudleID:", BuildConfig.APPLICATION_ID );
-        try {
-            final String googlePlayStoreVersion = new GetLatestVersion().execute().get();
-//            Log.i("Google play version:", googlePlayStoreVersion);
-
-            float gpVersion = Float.parseFloat(googlePlayStoreVersion);
-            float cVersion = Float.parseFloat(getCurrentVersion());
-
-            gpVersion = Float.parseFloat(new DecimalFormat("##.#").format(gpVersion));
-            cVersion = Float.parseFloat(new DecimalFormat("##.#").format(cVersion));
-
-//            Log.i("changed local version:", "" + cVersion);
-//            Log.i("changed store version:", "" + gpVersion);
-
-            if (gpVersion != cVersion && gpVersion > cVersion) {
-                alertUpdateInfo();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+////        Log.i("Local version:", getCurrentVersion());
+////        Log.i("BudleID:", BuildConfig.APPLICATION_ID );
+//        try {
+//            final String googlePlayStoreVersion = new GetLatestVersion().execute().get();
+////            Log.i("Google play version:", googlePlayStoreVersion);
+//
+//            float gpVersion = Float.parseFloat(googlePlayStoreVersion);
+//            float cVersion = Float.parseFloat(getCurrentVersion());
+//
+//            gpVersion = Float.parseFloat(new DecimalFormat("##.#").format(gpVersion));
+//            cVersion = Float.parseFloat(new DecimalFormat("##.#").format(cVersion));
+//
+////            Log.i("changed local version:", "" + cVersion);
+////            Log.i("changed store version:", "" + gpVersion);
+//
+//            if (gpVersion != cVersion && gpVersion > cVersion) {
+//                alertUpdateInfo();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         getDeviceId(this);
 //        getDeviceInfo();
@@ -68,7 +68,7 @@ public class StartupPageAC extends AppCompatActivity {
 
 
     public void openLoginActivity(View view) {
-        Intent intent = new Intent(this, LoginPageAC.class);
+        Intent intent = new Intent(this, CheckEmailAC.class);
         startActivity(intent);
     }
 
@@ -115,11 +115,11 @@ public class StartupPageAC extends AppCompatActivity {
     }
 
     public static String getDeviceId(Context context) {
-        Log.i("Android ID:", "reached getDevice ID");
+//        Log.i("Android ID:", "reached getDevice ID");
 
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);;
-        Log.i("Android ID:", androidId);
+//        Log.i("Android ID:", androidId);
         loginVar.deviceserialno = androidId;
 //        Toast.makeText(context, "android_id= " + androidId, Toast.LENGTH_LONG).show();
         return androidId;

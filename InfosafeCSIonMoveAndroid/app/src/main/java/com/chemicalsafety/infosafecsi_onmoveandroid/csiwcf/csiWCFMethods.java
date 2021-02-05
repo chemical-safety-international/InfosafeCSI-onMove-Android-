@@ -62,6 +62,7 @@ class csiWCFMethods {
 
 
 
+
             System.out.println(user);
 
             String urlFinal = url + "LoginByEMail";
@@ -103,7 +104,7 @@ class csiWCFMethods {
     }
 
     //LoginBtEMail for https WCF service
-    String LoginByEMail_https(String email, String pw) {
+    String LoginByEMail_https(String email, String pw,String otacode, String appointclient) {
 
         //crate json object
         JSONObject user = new JSONObject();
@@ -114,7 +115,7 @@ class csiWCFMethods {
             user.put("email", email);
 //            user.put("password", "#PEPSimax");
             user.put("password", pw);
-            user.put("deviceid", "");
+            user.put("deviceid", loginVar.deviceserialno);
             user.put("devicemac", "");
             user.put("phoneno", "");
             user.put("devicename", "");
@@ -124,9 +125,9 @@ class csiWCFMethods {
             user.put("deviceIMEI", "");
             user.put("deviceMEID", "");
             user.put("sourceip", "");
-            user.put("otacode", "");
+            user.put("otacode", otacode);
 //            user.put("appointedclient", "7986122d-255a-45ca-92d2-961d12603873");
-            user.put("appointedclient", "");
+            user.put("appointedclient", appointclient);
 
             URL url1;
             DataOutputStream output;
@@ -134,6 +135,66 @@ class csiWCFMethods {
 
 
             url1 = new URL(url + "LoginByEMail");
+            HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setInstanceFollowRedirects(false);
+//            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setUseCaches(false);
+
+
+
+            output = new DataOutputStream(connection.getOutputStream());
+            output.writeBytes(user.toString());
+
+//            Log.i("Output", output.toString());
+
+
+            output.flush();
+            output.close();
+
+            input = new DataInputStream(connection.getInputStream());
+//            Log.i("input", input.toString());
+
+            StringBuffer inputLine = new StringBuffer();
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                inputLine.append(tmp);
+//                System.out.println(tmp);
+            }
+            //use inputLine.toString(); here it would have whole source
+            input.close();
+
+//            return EntityUtils.toString(entity1);
+            return inputLine.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    //LoginBtEMail for https WCF service
+    String LoginLogo_https(String clientid) {
+
+        //crate json object
+        JSONObject user = new JSONObject();
+
+        try {
+
+            user.put("clientid", clientid);
+
+            URL url1;
+            DataOutputStream output;
+            DataInputStream input;
+
+
+            url1 = new URL(url + "GetClientLogo");
             HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 
             connection.setDoOutput(true);

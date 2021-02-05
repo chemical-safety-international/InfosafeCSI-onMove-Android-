@@ -25,7 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Entities.clientSelectItem"></activity>
+        <activity android:name=".MultipleClientAC"></activity>
+        <activity android:name=".OTACodeAC" />
+        <activity android:name=".CheckEmailAC" />
+        <activity android:name=".Entities.clientSelectItem" />
         <activity android:name=".ClientSelectPageAC" />
         <activity android:name=".OCRPageAC" />
         <activity android:name=".ScanBarcodePageAC" />

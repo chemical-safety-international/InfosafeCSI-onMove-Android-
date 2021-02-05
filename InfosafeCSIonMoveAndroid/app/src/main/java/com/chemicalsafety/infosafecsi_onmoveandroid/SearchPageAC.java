@@ -143,8 +143,8 @@ public class SearchPageAC extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
-    @Override
-    public void onBackPressed() {
-        // Do Here what ever you want do on back press;
-    }
+//    @Override
+//    public void onBackPressed() {
+//        // Do Here what ever you want do on back press;
+//    }
 }
