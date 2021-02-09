@@ -5,14 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.checkBeforeYouPurchaseProductNameItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.searchVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf.csiWCF_VM;
@@ -21,7 +30,11 @@ public class SearchPageAC extends AppCompatActivity {
 
     Button searchBtn, logOffBtn, scanButton, scanOCRButton;
     EditText pnameET, supplierET, pcodeET, barcodeET;
+    Switch checkBeforeYouPurchaseSwitch;
+    ImageView searchCompanyLogo;
 
+    String supplierText;
+    Drawable originalDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +42,6 @@ public class SearchPageAC extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         searchBtn = findViewById(R.id.searchBtn);
-        logOffBtn = findViewById(R.id.searchLogoff);
         scanButton = findViewById(R.id.scanButton);
         scanOCRButton = findViewById(R.id.scanOCRButton);
 
@@ -38,8 +50,14 @@ public class SearchPageAC extends AppCompatActivity {
         pcodeET = findViewById(R.id.pcodeSearchBar);
         barcodeET = findViewById(R.id.barcodeSearchBar);
 
+        checkBeforeYouPurchaseSwitch = findViewById(R.id.search_switch);
+
+        searchCompanyLogo = findViewById(R.id.search_companyLogo);
+
 //        callCriteriaList();
         setupUI(findViewById(R.id.SearchCL));
+
+        preloadLogo();
     }
 
 
@@ -62,11 +80,14 @@ public class SearchPageAC extends AppCompatActivity {
         }
     }
 
-    public void logOffBtnTapped(View view) {
-        Intent intent = new Intent(this, StartupPageAC.class);
-        startActivity(intent);
-
+    public void preloadLogo() {
+        if (!loginVar.clientlogo.isEmpty()) {
+            byte[] decodedString = Base64.decode(loginVar.clientlogo.getBytes(), Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            searchCompanyLogo.setImageBitmap(decodeByte);
+        }
     }
+
 
     public void searchBtnTapped(View view) {
 
@@ -105,8 +126,15 @@ public class SearchPageAC extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     df.cancelLoadingScreen();
-                                    Intent intent = new Intent(SearchPageAC.this, SearchTablePageAC.class);
+                                    Intent intent;
+                                    if (searchVar.checkBeforeYouPurchaseSwitchStatus.equals(true)) {
+
+                                        intent = new Intent(SearchPageAC.this, CheckBeforeYouPurchaseProductNameTableAC.class);
+                                    } else {
+                                        intent = new Intent(SearchPageAC.this, SearchTablePageAC.class);
+                                    }
                                     startActivity(intent);
+
                                 }
                             });
                         } else {
@@ -126,6 +154,31 @@ public class SearchPageAC extends AppCompatActivity {
         }
 
     }
+
+    //set action for switch button
+    public void setSwitchAction(View view) {
+        if (checkBeforeYouPurchaseSwitch.isChecked()) {
+            searchVar.checkBeforeYouPurchaseSwitchStatus = true;
+            supplierText = supplierET.getText().toString();
+            originalDrawable = supplierET.getBackground();
+            supplierET.setText("");
+
+            supplierET.setEnabled(false);
+            supplierET.setBackgroundColor(Color.DKGRAY);
+        } else if (!checkBeforeYouPurchaseSwitch.isChecked()) {
+            searchVar.checkBeforeYouPurchaseSwitchStatus = false;
+            supplierET.setText(supplierText);
+            supplierET.setEnabled(true);
+            supplierET.setBackground(originalDrawable);
+
+        }
+    }
+
+    public void tipButtonTapped(View view) {
+        final DialogFragment df = new DialogFragment();
+        df.callAlert(SearchPageAC.this, "Turn on to enable Check Before You Purchase search function.");
+    }
+
 
     public void scanButtonTapped(View view) {
         Intent intent = new Intent(this, ScanBarcodePageAC.class);

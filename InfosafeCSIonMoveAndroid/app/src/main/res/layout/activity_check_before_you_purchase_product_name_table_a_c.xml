@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/card"
+    tools:context=".CheckBeforeYouPurchaseProductNameTableAC">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/checkBeforeYouPurchaseResulttoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toobarBlack"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sdsmaintoolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cbyp_toobartitle"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="206dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/sortButton"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:background="@android:color/transparent"
+        android:text="@string/cbyp_sortbutton"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkBeforeYouPurchaseResulttoolbar" />
+
+    <EditText
+        android:id="@+id/checkBeforeYouPurchaseProductNameSearchBar"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="@string/cbyp_searchbar"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/checkBeforeYouPurchaseRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseProductNameSearchBar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

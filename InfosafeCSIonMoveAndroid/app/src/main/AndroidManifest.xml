@@ -25,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MultipleClientAC"></activity>
+        <activity android:name=".CheckBeforeYouPurchaseProductNameTableAC"></activity>
+        <activity android:name=".MultipleClientAC" />
         <activity android:name=".OTACodeAC" />
         <activity android:name=".CheckEmailAC" />
         <activity android:name=".Entities.clientSelectItem" />

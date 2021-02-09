@@ -7,7 +7,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/checkBeforeYouPurchaseProductNameCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -79,11 +79,11 @@
             <!--            app:srcCompat="@drawable/ghs04" />-->
 
             <TextView
-                android:id="@+id/pname"
+                android:id="@+id/productName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
@@ -109,27 +109,30 @@
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pname"
+                app:layout_constraintStart_toEndOf="@+id/productName"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/supplier"
-                android:layout_width="246dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:text="@string/search_supplier"
                 android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pname" />
+                app:layout_constraintTop_toBottomOf="@+id/productName" />
 
             <TextView
                 android:id="@+id/unno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/table_unno"
                 android:textColor="@android:color/white"
@@ -176,8 +179,8 @@
                 android:id="@+id/issuedate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/table_date"
                 android:textColor="@android:color/white"
@@ -219,7 +222,7 @@
         android:background="@android:color/background_dark"
         android:gravity="center"
         android:textColor="@color/cardview_light_background"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" >
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseProductNameCardView" >
 
     </TextView>
 

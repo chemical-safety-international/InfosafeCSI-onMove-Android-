@@ -56,9 +56,10 @@ public class LoginPageAC extends AppCompatActivity {
         if (UserInfoStoredFunction.getStatus(this, loginVar.clientid)) {
 
             setRememberValues();
-        } else {
-            loginLogo.setImageResource(R.drawable.csi_logo);
         }
+//        else {
+//            loginLogo.setImageResource(R.drawable.csi_logo);
+//        }
 
 //        email.setOnFocusChangeListener(focusListener);
 //        password.setOnFocusChangeListener(focusListener);

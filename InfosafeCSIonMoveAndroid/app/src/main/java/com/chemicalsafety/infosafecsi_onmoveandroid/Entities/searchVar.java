@@ -7,6 +7,6 @@ public class searchVar {
     public static String pcodeInput;
     public static String barcodeInput;
 
-
+    public static Boolean checkBeforeYouPurchaseSwitchStatus = false;
 
 }

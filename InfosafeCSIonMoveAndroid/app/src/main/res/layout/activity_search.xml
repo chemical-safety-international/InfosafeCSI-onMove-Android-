@@ -8,39 +8,23 @@
     android:background="@drawable/searchbackground"
     tools:context=".SearchPageAC">
 
-    <Button
-        android:id="@+id/searchLogoff"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/button_states"
-        android:onClick="logOffBtnTapped"
-        android:text="@string/search_logoff"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RelativeLayout
         android:id="@+id/pnameRelativeLayout"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginStart="35dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchLogoff">
+        app:layout_constraintTop_toBottomOf="@+id/search_companyLogo">
 
         <EditText
             android:id="@+id/pnameSearchBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@android:drawable/editbox_background"
@@ -62,7 +46,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:background="@android:drawable/ic_menu_camera"
-            android:onClick="setScanOCRButton"/>
+            android:onClick="setScanOCRButton" />
 
     </RelativeLayout>
 
@@ -147,15 +131,59 @@
         android:id="@+id/searchBtn"
         android:layout_width="90dp"
         android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/button_states"
         android:onClick="searchBtnTapped"
         android:text="@string/search_button"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_switch" />
+
+    <ImageView
+        android:id="@+id/search_companyLogo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:contentDescription="@string/search_checkbeforeyoupurchase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/csi_logo" />
+
+    <Switch
+        android:id="@+id/search_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="10dp"
+        android:onClick="setSwitchAction"
+        android:text="@string/search_checkbeforeyoupurchase"
+        android:textColor="@color/colorOrange"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:thumbTint="@drawable/switch_thumb_selector"
+        android:trackTint="@drawable/switch_track_selector"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <Button
+        android:id="@+id/search_tipbutton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:background="@android:drawable/ic_menu_help"
+        android:backgroundTint="@color/colorOrange"
+        android:onClick="tipButtonTapped"
+        app:layout_constraintBaseline_toBaselineOf="@+id/search_switch"
+        app:layout_constraintStart_toEndOf="@+id/search_switch" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

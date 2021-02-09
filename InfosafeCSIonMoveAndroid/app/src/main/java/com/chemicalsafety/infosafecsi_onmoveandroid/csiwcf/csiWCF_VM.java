@@ -3,6 +3,7 @@ package com.chemicalsafety.infosafecsi_onmoveandroid.csiwcf;
 import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.checkBeforeYouPurchaseProductNameItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVarMulti;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
@@ -180,6 +181,9 @@ public class csiWCF_VM {
         String advanced;
         String type = "2";
         String singleValue = null;
+
+        checkBeforeYouPurchaseProductNameItem.tableList.clear();
+        searchItemList.tableList.clear();
 
         try {
             //create JSON send values
@@ -460,6 +464,7 @@ public class csiWCF_VM {
 
                 return false;
             } else {
+                checkBeforeYouPurchaseProductNameItem.tableList = searchItemList.tableList;
                 searchItemList.sdsnoArray = Arrays.copyOf(sdsnoArray1,sdsnoArray1.length);
                 return true;
             }

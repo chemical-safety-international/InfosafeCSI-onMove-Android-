@@ -42,6 +42,8 @@
     <string name="search_barcode">Barcode</string>
     <string name="search_button">Search</string>
     <string name="search_barcodeTitle">Scan barcode to search</string>
+    <string name="search_companyLogo"> Company Logo</string>
+    <string name="search_checkbeforeyoupurchase">Check Before You Purchase: </string>
 
     // Search Table page texts
     <string name="table_pname">Product Name</string>
@@ -63,6 +65,13 @@
     <string name="table_notifiy">All data has been loaded.</string>
     <string name="table_viewdetailsbtn">View Details</string>
     <string name="table_toolbartitle">Search Result</string>
+
+    // Check Before You Purchase Product name table page texts
+    <string name="cbyp_toobartitle">Search Result</string>
+    <string name="cbyp_sortbutton">Sort</string>
+    <string name="cbyp_searchbar">Search Product Name</string>
+    <string name="cbyp_noofsupplier">No. Of Supplier(s): </string>
+    <string name="cbyp_productname">Product Name: </string>
 
     //SDSView main page texts
     <string name="sdsm_sdsbtn">SDS</string>

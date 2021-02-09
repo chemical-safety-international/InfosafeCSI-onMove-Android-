@@ -46,7 +46,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
         SearchTableViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            pnameA = itemView.findViewById(R.id.pname);
+            pnameA = itemView.findViewById(R.id.productName);
             countryA = itemView.findViewById(R.id.country);
             supplierA = itemView.findViewById(R.id.supplier);
             unnoA = itemView.findViewById(R.id.unv);
