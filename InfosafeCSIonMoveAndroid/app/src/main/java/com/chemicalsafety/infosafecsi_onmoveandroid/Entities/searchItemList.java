@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class searchItemList {
 
     public static ArrayList<searchItemList> tableList = new ArrayList<>();
+    public static ArrayList<searchItemList> tableListForSearch = new ArrayList<>();
 
     public static String[] sdsnoArray;
 
@@ -62,9 +63,9 @@ public class searchItemList {
 //        return sdsno;
 //    }
 
-//    public String getSynno() {
-//        return synno;
-//    }
+    public String getSynno() {
+        return synno;
+    }
 
     public String getCompany() {
         return company;

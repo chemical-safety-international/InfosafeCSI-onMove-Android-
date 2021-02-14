@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".CheckBeforeYouPurchaseSupplierTableAC">
+
+    <EditText
+        android:id="@+id/checkBeforeYouSupplierSearchBar"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="@string/search_supplier"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar2" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/checkBeforeYouPurchaseResulttoolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toobarBlack"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sdsmaintoolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cbyp_toobartitle"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="206dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/supplierSortButton"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:background="@android:color/transparent"
+        android:onClick="supplierSortButtonTapped"
+        android:text="@string/cbyp_sortbutton"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkBeforeYouPurchaseResulttoolbar2" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sSortingCardview"
+        android:layout_width="407dp"
+        android:layout_height="163dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkBeforeYouSupplierSearchBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sSortingAsTitle"
+                android:layout_width="28dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/cbyp_sorting_as"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sSortingByTitle" />
+
+            <TextView
+                android:id="@+id/sSortingByTitle"
+                android:layout_width="25dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/cbyp_sorting_by"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sSortingTitle" />
+
+            <TextView
+                android:id="@+id/sSortingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/cbyp_sorting"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/sSortingByButtons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sSortingByTitle"
+                app:layout_constraintTop_toBottomOf="@+id/sSortingTitle">
+
+                <Button
+                    android:id="@+id/sortingSupplierButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorOrange"
+                    android:onClick="supplierButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyps_supplier"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/sortingNoOfProductButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F1F0F0"
+                    android:onClick="noOfProductButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyps_sorting_no_of_product"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/iusseDateButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#F1F0F0"
+                    android:onClick="issueDateButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyps_sorting_issue_date"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sSortingAsTitle"
+                app:layout_constraintTop_toBottomOf="@+id/sSortingByButtons">
+
+                <Button
+                    android:id="@+id/asendButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorOrange"
+                    android:onClick="setAscendButton"
+                    android:padding="4dp"
+                    android:text="@string/cbyps_sorting_a_to_z"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/descendButton"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F1F0F0"
+                    android:onClick="setDescendButton"
+                    android:padding="4dp"
+                    android:text="@string/cbyps_sorting_z_to_a"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/supplierRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouSupplierSearchBar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

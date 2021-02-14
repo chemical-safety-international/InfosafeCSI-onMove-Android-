@@ -37,6 +37,7 @@
         android:layout_width="80dp"
         android:layout_height="45dp"
         android:background="@android:color/transparent"
+        android:onClick="sortButtonTapped"
         android:text="@string/cbyp_sortbutton"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar"
@@ -52,7 +53,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:drawable/editbox_background"
-        android:hint="@string/cbyp_searchbar"
+        android:hint="@string/search_productname"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textColor="@android:color/black"
@@ -62,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/checkBeforeYouPurchaseRecyclerView"
+        android:id="@+id/checkBeforeYouPurchaseProductNameRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/black"
@@ -71,5 +72,146 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseProductNameSearchBar" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pnSortingCardview"
+        android:layout_width="407dp"
+        android:layout_height="163dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseResulttoolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sortingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/cbyp_sorting"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sortingAsTitle"
+                android:layout_width="28dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/cbyp_sorting_as"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sortingByTitle" />
+
+            <LinearLayout
+                android:id="@+id/sortingByButtons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/sorting_linerlayout"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sortingByTitle"
+                app:layout_constraintTop_toBottomOf="@+id/sortingTitle">
+
+                <Button
+                    android:id="@+id/sorting_productnameButton"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorOrange"
+                    android:onClick="sortByProductNameButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyp_sorting_product_name"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/sortingNoOfSupplierButton"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F1F0F0"
+                    android:onClick="sortByNoOfSupplierButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyp_sorting_no_of_supplier"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sortingByTitle"
+                android:layout_width="25dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/cbyp_sorting_by"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sortingTitle" />
+
+            <LinearLayout
+                android:id="@+id/sortingAsButtons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/sorting_linerlayout"
+
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sortingAsTitle"
+                app:layout_constraintTop_toBottomOf="@+id/sortingByButtons">
+
+                <Button
+                    android:id="@+id/sortingAsAtoZ"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorOrange"
+                    android:onClick="ascendButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyp_sorting_l_to_s"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/sortingAsZtoA"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#F1F0F0"
+                    android:onClick="descendButtonTapped"
+                    android:padding="4dp"
+                    android:text="@string/cbyp_sorting_s_to_l"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

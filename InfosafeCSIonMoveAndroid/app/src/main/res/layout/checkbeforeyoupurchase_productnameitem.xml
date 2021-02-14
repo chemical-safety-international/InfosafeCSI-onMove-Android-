@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
 
         app:cardCornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/RecycView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,9 +47,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/cbyp_noofsupplier"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/checkBeforeYouPurchaseProductName"
                 app:layout_constraintTop_toBottomOf="@+id/checkBeforeYouPurchaseProductName" />
 

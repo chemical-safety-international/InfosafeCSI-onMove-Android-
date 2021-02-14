@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.SearchTableItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.checkBeforeYouPurchaseProductNameItem;
+import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.checkBeforeYouPurchaseSupplierItem;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVar;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.loginVarMulti;
 import com.chemicalsafety.infosafecsi_onmoveandroid.Entities.previewFAIDVar;
@@ -465,6 +466,8 @@ public class csiWCF_VM {
                 return false;
             } else {
                 checkBeforeYouPurchaseProductNameItem.tableList = searchItemList.tableList;
+                checkBeforeYouPurchaseSupplierItem.tableList = searchItemList.tableList;
+//                searchItemList.tableListForSearch = searchItemList.tableList;
                 searchItemList.sdsnoArray = Arrays.copyOf(sdsnoArray1,sdsnoArray1.length);
                 return true;
             }

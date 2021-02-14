@@ -11,6 +11,8 @@ public class checkBeforeYouPurchaseProductNameItem {
         private String productName;
         private Integer noOfSupplier;
 
+        public static String productNamePass;
+
         public checkBeforeYouPurchaseProductNameItem(String productNamev, Integer noOfSupplierv) {
                 productName = productNamev;
                 noOfSupplier = noOfSupplierv;

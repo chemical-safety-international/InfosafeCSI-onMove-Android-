@@ -29,22 +29,22 @@ public class SearchTablePageAC extends AppCompatActivity {
         sRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager sLayoutManager =  new LinearLayoutManager(this);
 
-        RecyclerView.Adapter sAdapter = new SearchTableAdapter(searchItemList.tableList);
+        RecyclerView.Adapter sAdapter = new SearchTableAdapter(searchItemList.tableListForSearch);
 
         sRecyclerView.setLayoutManager(sLayoutManager);
         sRecyclerView.setAdapter(sAdapter);
         sAdapter.notifyDataSetChanged();
     }
 
-    //override back button to directly back to search page(for scan function)
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        startActivity(new Intent(SearchTablePageAC.this, SearchPageAC.class));
-        finish();
-
-    }
+//    //override back button to directly back to search page(for scan function)
+//    @Override
+//    public void onBackPressed()
+//    {
+//        super.onBackPressed();
+//        startActivity(new Intent(SearchTablePageAC.this, SearchPageAC.class));
+//        finish();
+//
+//    }
 
 
 }

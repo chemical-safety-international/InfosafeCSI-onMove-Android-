@@ -69,7 +69,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
 
 
     SearchTableAdapter(ArrayList<searchItemList> itemList) {
-        searchItemList.tableList = itemList;
+        searchItemList.tableListForSearch = itemList;
     }
 
     @NonNull
@@ -83,7 +83,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     @Override
     public void onBindViewHolder(@NonNull SearchTableViewHolder holder, final int position) {
 
-        searchItemList currentItem = searchItemList.tableList.get(position);
+        final searchItemList currentItem = searchItemList.tableListForSearch.get(position);
 
         //set values to textviews
         holder.pnameA.setText(currentItem.getProdname());
@@ -176,7 +176,8 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
             public void onClick(final View v) {
                 try {
 
-                    final String sdsno = searchItemList.sdsnoArray[position];
+//                    final String sdsno = searchItemList.sdsnoArray[position];
+                    final String sdsno = currentItem.getSynno();
 //                    System.out.println("passV sdsNO:" + sdsno);
                     final String clientid, uid, rtype;
                     final int apptp;
@@ -259,7 +260,7 @@ public class SearchTableAdapter extends RecyclerView.Adapter<SearchTableAdapter.
     public int getItemCount() {
 
 //        return searchTableList.size();
-        return searchItemList.tableList.size();
+        return searchItemList.tableListForSearch.size();
     }
 
 //    public interface ItemClickListener{

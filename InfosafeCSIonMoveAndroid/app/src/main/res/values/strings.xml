@@ -72,6 +72,32 @@
     <string name="cbyp_searchbar">Search Product Name</string>
     <string name="cbyp_noofsupplier">No. Of Supplier(s): </string>
     <string name="cbyp_productname">Product Name: </string>
+    <string name="cbyp_sorting">Sorting your list:</string>
+    <string name="cbyp_sorting_by">By:</string>
+    <string name="cbyp_sorting_as">As:</string>
+    <string name="cbyp_sorting_product_name">Product Name</string>
+    <string name="cbyp_sorting_no_of_supplier">No. Of Supplier(s)</string>
+    <string name="cbyp_sorting_l_to_s">Largest to Smallest</string>
+    <string name="cbyp_sorting_s_to_l">Smallest to Largest</string>
+    <string name="cbyp_sorting_a_to_z">A to Z</string>
+    <string name="cbyp_sorting_z_to_a">Z to A</string>
+
+    //Check Before You Purchase Supplier table page texts
+    <string name="cbyps_toobartitle">Search Result</string>
+
+    <string name="cbyps_sorting">Sorting your list:</string>
+    <string name="cbyps_supplier">Supplier</string>
+    <string name="cbyps_sorting_by">By:</string>
+    <string name="cbyps_sorting_as">As:</string>
+    <string name="cbyps_sorting_product_name">Product Name</string>
+    <string name="cbyps_sorting_no_of_product">No. Of Product(s)</string>
+    <string name="cbyps_sorting_issue_date">Iusse Date</string>
+    <string name="cbyps_sorting_l_to_s">Largest to Smallest</string>
+    <string name="cbyps_sorting_s_to_l">Smallest to Largest</string>
+    <string name="cbyps_sorting_a_to_z">A to Z</string>
+    <string name="cbyps_sorting_z_to_a">Z to A</string>
+    <string name="cbyps_sorting_l_to_o">Latest to Oldest</string>
+    <string name="cbyps_sorting_o_to_l">Oldest to Latest</string>
 
     //SDSView main page texts
     <string name="sdsm_sdsbtn">SDS</string>
